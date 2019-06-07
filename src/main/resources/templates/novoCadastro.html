@@ -1,15 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base/layout">
-
 <head>
-    <title>Cadastro de Novo Usuario</title>
-
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="description" content="Marte System dashboard" />
-    <meta name="author" content="Rafael Eudes" />
-    
-    
-
+<title>Cadastro de Novo Usuario</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Marte System dashboard" />
+<meta name="author" content="Rafael Eudes" />
 <script type="text/javascript">
 	function limparMensagem() {
 
@@ -19,64 +14,60 @@
 </script>
     
 </head>
-
 <body class="cbp-spmenu-push">
-    <!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
-
-	<section layout:fragment="content">
-		<div id="page-wrapper">
-		    <div class="main-page signup-page">
-		        <div class="sign-up-row widget-shadow">
-		            <h5>Novo Usuario:</h5>
-		             <form action="#" id="formulario-cadastro" th:action="@{../usuario/salvarUsuario}" th:object="${usuarioModel}" method="post">
-						
-						<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
-						<div th:if="${msg_resultado}" id="msgSucesso">
-							<div class="alert alert-success" role="alert" >
-								<p id="p-mensagem-sucesso" class="sucesso-msg"	th:text="${msg_resultado}">...</p>
-							</div>								
-						</div>
-								                
-		                <div class="sign-u">
-		                    <input type="text" placeholder="Nome" id="input-nome" th:field="*{nome}" required="required" onfocus="limparMensagem()">
-		                    <div class="clearfix"> </div>
-		                </div>
-		                <div class="sign-u">
-		                    <input type="text" placeholder="Login" id="input-login" th:field="*{login}"  required="required" >
-		                    <div class="clearfix"> </div>
-		                </div>
-		                
-		                <div class="sign-u">
-		                    <input type="password" placeholder="Password" id="input-senha" required="required"  th:field="*{senha}">
-		                    <div class="clearfix"> </div>
-		                </div>
-		                
-		                <div class="sign-u">
-		   					<h4>Perfil:</h4>
-		
-								<th:block th:each="grupo, stat : ${grupos}">
-			                       <div class="checkbox">
-			                           <label>
-			                                 <input type="checkbox" th:id="${__${grupo.codigo}__}" th:name="|grupos[${stat.index}]|" th:value="${grupo.codigo}" th:checked="${grupo.checked}" /> 
-			                                 <span class="mdl-checkbox__label" th:text="${grupo.descricao}" ></span>
-			                       	</label>
-			                       </div>
-			                  	</th:block>
-		
-		                    <div class="clearfix"> </div>
-		                </div>
-		
-		                <div class="clearfix"> </div>
-		                <div class="sub_home">
-		                    <input type="submit" value="Submit">
-		                    <div class="clearfix"> </div>
-		                </div>
-		            </form>
-		        </div>
-			</div>
+    <!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->    
+<section layout:fragment="content">
+	<div id="page-wrapper">
+	    <div class="main-page signup-page">
+	        <div class="sign-up-row widget-shadow">
+	            <h5>Novo Usuario:</h5>
+	             <form action="#" id="formulario-cadastro" th:action="@{../usuario/salvarUsuario}" th:object="${usuarioModel}" method="post">
+					
+					<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+					<div th:if="${msg_resultado}" id="msgSucesso">
+						<div class="alert alert-success" role="alert" >
+							<p id="p-mensagem-sucesso" class="sucesso-msg"	th:text="${msg_resultado}">...</p>
+						</div>								
+					</div>
+							                
+	                <div class="sign-u">
+	                    <input type="text" placeholder="Nome" id="input-nome" th:field="*{nome}" required="required" onfocus="limparMensagem()">
+	                    <div class="clearfix"> </div>
+	                </div>
+	                <div class="sign-u">
+	                    <input type="text" placeholder="Login" id="input-login" th:field="*{login}"  required="required" >
+	                    <div class="clearfix"> </div>
+	                </div>
+	                
+	                <div class="sign-u">
+	                    <input type="password" placeholder="Password" id="input-senha" required="required"  th:field="*{senha}">
+	                    <div class="clearfix"> </div>
+	                </div>
+	                
+	                <div class="sign-u">
+	   					<h4>Perfil:</h4>
+	
+							<th:block th:each="grupo, stat : ${grupos}">
+		                       <div class="checkbox">
+		                           <label>
+		                                 <input type="checkbox" th:id="${__${grupo.codigo}__}" th:name="|grupos[${stat.index}]|" th:value="${grupo.codigo}" th:checked="${grupo.checked}" /> 
+		                                 <span class="mdl-checkbox__label" th:text="${grupo.descricao}" ></span>
+		                       	</label>
+		                       </div>
+		                  	</th:block>
+	
+	                    <div class="clearfix"> </div>
+	                </div>
+	
+	                <div class="clearfix"> </div>
+	                <div class="sub_home">
+	                    <input type="submit" value="Submit">
+	                    <div class="clearfix"> </div>
+	                </div>
+	            </form>
+	        </div>
 		</div>
-	</section>
-    <div class="mdl-layout-spacer"></div>
+	</div>
+</section>
 </body>
-
 </html>
