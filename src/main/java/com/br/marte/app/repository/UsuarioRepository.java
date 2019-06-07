@@ -7,4 +7,5 @@ import com.br.marte.app.entity.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	Usuario findByLogin(String login);
+	
 }

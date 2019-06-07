@@ -1,6 +1,7 @@
 package com.br.marte.app.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -24,7 +25,9 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home() {
+	public String home(Model model) {
+		
+		model.addAttribute("codigo", 1);
 
 		return "home";
 	}

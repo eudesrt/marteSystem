@@ -138,7 +138,7 @@ public class UsuarioController {
 	@RequestMapping(value = "/consultar", method = RequestMethod.GET)
 	public ModelAndView consultar(Model model) {
 
-		/* CONSULTA USU�?RIOS CADASTRADOS */
+		/* CONSULTA USUARIOS CADASTRADOS */
 		model.addAttribute("usuariosModel", this.usuarioService.consultarUsuarios());
 
 		/* RETORNA A VIEW */
