@@ -25,7 +25,7 @@ import com.br.marte.app.service.UsuarioService;
  * 
  * @author Rafael Eudes
  * 
- *         OBJETO RESPONSÃ?VEL POR REALIZAR AS ROTINAS DE USUÃ?RIO.
+ *         OBJETO RESPONSï¿½?VEL POR REALIZAR AS ROTINAS DE USUï¿½?RIO.
  * 
  */
 @Controller
@@ -41,7 +41,7 @@ public class UsuarioController {
 	private UsuarioService usuarioService;
 
 	/***
-	 * CHAMA A FUNCIONALIDADE PARA CADASTRAR UM NOVO USUÃ?RIO NO SISTEMA
+	 * CHAMA A FUNCIONALIDADE PARA CADASTRAR UM NOVO USUï¿½?RIO NO SISTEMA
 	 * 
 	 * @param model
 	 * @return
@@ -49,7 +49,7 @@ public class UsuarioController {
 	@RequestMapping(value = "/novoCadastro", method = RequestMethod.GET)
 	public ModelAndView novoCadastro(Model model) {
 
-		/* LISTA DE GRUPOS QUE VAMOS MOSTRAR NA PÃ?GINA */
+		/* LISTA DE GRUPOS QUE VAMOS MOSTRAR NA Pï¿½?GINA */
 		model.addAttribute("grupos", grupoService.consultarGrupos());
 
 		/* OBJETO QUE VAMOS ATRIBUIR OS VALORES DOS CAMPOS */
@@ -59,7 +59,7 @@ public class UsuarioController {
 	}
 
 	/***
-	 * SALVA UM NOVO USUÃ?RIO NO SISTEMA
+	 * SALVA UM NOVO USUï¿½?RIO NO SISTEMA
 	 * 
 	 * @param usuarioModel
 	 * @param result
@@ -73,7 +73,7 @@ public class UsuarioController {
 
 		/*
 		 * VERIFICA SE TEM ALGUM ERRO (@NotEmpty), SE TIVER ALGUM ERRO DEVEMOS RETORNAR
-		 * PARA A MESMA PÃ?GINA PARA O USUÃ?RIO CORRIGIR
+		 * PARA A MESMA Pï¿½?GINA PARA O USUï¿½?RIO CORRIGIR
 		 */
 		if (result.hasErrors()) {
 
@@ -83,8 +83,8 @@ public class UsuarioController {
 			 * POSICIONANDO OS CKECKBOX SELECIONADOS
 			 * 
 			 * SE O SISTEMA ENCONTROU ALGUM ERRO DE VALIDAÃ‡ÃƒO DEVEMOS BUSCAR OS GRUPOS E
-			 * MARCAR COMO SELECIONADO NOVAMENTE PARA MOSTRAR NÃ? PÃ?GINAS DA FORMA QUE O
-			 * USUÃ?RIO ENVIO A REQUEST
+			 * MARCAR COMO SELECIONADO NOVAMENTE PARA MOSTRAR Nï¿½? Pï¿½?GINAS DA FORMA QUE O
+			 * USUï¿½?RIO ENVIO A REQUEST
 			 */
 			gruposModel.forEach(grupo -> {
 
@@ -92,7 +92,7 @@ public class UsuarioController {
 
 					usuarioModel.getGrupos().forEach(grupoSelecionado -> {
 
-						/* DEVEMOS MOSTRAR NA PÃ?GINA OS GRUPOS COM O CHECKBOX SELECIONADO */
+						/* DEVEMOS MOSTRAR NA Pï¿½?GINA OS GRUPOS COM O CHECKBOX SELECIONADO */
 						if (grupoSelecionado != null) {
 							if (grupo.getCodigo().equals(grupoSelecionado))
 								grupo.setChecked(true);
@@ -102,10 +102,10 @@ public class UsuarioController {
 
 			});
 
-			/* ADICIONA O GRUPOS QUE VÃƒO SER MOSTRADOS NA PÃ?GINA */
+			/* ADICIONA O GRUPOS QUE VÃƒO SER MOSTRADOS NA Pï¿½?GINA */
 			model.addAttribute("grupos", gruposModel);
 
-			/* ADICIONA OS DADOS DO USUÃ?RIO PARA COLOCAR NO FORMULÃ?RIO */
+			/* ADICIONA OS DADOS DO USUï¿½?RIO PARA COLOCAR NO FORMULï¿½?RIO */
 			model.addAttribute("usuarioModel", usuarioModel);
 
 			/* RETORNA A VIEW */
@@ -130,7 +130,7 @@ public class UsuarioController {
 	}
 
 	/***
-	 * CONSULTA TODOS USUÃ?RIOS CADASTRADOS NO SISTEMA
+	 * CONSULTA TODOS USUï¿½?RIOS CADASTRADOS NO SISTEMA
 	 * 
 	 * @param model
 	 * @return
@@ -138,7 +138,7 @@ public class UsuarioController {
 	@RequestMapping(value = "/consultar", method = RequestMethod.GET)
 	public ModelAndView consultar(Model model) {
 
-		/* CONSULTA USUÃ?RIOS CADASTRADOS */
+		/* CONSULTA USUï¿½?RIOS CADASTRADOS */
 		model.addAttribute("usuariosModel", this.usuarioService.consultarUsuarios());
 
 		/* RETORNA A VIEW */
@@ -164,7 +164,7 @@ public class UsuarioController {
 	}
 
 	/***
-	 * CONSULTA UM USUÃ?RIO PELO CÃ“DIGO PARA REALIZAR ALTERAÃ‡Ã•ES NAS INFORAMÃ‡Ã•ES
+	 * CONSULTA UM USUï¿½?RIO PELO CÃ“DIGO PARA REALIZAR ALTERAÃ‡Ã•ES NAS INFORAMÃ‡Ã•ES
 	 * CADASTRADAS.
 	 * 
 	 * @param codigoUsuario
@@ -177,10 +177,10 @@ public class UsuarioController {
 		/* CONSULTA OS GRUPOS CADASTRADOS */
 		List<GrupoModel> gruposModel = grupoService.consultarGrupos();
 
-		/* CONSULTA O USUÃ?RIO PELO CÃ“DIGO */
+		/* CONSULTA O USUï¿½?RIO PELO CÃ“DIGO */
 		UsuarioModel usuarioModel = this.usuarioService.consultarUsuario(codigoUsuario);
 
-		/* DEIXA SELECIONADO OS GRUPOS CADASTRADOS PARA O USUÃ?RIO */
+		/* DEIXA SELECIONADO OS GRUPOS CADASTRADOS PARA O USUï¿½?RIO */
 		gruposModel.forEach(grupo -> {
 
 			usuarioModel.getGrupos().forEach(grupoCadastrado -> {
@@ -193,10 +193,10 @@ public class UsuarioController {
 
 		});
 
-		/* ADICIONANDO GRUPOS PARA MOSTRAR NA PÃ?GINA(VIEW) */
+		/* ADICIONANDO GRUPOS PARA MOSTRAR NA Pï¿½?GINA(VIEW) */
 		model.addAttribute("grupos", gruposModel);
 
-		/* ADICIONANDO INFORMAÃ‡Ã•ES DO USUÃ?RIO PARA MOSTRAR NA PÃ?GINA(VIEW) */
+		/* ADICIONANDO INFORMAÃ‡Ã•ES DO USUï¿½?RIO PARA MOSTRAR NA Pï¿½?GINA(VIEW) */
 		model.addAttribute("usuarioModel", usuarioModel);
 
 		/* CHAMA A VIEW /src/main/resources/templates/editarCadastro.html */
@@ -204,7 +204,7 @@ public class UsuarioController {
 	}
 
 	/***
-	 * SALVA AS ALTERAÃ‡Ã•ES REALIZADAS NO CADASTRO DO USUÃ?RIO
+	 * SALVA AS ALTERAÃ‡Ã•ES REALIZADAS NO CADASTRO DO USUï¿½?RIO
 	 * 
 	 * @param usuarioModel
 	 * @param result
@@ -219,8 +219,8 @@ public class UsuarioController {
 		boolean isErroNullCampos = false;
 
 		/*
-		 * AQUI ESTAMOS VERIFICANDO SE TEM ALGUM CAMPO QUE NÃƒO ESTÃ? PREENCHIDO, MENOS O
-		 * CAMPO DA SENHA, POIS SE O USUÃ?RIO NÃƒO INFORMAR VAMOS MANTER A SENHA JÃ?
+		 * AQUI ESTAMOS VERIFICANDO SE TEM ALGUM CAMPO QUE NÃƒO ESTï¿½? PREENCHIDO, MENOS O
+		 * CAMPO DA SENHA, POIS SE O USUï¿½?RIO NÃƒO INFORMAR VAMOS MANTER A SENHA Jï¿½?
 		 * CADASTRADA
 		 */
 		for (FieldError fieldError : result.getFieldErrors()) {
@@ -230,7 +230,7 @@ public class UsuarioController {
 		}
 
 		/*
-		 * SE ENCONTROU ERRO DEVEMOS RETORNAR PARA A VIEW PARA QUE O USUÃ?RIO TERMINE DE
+		 * SE ENCONTROU ERRO DEVEMOS RETORNAR PARA A VIEW PARA QUE O USUï¿½?RIO TERMINE DE
 		 * INFORMAR OS DADOS
 		 */
 		if (isErroNullCampos) {
@@ -241,7 +241,7 @@ public class UsuarioController {
 
 				if (usuarioModel.getGrupos() != null && usuarioModel.getGrupos().size() > 0) {
 
-					/* DEIXA CHECADO OS GRUPOS QUE O USUÃ?RIO SELECIONOU */
+					/* DEIXA CHECADO OS GRUPOS QUE O USUï¿½?RIO SELECIONOU */
 					usuarioModel.getGrupos().forEach(grupoSelecionado -> {
 
 						if (grupoSelecionado != null) {
@@ -253,12 +253,12 @@ public class UsuarioController {
 
 			});
 
-			/* ADICIONANDO GRUPOS PARA MOSTRAR NA PÃ?GINA(VIEW) */
+			/* ADICIONANDO GRUPOS PARA MOSTRAR NA Pï¿½?GINA(VIEW) */
 			model.addAttribute("grupos", gruposModel);
 
 			/*
-			 * ADICIONANDO O OBJETO usuarioModel PARA MOSTRAR NA PÃ?GINA(VIEW) AS INFORMAÃ‡Ã•ES
-			 * DO USUÃ?RIO
+			 * ADICIONANDO O OBJETO usuarioModel PARA MOSTRAR NA Pï¿½?GINA(VIEW) AS INFORMAÃ‡Ã•ES
+			 * DO USUï¿½?RIO
 			 */
 			model.addAttribute("usuarioModel", usuarioModel);
 
@@ -266,12 +266,12 @@ public class UsuarioController {
 			return new ModelAndView("editarCadastro");
 		} else {
 
-			/* SALVANDO AS INFORMAÃ‡Ã•ES ALTERADAS DO USUÃ?RIO */
+			/* SALVANDO AS INFORMAÃ‡Ã•ES ALTERADAS DO USUï¿½?RIO */
 			usuarioService.alterarUsuario(usuarioModel);
 
 		}
 
-		/* APÃ“S SALVAR VAMOS REDIRICIONAR O USUÃ?RIO PARA A PÃ?GINA DE CONSULTA */
+		/* APÃ“S SALVAR VAMOS REDIRICIONAR O USUï¿½?RIO PARA A PAGINA DE CONSULTA */
 		ModelAndView modelAndView = new ModelAndView("redirect:/usuario/consultar");
 
 		/* RETORNANDO A VIEW */
