@@ -121,16 +121,12 @@
 <body class="cbp-spmenu-push">
 
 
-	<!-- FORM QUE VAI SER USADO PARA REALIZAR O LOGOUT -->
-	<form th:action="@{/logout}" id="form_logou" th:method="post">
-		<input type="hidden" th:name="${_csrf.parameterName}"
-			th:value="${_csrf.token}" />
-	</form>
 
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
 		<!-- header->MONTA O MENU SUPERIOR mdl-grid mdl-grid--no-spacing otpion-->
 		<header>
+		
 			<!-- header-starts -->
 			<div class="sticky-header header-section ">
 				<div class="header-left">
@@ -400,14 +396,14 @@
 						</button>
 						<h1>
 							<a class="navbar-brand" href="index.html"><span
-								class="fa fa-area-chart"></span> Glance<span
-								class="dashboard_text">Design dashboard</span></a>
+								class="fa fa-area-chart"></span> MARTE<span
+								class="dashboard_text">System dashboard</span></a>
 						</h1>
 					</div>
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
 						<ul class="sidebar-menu">
-							<li class="header">MAIN NAVIGATION</li>
+							<li class="header">Menu Navegação</li>
 							<li class="treeview"><a href="index.html"> <i
 									class="fa fa-dashboard"></i> <span>Dashboard</span>
 							</a></li>
@@ -1149,6 +1145,8 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="js/bootstrap.js"> </script>
 	<!-- //Bootstrap Core JavaScript -->
+
+
 
 </body>
 </html>
