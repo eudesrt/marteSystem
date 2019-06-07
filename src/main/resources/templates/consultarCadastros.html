@@ -1,23 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/layout">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="description" content="Eudes Estudo" />
+<meta name="author" content="Rafael Eudes" />
 
-<!-- Meta, title, CSS, favicons, etc. -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<title>Consultar Registros</title>
 </head>
-
-
-<script>
-   	function carregar(pagina){
-     	$("#conteudo").load(pagina);
-   	}
-</script>
 <body>
 
 	<section layout:fragment="content">
@@ -34,17 +25,16 @@
 							style="padding-left: 5px;">Consultar Usuários Cadastrados</span>
 					</div>
 
-					<table id="datatable-responsive" class="table" cellspacing="0"
-						width="100%">
+					<table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
 						<!-- CABEÇALHO DA TABELA -->
 						<thead>
 							<tr>
 								<th>Código</th>
-								<th>Nome</th>
-								<th>Login</th>
-								<th>Ativo</th>
-								<th>Editar</th>
-								<th>Excluir</th>
+								<th class="mdl-data-table__cell--non-numeric">Nome</th>
+								<th class="mdl-data-table__cell--non-numeric">Login</th>
+								<th class="mdl-data-table__cell--non-numeric">Ativo</th>
+								<th class="mdl-data-table__cell--non-numeric">Editar</th>
+								<th class="mdl-data-table__cell--non-numeric">Excluir</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -61,19 +51,15 @@
 									<td th:unless="${usuarioModel.ativo}" th:text="Não"
 										class="mdl-data-table__cell--non-numeric"></td>
 									<td>
-										<!-- REALIZANDO A REQUEST PARA EDITAR UM CADASTRO --> <input
-										type="hidden" name="codigoUsuario"
-										th:value="${usuarioModel.codigo}" />
-										<button data-target="#modalExemplo" onclick="carregar('usuario/editarCadastro')"
-											class="mdl-chip__action">
-											<i class="material-icons">create</i>
-										</button>
-										
-										<!-- Botão para acionar modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-  Abrir modal de demonstração
-</button>
-
+										<!-- REALIZANDO A REQUEST PARA EDITAR UM CADASTRO -->
+										<form action="#" th:action="@{../usuario/editarCadastro}"
+											method="get">
+											<input type="hidden" name="codigoUsuario"
+												th:value="${usuarioModel.codigo}" />
+											<button type="submit" class="mdl-chip__action">
+												<i class="material-icons">create</i>
+											</button>
+										</form>
 									</td>
 									<td>
 										<!-- EXCLUINDO UM REGISTRO CADASTRADO -->
@@ -93,28 +79,6 @@
 					</table>
 
 
-<!-- Modal -->
-<div class="modal modal-warning fade in" id="myModal">
- <div class="modal-dialog">
- <div class="modal-content">
- <div class="modal-header">
- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
- <span aria-hidden="true">×</span></button>
- <h5 class="modal-title">Delete User</h5>
- </div>
- <div class="modal-body">
- <h3>Are you sure want to delete this user?</h3>
- </div>
- <div class="modal-footer">
- <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
- <a type="button" class="btn btn-danger"><i class="fa fa-check"></i>&nbsp;Yes</a>
- </div>
- </div>
- </div>
- </div>
-
-
-
 				</div>
 
 			</section>
@@ -122,8 +86,6 @@
 		</div>
 
 	</section>
-
-
 
 </body>
 </html>
