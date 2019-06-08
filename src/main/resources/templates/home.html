@@ -11,30 +11,31 @@
 </head>
 <body class="cbp-spmenu-push">
 	<section layout:fragment="content">
-		<!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
-
+	<!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
+	<div th:if="${msg_resultado}" id="msgSucesso">
+		<p id="p-mensagem-sucesso" class="sucesso-msg"	th:text="${msg_resultado}">...</p>
+	</div>
+	<form action="#" id="formulario-home" th:action="@{/home}" th:object="${grupoStatus}" method="post">
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="col_3">
 					<div class="col-md-3 widget widget1">
 						<div class="r3_counter_box">
-							<i class="pull-left fa fa-dollar icon-rounded"></i>
+							<i class="pull-left fa fa-folder-open icon-rounded"></i>
 							<div class="stats">
 								<h5>
-									<strong>
-										<label th:field="*{codigo}"></label>
-									</strong>
+									<strong th:text="*{os_abertas}"></strong>
 								</h5>
-								<span>OS Abertas</span>
+								<span>OS Abertas 2019</span>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-3 widget widget1">
 						<div class="r3_counter_box">
-							<i class="pull-left fa fa-laptop user1 icon-rounded"></i>
+							<i class="pull-left fa fa-floppy-o user1 icon-rounded"></i>
 							<div class="stats">
 								<h5>
-									<strong>2</strong>
+									<strong th:text="*{os_nova}"></strong>
 								</h5>
 								<span>OS Nova</span>
 							</div>
@@ -42,10 +43,10 @@
 					</div>
 					<div class="col-md-3 widget widget1">
 						<div class="r3_counter_box">
-							<i class="pull-left fa fa-money user2 icon-rounded"></i>
+							<i class="pull-left fa fa-cogs user2 icon-rounded"></i>
 							<div class="stats">
 								<h5>
-									<strong>22</strong>
+									<strong th:text="*{os_desev}"></strong>
 								</h5>
 								<span>Em Desenv</span>
 							</div>
@@ -53,10 +54,10 @@
 					</div>
 					<div class="col-md-3 widget widget1">
 						<div class="r3_counter_box">
-							<i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
+							<i class="pull-left fa fa-laptop dollar1 icon-rounded"></i>
 							<div class="stats">
 								<h5>
-									<strong>2</strong>
+									<strong th:text="*{os_homol}"></strong>
 								</h5>
 								<span>Em Homolog</span>
 							</div>
@@ -64,10 +65,10 @@
 					</div>
 					<div class="col-md-3 widget">
 						<div class="r3_counter_box">
-							<i class="pull-left fa fa-users dollar2 icon-rounded"></i>
+							<i class="pull-left fa fa-thumbs-up dollar2 icon-rounded"></i>
 							<div class="stats">
 								<h5>
-									<strong>1450</strong>
+									<strong th:text="*{os_fechas}"></strong>
 								</h5>
 								<span>Fechadas</span>
 							</div>
@@ -77,7 +78,7 @@
 				</div>
 			</div>
 		</div>
-
+	</form>
 	</section>
 	<div class="mdl-layout-spacer"></div>
 

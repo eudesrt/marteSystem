@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.br.marte.app.model.GrupoStatus;
+
 @Controller
 public class MainController {
 
@@ -25,9 +27,9 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model) {		
 		
-		model.addAttribute("codigo", 1);
+		model.addAttribute("grupoStatus",  new GrupoStatus(1111, 2, 2 , 4, 10000));
 
 		return "home";
 	}

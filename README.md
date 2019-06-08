@@ -88,10 +88,51 @@ INSERT INTO tb_permissao_x_grupo(id_permissao,id_grupo)VALUES(2,2);
 /*ROLE_ADMIN x ADMINISTRADORES*/
 INSERT INTO tb_permissao_x_grupo(id_permissao,id_grupo)VALUES(3,1);
 
+
+CREATE TABLE tb_status(
+codigo serial PRIMARY KEY NOT NULL,
+evento_id BIGINT(4) NOT NULL,
+status VARCHAR(30)
+)
+
+insert into tb_status (evento_id,status) values (1000,'NOVO');
+insert into tb_status (evento_id,status) values (1100,'ABERTO');
+insert into tb_status (evento_id,status) values (1300,'DESENVOLVENDO');
+insert into tb_status (evento_id,status) values (1300,'HOMOLOGANDO');
+insert into tb_status (evento_id,status) values (1400,'PENDENTE INFORMACAO');
+insert into tb_status (evento_id,status) values (1500,'GERENCIA');
+insert into tb_status (evento_id,status) values (9999,'FECHADO');
+
+
+CREATE TABLE tb_descricao(
+codigo serial PRIMARY KEY NOT NULL,
+os_id BIGINT(6) NOT NULL,
+dt_entrada DATE ,
+descricao TEXT
+)
+
+CREATE TABLE tb_servico(
+	codigo serial PRIMARY KEY NOT NULL,
+	os BIGINT(6) NOT NULL,
+	titulo VARCHAR(100) NOT NULL,
+	dt_entrada DATE ,
+	dt_homologacao DATE ,
+	dt_commit DATE ,
+	descricao_id BIGINT(6) ,
+	evento_id BIGINT(20) NOT NULL,
+	codigo_usuario BIGINT(20) NOT NULL,
+	FOREIGN KEY (descricao_id) REFERENCES tb_descricao(codigo),
+	FOREIGN KEY (evento_id) REFERENCES tb_status(codigo),
+	FOREIGN KEY (codigo_usuario) REFERENCES tb_usuario(codigo)
+	
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into tb_servico (os,titulo,dt_entrada,dt_homologacao,dt_commit,evento_id,codigo_usuario) 
+values (6643,'AJUSTES LISTA CONSOLIDADA CORREIOS ESC','2013-02-7','2013-02-7','2013-02-7',7,1);
+
+
+
 select * from tb_usuario
-
-
-
 
 SELECT
   TB_PERMISSAO_X_GRUPO.ID_PERMISSAO,
