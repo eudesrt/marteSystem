@@ -34,14 +34,16 @@ public class UsuarioService implements UserDetailsService {
 
 	@Autowired
 	private PermissaoRepository permissaoRepository;
-
+	
+	Usuario usuarioEntity;
+	
 	/***
-	 * CONSULTA UM USUÃ?RIO POR LOGIN
+	 * CONSULTA UM USUï¿½?RIO POR LOGIN
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String login) throws BadCredentialsException, DisabledException {
 
-		Usuario usuarioEntity = usuarioRepository.findByLogin(login);
+		usuarioEntity = usuarioRepository.findByLogin(login);
 
 		if (usuarioEntity == null)
 			throw new BadCredentialsException("UsuÃ¡rio nÃ£o encontrado no sistema!");
@@ -54,7 +56,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	/***
-	 * BUSCA AS PERMISSÃ•ES DO USUÃ?RIO
+	 * BUSCA AS PERMISSÃ•ES DO USUï¿½?RIO
 	 * 
 	 * @param usuarioEntity
 	 * @return
@@ -85,7 +87,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	/***
-	 * SALVA UM NOVO REGISTRO DE USUÃ?RIO
+	 * SALVA UM NOVO REGISTRO DE USUï¿½?RIO
 	 * 
 	 * @param usuarioModel
 	 */
@@ -93,13 +95,13 @@ public class UsuarioService implements UserDetailsService {
 
 		Usuario usuarioEntity = new Usuario();
 
-		/* SETA O USUÃ?RIO COMO ATIVO NO SISTEMA */
+		/* SETA O USUï¿½?RIO COMO ATIVO NO SISTEMA */
 		usuarioEntity.setAtivo(true);
 
-		/* LOGIN DO USUÃ?RIO */
+		/* LOGIN DO USUï¿½?RIO */
 		usuarioEntity.setLogin(usuarioModel.getLogin());
 
-		/* NOME DO USUÃ?RIO A SER SALVO */
+		/* NOME DO USUï¿½?RIO A SER SALVO */
 		usuarioEntity.setNome(usuarioModel.getNome());
 
 		/* CRIPTOGRAMA E INFORMA A SENHA */
@@ -120,7 +122,7 @@ public class UsuarioService implements UserDetailsService {
 			}
 		}
 
-		/* SETA A LISTA DE GRUPO DO USUÃ?RIO */
+		/* SETA A LISTA DE GRUPO DO USUï¿½?RIO */
 		usuarioEntity.setGrupos(grupos);
 
 		/* SALVANDO O REGISTRO */
@@ -128,7 +130,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	/***
-	 * CONSULTA OS USUÃ?RIOS CADASTRADOS
+	 * CONSULTA OS USUï¿½?RIOS CADASTRADOS
 	 * 
 	 * @return
 	 */
@@ -148,7 +150,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	/**
-	 * DELETA UM USUÃ?RIO PELO CÃ“DIGO
+	 * DELETA UM USUï¿½?RIO PELO CÃ“DIGO
 	 */
 	public void excluir(Long codigoUsuario) {
 
@@ -156,7 +158,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	/***
-	 * CONSULTA UM USUÃ?RIO PELO SEU CÃ“DIGO
+	 * CONSULTA UM USUï¿½?RIO PELO SEU CÃ“DIGO
 	 * 
 	 * @param codigoUsuario
 	 * @return
@@ -179,19 +181,19 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	/**
-	 * ALTERA AS INFORMAÃ‡Ã•ES DO USUÃ?RIO
+	 * ALTERA AS INFORMAÃ‡Ã•ES DO USUï¿½?RIO
 	 */
 	public void alterarUsuario(UsuarioModel usuarioModel) {
 
 		Usuario usuarioEntity = this.usuarioRepository.getOne(usuarioModel.getCodigo());
 
-		/* USUÃ?RIO ATIVO OU INATIVO */
+		/* USUï¿½?RIO ATIVO OU INATIVO */
 		usuarioEntity.setAtivo(usuarioModel.isAtivo());
 
-		/* LOGIN DO USUÃ?RIO */
+		/* LOGIN DO USUï¿½?RIO */
 		usuarioEntity.setLogin(usuarioModel.getLogin());
 
-		/* NOME DO USUÃ?RIO A SER SALVO */
+		/* NOME DO USUï¿½?RIO A SER SALVO */
 		usuarioEntity.setNome(usuarioModel.getNome());
 
 		/* CRIPTOGRAMA E INFORMA A SENHA */
@@ -213,11 +215,16 @@ public class UsuarioService implements UserDetailsService {
 			}
 		}
 
-		/* SETA A LISTA DE GRUPO DO USUÃ?RIO */
+		/* SETA A LISTA DE GRUPO DO USUï¿½?RIO */
 		usuarioEntity.setGrupos(grupos);
 
 		/* SALVANDO ALTERAÃ‡ÃƒO DO REGISTRO */
 		this.usuarioRepository.saveAndFlush(usuarioEntity);
 	}
+
+	public Usuario getUsuarioEntity() {
+		return usuarioEntity;
+	}
+	
 
 }

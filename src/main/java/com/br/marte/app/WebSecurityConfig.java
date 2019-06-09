@@ -39,29 +39,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				 */
 				.antMatchers("/usuario/consultar").access("hasRole('ADMIN') or hasRole('CONSULTAUSUARIO')")
 				/*
-				 * DETERMINA QUE PARA ACESSAR A PÃ?GINA INICIAL DA APLICAÃ‡ÃƒO PRECISA ESTÃ?
+				 * DETERMINA QUE PARA ACESSAR A Pï¿½?GINA INICIAL DA APLICAÃ‡ÃƒO PRECISA ESTï¿½?
 				 * AUTENTICADO
 				 */
 				.antMatchers("/home").authenticated().anyRequest().authenticated().and().formLogin()
 				/*
-				 * INFORMANDO O CAMINHO DA PÃ?GINA DE LOGIN, E SE O LOGIN FOR EFETUADO COM
-				 * SUCESSO O USUÃ?RIO DEVE SER REDIRECIONADO PARA
+				 * INFORMANDO O CAMINHO DA Pï¿½?GINA DE LOGIN, E SE O LOGIN FOR EFETUADO COM
+				 * SUCESSO O USUï¿½?RIO DEVE SER REDIRECIONADO PARA
 				 * /home(http://localhost:8095/home)
 				 */
-				.loginPage("/").defaultSuccessUrl("/home", true).permitAll() /*
-																				 * AQUI ESTAMOS INFORMANDO QUE TODOS TEM
-																				 * ACESSO A PÃ?GINA DE LOGIN
-																				 */
+				.loginPage("/").defaultSuccessUrl("/home", true).permitAll() 
+				/*
+				 * AQUI ESTAMOS INFORMANDO QUE TODOS TEM ACESSO A Pï¿½?GINA DE LOGIN
+				 */
 				.and()
 				/*
 				 * AQUI ESTAMOS INFORMANDO QUE QUANDO FOR REDIRECIONADO PARA O LINK
-				 * http://localhost:8095/logout O USUÃ?RIO DEVE TER SUA SESSÃƒO FINALIZADA E
-				 * REDIRECIONADO PARA A PÃ?GINA DE LOGIN
+				 * http://localhost:8095/logout O USUï¿½?RIO DEVE TER SUA SESSÃƒO FINALIZADA E
+				 * REDIRECIONADO PARA A Pï¿½?GINA DE LOGIN
 				 */
 				.logout().logoutSuccessUrl("/").logoutUrl("/logout").permitAll();
 
 		/*
-		 * PÃ?GINA COM A MENSAGEM DE ACESSO NEGADO QUANDO O USUÃ?RIO NÃƒO TER UMA
+		 * Pï¿½?GINA COM A MENSAGEM DE ACESSO NEGADO QUANDO O USUï¿½?RIO NÃƒO TER UMA
 		 * DETERMINADA PERMISSÃƒO DE ACESSO AO SISTEMA ELE VAI SER REDIRECIONADO PARA A
 		 * URL ABAIXO
 		 */
@@ -78,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
-		/* INFORMA A CRIPTOGRAFIA QUE DEVE SER USADA PARA A SENHA DO USUÃ?RIO */
+		/* INFORMA A CRIPTOGRAFIA QUE DEVE SER USADA PARA A SENHA DO USUï¿½?RIO */
 		auth.userDetailsService(usuarioRepositoryImpl).passwordEncoder(new BCryptPasswordEncoder());
 
 	}

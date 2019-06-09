@@ -113,8 +113,8 @@
                                 <div class="profile_img">
                                     <span class="prfil-img"><img th:src="@{/images/2.jpg}" alt=""/>
                                     <div class="user-name">
-                                        <p>Rafael</p>
-                                        <span>Administrator</span>
+                                        <p th:inline="text">[[${#httpServletRequest.remoteUser}]]</p>
+                                        <span>Bem vindo</span>
                                     </div>
                                     <i class="fa fa-angle-down lnr"></i> <i class="fa fa-angle-up lnr"></i>
                                     <div class="clearfix"></div>
