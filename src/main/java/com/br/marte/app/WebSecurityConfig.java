@@ -33,6 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				 * NÃO É OBRIGATÓRIO QUANDO USAMOS o hasRole
 				 */
 				.antMatchers("/usuario/novoCadastro").access("hasRole('ADMIN') or hasRole('ROLE_CADASTROUSUARIO')")
+				.antMatchers("/ordemServico/novoCadastro").access("hasRole('ADMIN') or hasRole('ROLE_CADASTROUSUARIO')")
 				/*
 				 * DETERMINA QUE PARA REALIZAR ESSA REQUEST PRECISA TER UMA DAS PERMISSÕES
 				 * ABAIXO EXEMPLO DA URL: http://localhost:8095/usuario/consultar
