@@ -19,7 +19,7 @@
     <div class="main-page signup-page">
         <div class="sign-up-row widget-shadow">
             <h5>Editar Usuario:</h5>
-             <form action="#" id="formulario-cadastro" th:action="@{../usuario/salvarAlteracao}" th:object="${usuarioModel}" method="post">
+             <form action="#" id="formulario-edit" th:action="@{../usuario/salvarAlteracao}" th:object="${usuarioModel}" method="post">
 				
 				<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
 				<div th:if="${msg_resultado}" id="msgSucesso">

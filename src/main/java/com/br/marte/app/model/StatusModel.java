@@ -16,6 +16,11 @@ public class StatusModel {
 		this.evento_id = evento_id;
 		this.status = status;
 	}
+	
+	public StatusModel(Long id_status,  String status) {
+		this.id_status = id_status;
+		this.status = status;
+	}
 
 	public Long getId_status() {
 		return id_status;

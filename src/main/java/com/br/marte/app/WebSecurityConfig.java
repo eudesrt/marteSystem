@@ -59,7 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				 * http://localhost:8095/logout O USU�?RIO DEVE TER SUA SESSÃO FINALIZADA E
 				 * REDIRECIONADO PARA A P�?GINA DE LOGIN
 				 */
-				.logout().logoutSuccessUrl("/").logoutUrl("/logout").permitAll();
+				.logout().logoutSuccessUrl("/").logoutUrl("/logout").permitAll()
+				.and()
+				.rememberMe().key("uniqueAndSecret");
 
 		/*
 		 * P�?GINA COM A MENSAGEM DE ACESSO NEGADO QUANDO O USU�?RIO NÃO TER UMA

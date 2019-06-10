@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base/layout">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Marte System dashboard" />
+    <meta name="author" content="Rafael Eudes" />
+    <title>Consultar Usuarios</title>
+</head>
+<body>
+    <section layout:fragment="content">
+        <div id="page-wrapper">
+            <div class="main-page">
+                <div class="tables">
+                    <div class="panel-body widget-shadow">
+                        <h4>Tabela de Usuarios</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Código</th>
+                                    <th>OS</th>
+                                    <th>Titulo</th>
+                                    <th>Data de Abertura</th>
+                                    <th>Status</th>
+                                    <th>Editar</th>
+                                    <th>Excluir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- PREENCHENDO A TABELA COM OS USUÁRIOS CADASTRADOS-->
+                                <th:block th:each="ordemServicoModel : ${ordemServicoModel}">
+                                    <tr>
+                                        <td th:text="${ordemServicoModel.os}"></td>
+                                        <td th:text="$ordemServicoModel.titulo}" class="mdl-data-table__cell--non-numeric"></td>
+                                        <td th:text="${ordemServicoModel.dt_entrada}" class="mdl-data-table__cell--non-numeric"></td>
+                                        <td th:if="${ordemServicoModel.status}" th:text="Sim" class="mdl-data-table__cell--non-numeric"></td>
+                                        <td th:unless="${usuarioModel.ativo}" th:text="Não" class="mdl-data-table__cell--non-numeric"></td>
+                                        <td>
+                                            <!-- REALIZANDO A REQUEST PARA EDITAR UM CADASTRO -->
+                                            <form action="#" th:action="@{../usuario/editarCadastro}" method="get">
+                                                <input type="hidden" name="codigoUsuario" th:value="${usuarioModel.codigo}" />
+                                                <button type="submit" class="mdl-chip__action">
+                                                    <i class="material-icons">create</i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                        <td>
+                                            <!-- EXCLUINDO UM REGISTRO CADASTRADO -->
+                                            <form action="#" th:action="@{../usuario/excluir}" method="post">
+                                                <input type="hidden" name="codigoUsuario" th:value="${usuarioModel.codigo}" />
+                                                <button type="submit" class="mdl-chip__action" onclick="return confirm('Deseja realmente excluir esse registro?');">
+                                                    <i class="material-icons">delete</i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

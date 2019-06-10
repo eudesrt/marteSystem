@@ -34,8 +34,9 @@ public class OrdemServicoModel {
 		this.id_usuario = id_usuario;
 	}
 	
+	
 	public OrdemServicoModel() {
-		
+
 	}
 
 	public long getCodigo() {
@@ -52,6 +53,14 @@ public class OrdemServicoModel {
 
 	public void setOs(Integer os) {
 		this.os = os;
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
 	}
 
 	public LocalDate getDtEntrada() {
@@ -92,14 +101,6 @@ public class OrdemServicoModel {
 
 	public void setId_usuario(Integer id_usuario) {
 		this.id_usuario = id_usuario;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}		
+	}	
 
 }
