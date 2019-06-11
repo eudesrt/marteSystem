@@ -15,21 +15,11 @@
 	<div th:if="${msg_resultado}" id="msgSucesso">
 		<p id="p-mensagem-sucesso" class="sucesso-msg"	th:text="${msg_resultado}">...</p>
 	</div>
-	<form action="#" id="formulario-home" th:action="@{/home}" th:object="${grupoStatus}" method="post">
+	<form action="#" id="formulario-home" th:action="@{/home}" th:object="${staticModel}" method="post">
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="col_3">
-					<div class="col-md-3 widget widget1">
-						<div class="r3_counter_box">
-							<i class="pull-left fa fa-folder-open icon-rounded"></i>
-							<div class="stats">
-								<h5>
-									<strong th:text="*{os_abertas}"></strong>
-								</h5>
-								<span>OS Abertas 2019</span>
-							</div>
-						</div>
-					</div>
+
 					<div class="col-md-3 widget widget1">
 						<div class="r3_counter_box">
 							<i class="pull-left fa fa-floppy-o user1 icon-rounded"></i>
@@ -49,6 +39,17 @@
 									<strong th:text="*{os_desev}"></strong>
 								</h5>
 								<span>Em Desenv</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3 widget widget1">
+						<div class="r3_counter_box">
+							<i class="pull-left fa fa-folder-open icon-rounded"></i>
+							<div class="stats">
+								<h5>
+									<strong th:text="*{os_pendente}"></strong>
+								</h5>
+								<span>Pedente Info</span>
 							</div>
 						</div>
 					</div>

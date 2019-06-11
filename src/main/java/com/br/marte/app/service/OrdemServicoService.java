@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.br.marte.app.entity.OrdemServico;
-import com.br.marte.app.entity.Usuario;
 import com.br.marte.app.model.OrdemServicoModel;
-import com.br.marte.app.model.UsuarioModel;
 import com.br.marte.app.repository.OrdemServicoRepository;
 import com.br.marte.app.repository.StatusRepository;
 
@@ -35,11 +33,12 @@ public class OrdemServicoService  {
 
 		OrdemServico ordemServicoEntity = new OrdemServico();
 		LocalDate localDate = LocalDate.now();
-
+		
 		ordemServicoEntity.setOs(ordemServicoModel.getOs());
 		ordemServicoEntity.setTitulo(ordemServicoModel.getTitulo());
 		ordemServicoEntity.setDt_entrada(localDate);
-		ordemServicoEntity.setId_status(statusRepository.getOne((long) 1));
+		ordemServicoEntity.setDt_venc(ordemServicoModel.getDtVencimento());
+		ordemServicoEntity.setEvento_id(statusRepository.getOne(1000));
 		ordemServicoEntity.setId_usuario(usuarioService.usuarioEntity);
 
 
@@ -59,13 +58,22 @@ public class OrdemServicoService  {
 
 		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository.findAll();
 		
+
+		
 		ordemServicosEntity.forEach(ordemServicoEntity -> {
+			
+			System.out.println("Eudes " + ordemServicoEntity.getDt_venc());
 
 			ordemServicoModel.add(new OrdemServicoModel(ordemServicoEntity.getCodigo(), ordemServicoEntity.getOs(),
 					ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
-					ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),
-					ordemServicoEntity.getId_status().getEvento_id(), ordemServicoEntity.getId_usuario().getCodigo().intValue()));
+					ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),ordemServicoEntity.getDt_venc(),
+					ordemServicoEntity.getEvento_id().getEvento_id(), ordemServicoEntity.getId_usuario().getCodigo().intValue()));
 		});
+		
+		ordemServicoModel.stream()
+        .mapToInt((p) -> p.getOs())
+        .sorted()
+        .forEach((p) -> System.out.printf("[%s]", p));
 
 		return ordemServicoModel;
 	}

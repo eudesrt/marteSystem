@@ -8,6 +8,8 @@
     <meta name="keywords" content="Marte System dashboard" />
     <meta name="author" content="Rafael Eudes" />
 
+<!-- 	<link rel="stylesheet" th:href="@{/css/datatables.min.css}" /> -->
+<!-- 	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" /> -->
     <link rel="stylesheet" th:href="@{/css/material.min.css}" />
     <link rel="stylesheet" th:href="@{/css/sistema.css}" />
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
@@ -17,11 +19,12 @@
     <link rel="stylesheet" th:href="@{/css/SidebarNav.min.css}" />
     <link rel="stylesheet" th:href="@{/css/custom.css}" />
     <link rel="stylesheet" th:href="@{/css/owl.carousel.css}" />
-    <link href='css/SidebarNav.min.css' media='all' rel='stylesheet' type='text/css' />
     <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-    
 
+
+
+	<script type="text/javascript" th:src="@{/js/datatables.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery-1.11.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/modernizr.custom.js}"></script>
     <script type="text/javascript" th:src="@{/js/Chart.js}"></script>
@@ -35,7 +38,11 @@
     <script type="text/javascript" th:src="@{/js/scripts.js}"></script>
     <script type="text/javascript" th:src="@{/js/SidebarNav.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
-    <script type="text/javascript" th:src="@{/js/classie.js}"></script>
+    <script type="text/javascript" th:src="@{/js/classie.js}"></script>    
+    <script type="text/javascript" th:src="@{/js/jquery-3.3.1.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>    
+
 </head>
 
 <body class="cbp-spmenu-push">
@@ -142,6 +149,7 @@
 
      
     </div>
+    
 
     <script>
         $('.sidebar-menu').SidebarNav()

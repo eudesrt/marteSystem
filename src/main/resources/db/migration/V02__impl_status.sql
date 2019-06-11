@@ -1,7 +1,6 @@
 CREATE TABLE tb_status
 (
-id_status SERIAL PRIMARY KEY NOT NULL,
-evento_id INT NOT NULL,
+evento_id  PRIMARY KEY INT NOT NULL,
 status VARCHAR(30)
 );
 

@@ -2,6 +2,8 @@ package com.br.marte.app.model;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class OrdemServicoModel {
 	
 	
@@ -11,18 +13,24 @@ public class OrdemServicoModel {
 	
 	private String titulo;
 	
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dtEntrada;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dtHomologacao;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dtCommit;
+	
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dtVencimento;
 	
 	private Integer evento_id;
 	
 	private Integer id_usuario;
 
 	public OrdemServicoModel(long codigo, Integer os, String titulo, LocalDate dtEntrada, LocalDate dtHomologacao, LocalDate dtCommit,
-			Integer evento_id, Integer id_usuario) {
+			LocalDate dtVencimento , Integer evento_id, Integer id_usuario) {
 		super();
 		this.codigo = codigo;
 		this.os = os;
@@ -30,6 +38,7 @@ public class OrdemServicoModel {
 		this.dtEntrada = dtEntrada;
 		this.dtHomologacao = dtHomologacao;
 		this.dtCommit = dtCommit;
+		this.dtVencimento = dtVencimento;
 		this.evento_id = evento_id;
 		this.id_usuario = id_usuario;
 	}
@@ -101,6 +110,16 @@ public class OrdemServicoModel {
 
 	public void setId_usuario(Integer id_usuario) {
 		this.id_usuario = id_usuario;
+	}
+
+
+	public LocalDate getDtVencimento() {
+		return dtVencimento;
+	}
+
+	public void setDtVencimento(LocalDate dtVencimento) {
+		this.dtVencimento = dtVencimento;
 	}	
+	
 
 }

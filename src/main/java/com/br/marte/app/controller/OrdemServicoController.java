@@ -73,7 +73,7 @@ public class OrdemServicoController {
 			model.addAttribute("ordemServicoModel", ordemServicoModel);
 
 			/* RETORNA A VIEW */
-			return new ModelAndView("novoCadastro");
+			return new ModelAndView("ordemServico/novoCadastro");
 		} else {
 
 			/* SALVANDO UM NOVO REGISTRO */

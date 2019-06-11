@@ -28,7 +28,7 @@ public class StatusService {
 		List<Status> statusEntity = this.grupoRepository.findAll();
 
 		statusEntity.forEach(status -> {
-			statusModel.add(new StatusModel(status.getId_status(), status.getStatus()));
+			statusModel.add(new StatusModel(status.getEvento_id(), status.getStatus()));
 		});
 
 		return statusModel;

@@ -1,21 +1,15 @@
 package com.br.marte.app.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.br.marte.app.model.GrupoStatus;
-import com.br.marte.app.model.UsuarioSecurityModel;
-import com.br.marte.app.service.UsuarioService;
+import com.br.marte.app.model.StaticModel;
 
 @Controller
 public class MainController {
 	
-	/** INJETANDO O OBJETO UsuarioService */
-	@Autowired
-	private UsuarioService usuarioService;
 
 	/***
 	 * ESSE MÉTODO CARREGA A PAGINA(index.html) DE LOGIN DA NOSSA APLICAÇÃO
@@ -37,7 +31,7 @@ public class MainController {
 	public String home(Model model) {
 		
 		
-		model.addAttribute("grupoStatus",  new GrupoStatus(1111, 2, 2 , 4, 10000));
+		model.addAttribute("staticModel",  new StaticModel(1111, 2, 2 , 4, 10000));
 
 		return "home";
 	}

@@ -36,12 +36,15 @@ public class OrdemServico {
 
 	@Column(name = "dt_commit")
 	private LocalDate dt_commit;
+	
+	@Column(name = "dt_venc")
+	private LocalDate dt_venc;
 
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_status")
-	private Status id_status;
+	@JoinColumn(name = "evento_id")
+	private Status evento_id;
 
 	@NotNull
 	@ManyToOne
@@ -96,12 +99,21 @@ public class OrdemServico {
 		this.dt_commit = dt_commit;
 	}
 
-	public Status getId_status() {
-		return id_status;
+
+	public LocalDate getDt_venc() {
+		return dt_venc;
 	}
 
-	public void setId_status(Status id_status) {
-		this.id_status = id_status;
+	public void setDt_venc(LocalDate dt_venc) {
+		this.dt_venc = dt_venc;
+	}
+
+	public Status getEvento_id() {
+		return evento_id;
+	}
+
+	public void setEvento_id(Status evento_id) {
+		this.evento_id = evento_id;
 	}
 
 	public Usuario getId_usuario() {
@@ -111,5 +123,10 @@ public class OrdemServico {
 	public void setId_usuario(Usuario id_usuario) {
 		this.id_usuario = id_usuario;
 	}
+
+	@Override
+	public String toString() {
+		return "OrdemServico [codigo=" + codigo + ", os=" + os + "]";
+	}	
 
 }

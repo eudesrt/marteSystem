@@ -1,27 +1,28 @@
 package com.br.marte.app.model;
 
-public class GrupoStatus {
-	private int os_abertas;	
+public class StaticModel {
 	private int os_nova;
 	private int os_desev;
+	private int os_pendente;	
 	private int os_homol;
 	private int os_fechas;
 	
-	public GrupoStatus(int os_abertas, int os_nova, int os_desev, int os_homol, int os_fechas) {
+	public StaticModel(int os_nova, int os_desev,int os_pendente,  int os_homol, int os_fechas) {
 		super();
-		this.os_abertas = os_abertas;
 		this.os_nova = os_nova;
 		this.os_desev = os_desev;
+		this.os_pendente = os_pendente;
 		this.os_homol = os_homol;
 		this.os_fechas = os_fechas;
-	}
-	
-	public int getOs_abertas() {
-		return os_abertas;
+	}	
+
+
+	public int getOs_pendente() {
+		return os_pendente;
 	}
 
-	public void setOs_abertas(int os_abertas) {
-		this.os_abertas = os_abertas;
+	public void setOs_pendente(int os_pendente) {
+		this.os_pendente = os_pendente;
 	}
 
 	public int getOs_nova() {

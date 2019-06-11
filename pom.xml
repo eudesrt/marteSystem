@@ -69,17 +69,18 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
-		
+
+
 		<!-- Migracoes Flyway -->
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.flywaydb</groupId> -->
+		<!-- <artifactId>flyway-core</artifactId> -->
+		<!-- </dependency> -->
 
 	</dependencies>
 

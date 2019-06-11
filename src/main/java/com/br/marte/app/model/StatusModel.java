@@ -10,17 +10,11 @@ public class StatusModel {
 
 	}	
 	
-	public StatusModel(Long id_status, Integer evento_id, String status) {
+	public StatusModel(Integer evento_id, String status) {
 		super();
-		this.id_status = id_status;
 		this.evento_id = evento_id;
 		this.status = status;
-	}
-	
-	public StatusModel(Long id_status,  String status) {
-		this.id_status = id_status;
-		this.status = status;
-	}
+	}	
 
 	public Long getId_status() {
 		return id_status;
