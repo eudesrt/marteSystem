@@ -44,9 +44,9 @@ public class OrdemServicoController {
 	
 	
 	/***
-	 * SALVA UM NOVO USU�?RIO NO SISTEMA
+	 * SALVA UMAM NOVA ORDEM DE SERVICO
 	 * 
-	 * @param usuarioModel
+	 * @param ordemServicoModel
 	 * @param result
 	 * @param model
 	 * @param redirectAttributes
@@ -91,6 +91,23 @@ public class OrdemServicoController {
 
 		/* REDIRECIONANDO PARA UM NOVO CADASTRO */
 		return modelAndView;
+	}
+	
+	
+	/***
+	 * CONSULTA TODOS ORDEM SERVICO CADASTRADOS NO SISTEMA
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/consultarOrdemServico", method = RequestMethod.GET)
+	public ModelAndView consultarOrdemServico(Model model) {
+
+		/* CONSULTA USUARIOS CADASTRADOS */
+		model.addAttribute("ordemServicoModel", this.ordemServicoService.consultarOrdemServico());
+
+		/* RETORNA A VIEW */
+		return new ModelAndView("consultarOrdemServico");
 	}
 
 }

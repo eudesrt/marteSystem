@@ -1,12 +1,16 @@
 package com.br.marte.app.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.br.marte.app.entity.OrdemServico;
+import com.br.marte.app.entity.Usuario;
 import com.br.marte.app.model.OrdemServicoModel;
+import com.br.marte.app.model.UsuarioModel;
 import com.br.marte.app.repository.OrdemServicoRepository;
 import com.br.marte.app.repository.StatusRepository;
 
@@ -23,9 +27,9 @@ public class OrdemServicoService  {
 	private UsuarioService usuarioService;
 
 	/***
-	 * SALVA UM NOVO REGISTRO DE USU�?RIO
+	 * SALVA UM NOVA ORDEM DE SERVICO
 	 * 
-	 * @param usuarioModel
+	 * @param ordemServioModel
 	 */
 	public void salvarOrdemServico(OrdemServicoModel ordemServicoModel) {
 
@@ -41,6 +45,29 @@ public class OrdemServicoService  {
 
 		/* SALVANDO O REGISTRO */
 		this.ordemServicoRepository.save(ordemServicoEntity);
+	}
+	
+	
+	/***
+	 * CONSULTA NOVA ORDEM DE SERVICO CADASTRADOS
+	 * 
+	 * @return
+	 */
+	public List<OrdemServicoModel> consultarOrdemServico() {
+
+		List<OrdemServicoModel> ordemServicoModel = new ArrayList<OrdemServicoModel>();
+
+		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository.findAll();
+		
+		ordemServicosEntity.forEach(ordemServicoEntity -> {
+
+			ordemServicoModel.add(new OrdemServicoModel(ordemServicoEntity.getCodigo(), ordemServicoEntity.getOs(),
+					ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
+					ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),
+					ordemServicoEntity.getId_status().getEvento_id(), ordemServicoEntity.getId_usuario().getCodigo().intValue()));
+		});
+
+		return ordemServicoModel;
 	}
 
 
