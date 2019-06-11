@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -108,6 +109,26 @@ public class OrdemServicoController {
 
 		/* RETORNA A VIEW */
 		return new ModelAndView("consultarOrdemServico");
+	}
+	
+	
+	@RequestMapping(value = "/editarOrdemServico", method = RequestMethod.GET)
+	public ModelAndView editarOrdemServico(@RequestParam("codigo") Long codigo, Model model) {
+
+		/* CONSULTA OS STATUS(EVENTOS) CADASTRADOS */
+		List<StatusModel> statusModel = statusService.consultarStatus();
+
+		/* CONSULTA O ORDEM DE SERVICO PELO CÓDIGO */
+		OrdemServicoModel ordemServicoModel = this.ordemServicoService.consultarOrdemServico(codigo);
+
+		/* ADICIONANDO STATUS PARA MOSTRAR NA PAGINA(VIEW) */
+		model.addAttribute("status", statusModel);
+
+		/* ADICIONANDO INFORMAÇÕES DA ORDEM DE SERVICO PARA MOSTRAR NA PAGINA(VIEW) */
+		model.addAttribute("ordemServicoModel", ordemServicoModel);
+
+		/* CHAMA A VIEW /src/main/resources/templates/editarOrdemServico.html */
+		return new ModelAndView("editarOrdemServico");
 	}
 
 }

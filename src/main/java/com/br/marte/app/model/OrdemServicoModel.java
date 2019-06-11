@@ -104,6 +104,7 @@ public class OrdemServicoModel {
 		this.evento_id = evento_id;
 	}
 
+
 	public Integer getId_usuario() {
 		return id_usuario;
 	}

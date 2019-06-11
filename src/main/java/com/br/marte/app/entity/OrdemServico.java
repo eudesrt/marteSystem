@@ -42,8 +42,8 @@ public class OrdemServico {
 
 	
 	@NotNull
+	@JoinColumn(name = "evento_id")	
 	@ManyToOne
-	@JoinColumn(name = "evento_id")
 	private Status evento_id;
 
 	@NotNull

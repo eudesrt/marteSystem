@@ -34,6 +34,8 @@ public class OrdemServicoService  {
 		OrdemServico ordemServicoEntity = new OrdemServico();
 		LocalDate localDate = LocalDate.now();
 		
+
+		
 		ordemServicoEntity.setOs(ordemServicoModel.getOs());
 		ordemServicoEntity.setTitulo(ordemServicoModel.getTitulo());
 		ordemServicoEntity.setDt_entrada(localDate);
@@ -56,12 +58,13 @@ public class OrdemServicoService  {
 
 		List<OrdemServicoModel> ordemServicoModel = new ArrayList<OrdemServicoModel>();
 
-		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository.findAll();
+		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository.findAll();		
 		
 
 		
 		ordemServicosEntity.forEach(ordemServicoEntity -> {
 			
+
 			System.out.println("Eudes " + ordemServicoEntity.getDt_venc());
 
 			ordemServicoModel.add(new OrdemServicoModel(ordemServicoEntity.getCodigo(), ordemServicoEntity.getOs(),
@@ -70,12 +73,24 @@ public class OrdemServicoService  {
 					ordemServicoEntity.getEvento_id().getEvento_id(), ordemServicoEntity.getId_usuario().getCodigo().intValue()));
 		});
 		
-		ordemServicoModel.stream()
-        .mapToInt((p) -> p.getOs())
-        .sorted()
-        .forEach((p) -> System.out.printf("[%s]", p));
+//		ordemServicoModel.stream()
+//        .mapToInt((p) -> p.getOs())
+//        .sorted()
+//        .forEach((p) -> System.out.printf("[%s]", p));
 
 		return ordemServicoModel;
+	}
+	
+	public OrdemServicoModel consultarOrdemServico(Long codigo) {
+
+		OrdemServico ordemServicoEntity = this.ordemServicoRepository.getOne(codigo);
+
+
+		return new OrdemServicoModel(ordemServicoEntity.getCodigo(), ordemServicoEntity.getOs(),
+				ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
+				ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),ordemServicoEntity.getDt_venc(),
+				ordemServicoEntity.getEvento_id().getEvento_id(), ordemServicoEntity.getId_usuario().getCodigo().intValue());
+
 	}
 
 
