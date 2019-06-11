@@ -1,3 +1,4 @@
+
 CREATE TABLE tb_servico(
 	codigo serial PRIMARY KEY NOT NULL,
 	os INT NOT NULL,
@@ -14,4 +15,4 @@ CREATE TABLE tb_servico(
 );
 
 insert into tb_servico (os,titulo,dt_entrada,dt_homologacao,dt_commit,dt_venc,evento_id,id_usuario) 
-values (6643,'AJUSTES LISTA CONSOLIDADA CORREIOS ESC','2013-02-7','2013-02-7','2013-02-7','2013-02-8',9999,1);
+values (6643,'AJUSTES LISTA CONSOLIDADA CORREIOS ESC','2013-02-7','2013-02-7','2013-02-7','2013-02-8',1000,1);
