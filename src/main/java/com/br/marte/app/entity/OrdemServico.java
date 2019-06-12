@@ -44,7 +44,7 @@ public class OrdemServico {
 	@NotNull
 	@JoinColumn(name = "evento_id")	
 	@ManyToOne
-	private Status evento_id;
+	private Status status;
 
 	@NotNull
 	@ManyToOne
@@ -108,12 +108,12 @@ public class OrdemServico {
 		this.dt_venc = dt_venc;
 	}
 
-	public Status getEvento_id() {
-		return evento_id;
+	public Status getStatus() {
+		return status;
 	}
 
-	public void setEvento_id(Status evento_id) {
-		this.evento_id = evento_id;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public Usuario getId_usuario() {

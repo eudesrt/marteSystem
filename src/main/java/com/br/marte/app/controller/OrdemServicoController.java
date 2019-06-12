@@ -1,5 +1,6 @@
 package com.br.marte.app.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -40,6 +41,28 @@ public class OrdemServicoController {
 		model.addAttribute("ordemServicoModel" , new OrdemServicoModel());
 
 		return new ModelAndView("novaOrdemServico");
+	}
+	
+	
+	public static void main(String[] args) {		
+		
+        LocalDate nineApr = LocalDate.parse("2019-06-11");        
+         
+        boolean isBefore = nineApr.isAfter(LocalDate.now());
+        
+        if(nineApr.isEqual(LocalDate.now())) {
+        	System.out.println("Status :: Data dia");
+        }else {
+            isBefore = nineApr.isAfter(LocalDate.now());
+            
+            if(isBefore) {
+            	System.out.println("Status :: Data Superior a data do dia");
+            } else {
+            	System.out.println("Status :: Data no prazo");
+            }
+        }        
+
+		
 	}
 	
 	
@@ -122,13 +145,31 @@ public class OrdemServicoController {
 		OrdemServicoModel ordemServicoModel = this.ordemServicoService.consultarOrdemServico(codigo);
 
 		/* ADICIONANDO STATUS PARA MOSTRAR NA PAGINA(VIEW) */
-		model.addAttribute("status", statusModel);
+		model.addAttribute("statusModel", statusModel);
 
 		/* ADICIONANDO INFORMAÇÕES DA ORDEM DE SERVICO PARA MOSTRAR NA PAGINA(VIEW) */
 		model.addAttribute("ordemServicoModel", ordemServicoModel);
 
 		/* CHAMA A VIEW /src/main/resources/templates/editarOrdemServico.html */
 		return new ModelAndView("editarOrdemServico");
+	}
+	
+	
+	@RequestMapping(value = "/salvarAlteracao", method = RequestMethod.POST)
+	public ModelAndView salvarAlteracao(@ModelAttribute @Valid OrdemServicoModel ordemServicoModel, final BindingResult result,
+			Model model, RedirectAttributes redirectAttributes) {
+
+
+			/* SALVANDO AS INFORMAÇÕES ALTERADAS DE ORDEM DE SERVICO */
+		ordemServicoService.alterarOrdemServico(ordemServicoModel);
+		
+
+		/* APÓS SALVAR VAMOS REDIRICIONAR O ORDEM DE SERVICO PARA A PAGINA DE CONSULTA */
+		ModelAndView modelAndView = new ModelAndView("redirect:/ordemServico/consultarOrdemServico");		
+		
+
+		/* RETORNANDO A VIEW */
+		return modelAndView;
 	}
 
 }

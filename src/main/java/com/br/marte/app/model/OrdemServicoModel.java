@@ -25,12 +25,12 @@ public class OrdemServicoModel {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dtVencimento;
 	
-	private Integer evento_id;
+	private Integer status;
 	
 	private Integer id_usuario;
 
 	public OrdemServicoModel(long codigo, Integer os, String titulo, LocalDate dtEntrada, LocalDate dtHomologacao, LocalDate dtCommit,
-			LocalDate dtVencimento , Integer evento_id, Integer id_usuario) {
+			LocalDate dtVencimento , Integer status, Integer id_usuario) {
 		super();
 		this.codigo = codigo;
 		this.os = os;
@@ -39,7 +39,7 @@ public class OrdemServicoModel {
 		this.dtHomologacao = dtHomologacao;
 		this.dtCommit = dtCommit;
 		this.dtVencimento = dtVencimento;
-		this.evento_id = evento_id;
+		this.status = status;
 		this.id_usuario = id_usuario;
 	}
 	
@@ -96,12 +96,12 @@ public class OrdemServicoModel {
 		this.dtCommit = dtCommit;
 	}
 
-	public Integer getEvento_id() {
-		return evento_id;
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setEvento_id(Integer evento_id) {
-		this.evento_id = evento_id;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 

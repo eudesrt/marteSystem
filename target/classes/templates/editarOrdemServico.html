@@ -1,64 +1,99 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base/layout">
-<head>
-<title>Cadastro de Novo Usuario</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="description" content="Marte System dashboard" />
-<meta name="author" content="Rafael Eudes" />
-<script type="text/javascript">
-	function limparMensagem() {
 
-		document.getElementById('p-mensagem-sucesso').innerHTML = '';
-		document.getElementById('msgSucesso').innerHTML = '';
-	}
-</script>
-    
+<head>
+    <title>Cadastro de Novo Usuario</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Marte System dashboard" />
+    <meta name="author" content="Rafael Eudes" />
+    <script type="text/javascript">
+        function limparMensagem() {
+
+            document.getElementById('p-mensagem-sucesso').innerHTML = '';
+            document.getElementById('msgSucesso').innerHTML = '';
+        }
+    </script>
+
 </head>
+
 <body class="cbp-spmenu-push">
     <!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
 
     <section layout:fragment="content">
-	<div id="page-wrapper">
-	     <div class="forms">
-	         <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-	             <div class="form-title">
-	                 <h4>Cadastro de Nova Ordem de Servico:</h4>
-	             </div>
-	             <div class="form-body">
-	                 <form action="#" id="formulario-cadastro-os"  th:action="@{../ordemServico/salvarOrdemServico}" th:object="${ordemServicoModel}" method="post">
-	                 
-						<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST  -->
-						<div th:if="${msg_resultado}" id="msgSucesso">
-							<div class="alert alert-success" role="alert" >
-								<p id="p-mensagem-sucesso" class="sucesso-msg"	th:text="${msg_resultado}">...</p>
-							</div>								
-						</div>
- 						<div class="form-group">
-		     	            <div class="form-group col-md-2">
-		                         <label for="exampleInputName1">Ordem de Serviço:</label>
-		                         <input type=text class="form-control" placeholder="" id="input-os" th:field="*{os}" required="required" >
-		                     </div>
-		                     <div class="form-group col-md-7">
-		                         <label for="exampleInputEmail1">Titulo:</label>
-		                         <input type=text class="form-control" placeholder="" id="input-titulo" th:field="*{titulo}" required="required" >
-		                     </div>
-   		                     <div class="form-group col-md-3">
-		                         <label for="exampleInputEmail1">Data Vencimento:</label>
-		                         <input type="date" class="form-control" placeholder="" id="input-dtVencimento" th:field="*{dtVencimento}" required="required" >
-		                     </div>
-						</div>
-						
+        <div id="page-wrapper">
+            <div class="forms">
+                <div class="form-grids row widget-shadow" data-example-id="basic-forms">
+                    <div class="form-title">
+                        <h4>Edição - Ordem de Servico:</h4>
+                    </div>
+                    <div class="form-body">
+                        <form action="#" id="formulario-cadastro-os" th:action="@{../ordemServico/salvarAlteracao}" th:object="${ordemServicoModel}" method="post">
 
-  						<button type="submit" class="btn btn-primary">Salvar</button>
+                            <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST  -->
+                            <div th:if="${msg_resultado}" id="msgSucesso">
+                                <div class="alert alert-success" role="alert">
+                                    <p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}">...</p>
+                                </div>
+                            </div>
+                            
+							<div class="sign-u">
+								<input type="text" placeholder="Cod" id="input-codigo" th:field="*{codigo}" required="required" readonly="readonly" hidden="true">
+								<div class="clearfix"> </div>
+							</div>
+                            <div class="form-group">
+                                <div class="form-group col-md-2">
+                                    <label for="exampleInputName1"><b>Ordem de Serviço:</b></label>
+                                    <input type=text class="form-control" placeholder="" id="input-os" th:field="*{os}" required="required">
+                                </div>
+                                <div class="form-group col-md-7">
+                                    <label for="exampleInputEmail1"><b>Titulo:</b></label>
+                                    <input type=text class="form-control" placeholder="" id="input-titulo" th:field="*{titulo}" required="required">
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="dtVencimento"><b>Data Vencimento:</b></label>
+                                    <input type="date" class="form-control" placeholder="" id="input-dtVencimento" th:field="*{dtVencimento}" >
+                                </div>
+                                
 
-	                     
-	                 </form>
-	             </div>
-	         </div>
-	     </div>
-	</div>
-    </section> 
+                            </div>
 
+                            <div class="form-group">
+                                <div class="form-group col-md-3">
+                                  	<label for="dtHomolog"><b>Eventos:</b></label>                                
+                                    <select th:field="*{status}" class="form-control">
+                                        <option th:each="eventos : ${statusModel}" th:value="${eventos.evento_id}" th:utext="${eventos.status}" />
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="dtHomolog"><b>Data Homologação:</b></b></label>
+                                    <input type="date" class="form-control" placeholder="" id="input-dtVencimento" th:field="*{dtHomologacao}" >
+                                </div>
+
+                                <div class="form-group col-md-3">
+                                    <label for="dtCommits"><b>Data Commits:</b></label>
+                                    <input type="date" class="form-control" placeholder="" id="input-dtVencimento" th:field="*{dtCommit}" >
+                                </div>
+                                
+                                <div class="form-group col-md-3">
+                                    <label for="dtEntrada"><b>Data Cadastro:</b></label>
+                                    <input type="date" class="form-control" placeholder="" id="input-dtEntrada" th:field="*{dtEntrada}" >
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-primary">Alterar</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </body>
 

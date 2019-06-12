@@ -2,7 +2,6 @@ package com.br.marte.app.model;
 
 public class StatusModel {
 	
-	private Long id_status;	
 	private Integer evento_id;	 
 	private String status;
 	
@@ -16,13 +15,6 @@ public class StatusModel {
 		this.status = status;
 	}	
 
-	public Long getId_status() {
-		return id_status;
-	}
-
-	public void setId_status(Long id_status) {
-		this.id_status = id_status;
-	}
 
 	public Integer getEvento_id() {
 		return evento_id;

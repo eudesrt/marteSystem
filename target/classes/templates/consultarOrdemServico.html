@@ -1,82 +1,83 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="base/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base/layout">
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="description" content="Marte System dashboard" />
-<meta name="author" content="Rafael Eudes" />
-<title>Consultar ordem de Servico</title>
-<body>
-	<section layout:fragment="content">
-		<div id="page-wrapper">
-			<div class="main-page">
-				<div class="tables">
-					<div class="panel-body widget-shadow">
-						<h4>Ordem de Servico</h4>
-						<table class="table table-striped" id="tabelaos">
-							<thead>
-								<tr>
-									<th>OS</th>
-									<th>Descrição</th>
-									<th>Status</th>
-									<th>Data Entrada</th>
-									<th>Data Vencimento</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- PREENCHENDO A TABELA COM OS USUÁRIOS CADASTRADOS-->
-								<th:block th:each="ordemServicoModel : ${ordemServicoModel}">
-									<tr>
-										<td>
-										 <a th:href="@{'../ordemServico/editarOrdemServico?' + codigo+'=' + ${ordemServicoModel.codigo}}" th:text="${ordemServicoModel.os}" ></a>
-										</td>
-										<td th:text="${ordemServicoModel.titulo}" class="mdl-data-table__cell--non-numeric"></td>
-										<div th:if="${ordemServicoModel.evento_id} == '1000' ">
-											<td><span class="label label-default">in progre</span></td>
-										</div>
-										<div th:if="${ordemServicoModel.evento_id} == '1100' ">
-											<td><span class="label label-primary">in desenv</span></td>
-										</div>
-										<div th:if="${ordemServicoModel.evento_id} == '1200' ">
-											<td><span class="label label-warning">in homlog</span></td>
-										</div>
-										<div th:if="${ordemServicoModel.evento_id} == '1300' ">
-											<td><span class="label label-info">pend info</span></td>
-										</div>
-										<div th:if="${ordemServicoModel.evento_id} == '1400' ">
-											<td><span class="label label-danger">in gerenc</span></td>
-										</div>
-										<div th:if="${ordemServicoModel.evento_id} == '9999' ">
-											<td><span class="label label-success">os commit</span></td>
-										</div>
-										<td th:text="${#temporals.format(ordemServicoModel.dtEntrada, 'dd-MM-yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
-										<td	th:text="${#temporals.format(ordemServicoModel.dtVencimento, 'dd-MM-yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
-									</tr>
-								</th:block>
-							</tbody>
-						</table>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Marte System dashboard" />
+    <meta name="author" content="Rafael Eudes" />
+    <title>Consultar ordem de Servico</title>
 
-					</div>
-				</div>
-			</div>
-		</div>
-		<script>
-		
-			$(document).ready(function(){
-			    $('#tabelaos').DataTable({
-			        "language": {
-			              "lengthMenu": "Mostrando _MENU_ registros por página",
-			              "zeroRecords": "Nada encontrado",
-			              "info": "Mostrando página _PAGE_ de _PAGES_",
-			              "infoEmpty": "Nenhum registro disponível",
-			              "infoFiltered": "(filtrado de _MAX_ registros no total)"
-			          }
-			      });
-			});
-		
-		</script>
-	</section>
+    <body>
+        <section layout:fragment="content">
+            <div id="page-wrapper">
+                <div class="main-page">
+                    <div class="tables">
+                        <div class="panel-body widget-shadow">
+                            <h4>Ordem de Servico</h4>
+                            <table class="table table-striped" id="tabelaos">
+                                <thead>
+                                    <tr>
+                                        <th>OS</th>
+                                        <th>Descrição</th>
+                                        <th>Status</th>
+                                        <th>Data Entrada</th>
+                                        <th>Data Vencimento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- PREENCHENDO A TABELA COM OS USUÁRIOS CADASTRADOS-->
+                                    <th:block th:each="ordemServicoModel : ${ordemServicoModel}">
+                                        <tr>
+                                            <td>
+                                                <a th:href="@{'../ordemServico/editarOrdemServico?' + codigo+'=' + ${ordemServicoModel.codigo}}" th:text="${ordemServicoModel.os}"></a>
+                                            </td>
+                                            <td>
+                                            	<a th:href="@{'../ordemServico/editarOrdemServico?' + codigo+'=' + ${ordemServicoModel.codigo}}" th:text="${ordemServicoModel.titulo}" class="mdl-data-table__cell--non-numeric"></a>
+                                            </td>
+                                            <div th:if="${ordemServicoModel.status} == '1000' ">
+                                                <td><span class="label label-default">os aberta&nbsp;&nbsp;&nbsp;</span></td>
+                                            </div>
+                                            <div th:if="${ordemServicoModel.status} == '1100' ">
+                                                <td><span class="label label-primary">desenvolvo</span></td>
+                                            </div>
+                                            <div th:if="${ordemServicoModel.status} == '1200' ">
+                                                <td><span class="label label-warning">homologan</span></td>
+                                            </div>
+                                            <div th:if="${ordemServicoModel.status} == '1300' ">
+                                                <td><span class="label label-info">pedentente&nbsp;</span></td>
+                                            </div>
+                                            <div th:if="${ordemServicoModel.status} == '1400' ">
+                                                <td><span class="label label-danger">na gerencia</span></td>
+                                            </div>
+                                            <div th:if="${ordemServicoModel.status} == '9999' ">
+                                                <td><span class="label label-success">commitada&nbsp;</span></td>
+                                            </div>
+                                            <td th:text="${#temporals.format(ordemServicoModel.dtEntrada, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                            <td th:text="${#temporals.format(ordemServicoModel.dtVencimento, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                        </tr>
+                                    </th:block>
+                                </tbody>
+                            </table>
 
-</body>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function() {
+                    $('#tabelaos').DataTable({
+                        "language": {
+                            "lengthMenu": "Mostrando _MENU_ registros por página",
+                            "zeroRecords": "Nada encontrado",
+                            "info": "Mostrando página _PAGE_ de _PAGES_",
+                            "infoEmpty": "Nenhum registro disponível",
+                            "infoFiltered": "(filtrado de _MAX_ registros no total)"
+                        }
+                    });
+                });
+            </script>
+        </section>
+
+    </body>
+
 </html>
