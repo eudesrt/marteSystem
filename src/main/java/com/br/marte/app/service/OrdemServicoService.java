@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -59,7 +60,8 @@ public class OrdemServicoService {
 
 		List<OrdemServicoModel> ordemServicoModel = new ArrayList<OrdemServicoModel>();
 
-		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository.findAll();
+		Sort sort = Sort.by(Sort.Order.desc("codigo"));
+		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
 
 		ordemServicosEntity.forEach(ordemServicoEntity -> {
 			
