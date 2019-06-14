@@ -39,6 +39,12 @@ public class OrdemServico {
 	
 	@Column(name = "dt_venc")
 	private LocalDate dt_venc;
+	
+	@Column(name="descricao")
+	private String descricao;
+	
+	@Column(name="solicitante")
+	private String solicitante;
 
 	
 	@NotNull
@@ -122,11 +128,29 @@ public class OrdemServico {
 
 	public void setId_usuario(Usuario id_usuario) {
 		this.id_usuario = id_usuario;
+	}	
+	
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getSolicitante() {
+		return solicitante;
+	}
+
+	public void setSolicitante(String solicitante) {
+		this.solicitante = solicitante;
 	}
 
 	@Override
 	public String toString() {
 		return "OrdemServico [codigo=" + codigo + ", os=" + os + "]";
 	}	
+	
 
 }

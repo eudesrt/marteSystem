@@ -7,6 +7,8 @@ CREATE TABLE tb_servico(
 	dt_homologacao DATE ,
 	dt_commit DATE ,
     dt_venc DATE ,
+    descricao TEXT,
+    solicitante VARCHAR(100),
 	evento_id INT NOT NULL,
 	id_usuario INT,
 	FOREIGN KEY (evento_id) REFERENCES tb_status(evento_id),
