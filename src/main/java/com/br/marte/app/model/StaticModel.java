@@ -5,14 +5,16 @@ public class StaticModel {
 	private int os_desev;
 	private int os_pendente;	
 	private int os_homol;
+	private int os_gerencia;
 	private int os_fechas;
 	
-	public StaticModel(int os_nova, int os_desev,int os_pendente,  int os_homol, int os_fechas) {
+	public StaticModel(int os_nova, int os_desev,int os_pendente,  int os_homol, int os_gerencia, int os_fechas) {
 		super();
 		this.os_nova = os_nova;
 		this.os_desev = os_desev;
 		this.os_pendente = os_pendente;
 		this.os_homol = os_homol;
+		this.os_gerencia = os_gerencia;
 		this.os_fechas = os_fechas;
 	}	
 
@@ -55,5 +57,14 @@ public class StaticModel {
 
 	public void setOs_fechas(int os_fechas) {
 		this.os_fechas = os_fechas;
-	}	
+	}
+
+
+	public int getOs_gerencia() {
+		return os_gerencia;
+	}
+
+	public void setOs_gerencia(int os_gerencia) {
+		this.os_gerencia = os_gerencia;
+	}		
 }

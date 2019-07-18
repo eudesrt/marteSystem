@@ -6,15 +6,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
-import com.br.marte.app.entity.Grupo;
 import com.br.marte.app.entity.OrdemServico;
-import com.br.marte.app.entity.Usuario;
 import com.br.marte.app.model.OrdemServicoModel;
-import com.br.marte.app.model.UsuarioModel;
 import com.br.marte.app.repository.OrdemServicoRepository;
 import com.br.marte.app.repository.StatusRepository;
 
@@ -60,11 +55,10 @@ public class OrdemServicoService {
 
 		List<OrdemServicoModel> ordemServicoModel = new ArrayList<OrdemServicoModel>();
 
-		Sort sort = Sort.by(Sort.Order.desc("codigo"));
-		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
+		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository
+				.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
 
 		ordemServicosEntity.forEach(ordemServicoEntity -> {
-			
 
 			ordemServicoModel.add(new OrdemServicoModel(ordemServicoEntity.getCodigo(), ordemServicoEntity.getOs(),
 					ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
@@ -87,16 +81,14 @@ public class OrdemServicoService {
 				ordemServicoEntity.getId_usuario().getCodigo().intValue());
 
 	}
-	
-	
-	
+
 	/**
 	 * ALTERA AS INFORMAÇÕES DO USU�?RIO
 	 */
 	public void alterarOrdemServico(OrdemServicoModel ordemServicoModel) {
 
 		OrdemServico ordemServicoEntity = this.ordemServicoRepository.getOne(ordemServicoModel.getCodigo());
-		
+
 		ordemServicoEntity.setOs(ordemServicoModel.getOs());
 		ordemServicoEntity.setDt_entrada(ordemServicoModel.getDtEntrada());
 		ordemServicoEntity.setDt_venc(ordemServicoModel.getDtVencimento());
@@ -104,7 +96,6 @@ public class OrdemServicoService {
 		ordemServicoEntity.setStatus(statusRepository.getOne(ordemServicoModel.getStatus().intValue()));
 		ordemServicoEntity.setDt_commit(ordemServicoModel.getDtCommit());
 		ordemServicoEntity.setDt_homologacao(ordemServicoModel.getDtHomologacao());
-
 
 		/* SALVANDO ALTERAÇÃO DO REGISTRO */
 		this.ordemServicoRepository.saveAndFlush(ordemServicoEntity);
