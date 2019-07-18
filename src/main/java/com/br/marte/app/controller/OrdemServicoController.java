@@ -60,9 +60,7 @@ public class OrdemServicoController {
             } else {
             	System.out.println("Status :: Data no prazo");
             }
-        }        
-
-		
+        }  		
 	}
 	
 	
@@ -82,7 +80,7 @@ public class OrdemServicoController {
 
 		/*
 		 * VERIFICA SE TEM ALGUM ERRO (@NotEmpty), SE TIVER ALGUM ERRO DEVEMOS RETORNAR
-		 * PARA A MESMA P�?GINA PARA O USU�?RIO CORRIGIR
+		 * PARA A MESMA P�?GINA PARA O USUARIO CORRIGIR
 		 */
 		if (result.hasErrors()) {
 
@@ -93,7 +91,7 @@ public class OrdemServicoController {
 			/* ADICIONA O GRUPOS QUE VÃO SER MOSTRADOS NA P�?GINA */
 			model.addAttribute("status", statusModel);
 
-			/* ADICIONA OS DADOS DO USU�?RIO PARA COLOCAR NO FORMUL�?RIO */
+			/* ADICIONA OS DADOS DO USUARIO PARA COLOCAR NO FORMUL�?RIO */
 			model.addAttribute("ordemServicoModel", ordemServicoModel);
 
 			/* RETORNA A VIEW */
@@ -125,10 +123,10 @@ public class OrdemServicoController {
 	 * @return
 	 */
 	@RequestMapping(value = "/consultarOrdemServico", method = RequestMethod.GET)
-	public ModelAndView consultarOrdemServico(Model model) {
+	public ModelAndView consultarOrdemServico(@RequestParam("codigo") Integer codigo , Model model) {
 
 		/* CONSULTA USUARIOS CADASTRADOS */
-		model.addAttribute("ordemServicoModel", this.ordemServicoService.consultarOrdemServico());
+		model.addAttribute("ordemServicoModel", this.ordemServicoService.consultarOrdemServico(codigo));
 
 		/* RETORNA A VIEW */
 		return new ModelAndView("consultarOrdemServico");
@@ -165,7 +163,7 @@ public class OrdemServicoController {
 		
 
 		/* APÓS SALVAR VAMOS REDIRICIONAR O ORDEM DE SERVICO PARA A PAGINA DE CONSULTA */
-		ModelAndView modelAndView = new ModelAndView("redirect:/ordemServico/consultarOrdemServico");		
+		ModelAndView modelAndView = new ModelAndView("redirect:/ordemServico/consultarOrdemServico?codigo=0");		
 		
 
 		/* RETORNANDO A VIEW */

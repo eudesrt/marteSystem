@@ -37,10 +37,9 @@ public class MainController {
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {		
-	//	List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository.findStatus(codigo);
+	//	
 		
-		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();
-		
+		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();		
 		
 		Integer novo = 0; 
 		Integer desenvolvendo = 0;

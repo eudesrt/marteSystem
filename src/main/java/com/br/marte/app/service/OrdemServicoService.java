@@ -51,12 +51,16 @@ public class OrdemServicoService {
 	 * 
 	 * @return
 	 */
-	public List<OrdemServicoModel> consultarOrdemServico() {
-
+	public List<OrdemServicoModel> consultarOrdemServico(Integer codigo) {
 		List<OrdemServicoModel> ordemServicoModel = new ArrayList<OrdemServicoModel>();
-
-		List<OrdemServico> ordemServicosEntity = this.ordemServicoRepository
-				.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
+		
+		List<OrdemServico> ordemServicosEntity = null;
+		
+		if(codigo == null || codigo == 0) {
+			ordemServicosEntity = this.ordemServicoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
+		}else {
+			ordemServicosEntity = this.ordemServicoRepository.findStatus(codigo);
+		}
 
 		ordemServicosEntity.forEach(ordemServicoEntity -> {
 
