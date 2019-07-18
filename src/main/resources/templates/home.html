@@ -15,7 +15,20 @@
 	<div th:if="${msg_resultado}" id="msgSucesso">
 		<p id="p-mensagem-sucesso" class="sucesso-msg"	th:text="${msg_resultado}">...</p>
 	</div>
-	<form action="#" id="formulario-home" th:action="@{/home}" th:object="${staticModel}" method="post">
+	<form action="#" id="formulario-home" th:action="@{/home}" th:object="${staticModel}" method="post">	
+	<input type="hidden" id="jan" name="jan" th:value="*{jan}">
+	<input type="hidden" id="fev" name="fev" th:value="*{fev}">
+	<input type="hidden" id="mar" name="mar" th:value="*{mar}">
+	<input type="hidden" id="abr" name="abr" th:value="*{abr}">
+	<input type="hidden" id="mai" name="mai" th:value="*{mai}">
+	<input type="hidden" id="jun" name="jun" th:value="*{jun}">
+	<input type="hidden" id="jul" name="jul" th:value="*{jul}">
+	<input type="hidden" id="ago" name="ago" th:value="*{ago}">
+	<input type="hidden" id="set" name="set" th:value="*{set}">
+	<input type="hidden" id="out" name="out" th:value="*{out}">
+	<input type="hidden" id="nov" name="nov" th:value="*{nov}">
+	<input type="hidden" id="dez" name="dez" th:value="*{dez}">
+	
 		<div id="page-wrapper">
 			<div class="main-page">
 				<div class="col_3">
@@ -69,7 +82,7 @@
 							<i class="pull-left fa fa-thumbs-up dollar2 icon-rounded"></i>
 							<div class="stats">
 								<h5>
-									<strong th:text="*{os_fechas}"></strong>
+									<strong th:text="*{os_fechas}" ></strong>
 								</h5>
 								<span><a th:href="@{/ordemServico/consultarOrdemServico?codigo=9999}">Fechadas</a></span>
 							</div>
@@ -78,7 +91,72 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>
-		</div>
+			
+			<br>
+			
+			<div class="row-one widgettable">
+				<div class="col-md-7 content-top-2 card">
+                   	<center><h3 class="tlt">Analytics</h3></center>
+                     <canvas id="bar-chart" width="1000" height="450"></canvas>
+
+						<script>
+							// Bar chart
+							
+							var jan = document.getElementById("jan").value;
+							var fev = document.getElementById("fev").value;
+							var mar = document.getElementById("mar").value;
+							var abr = document.getElementById("abr").value;
+							var mai = document.getElementById("mai").value;
+							var jun = document.getElementById("jun").value;
+							var jul = document.getElementById("jul").value;
+							var ago = document.getElementById("ago").value;
+							var set = document.getElementById("set").value;
+							var out = document.getElementById("out").value;
+							var nov = document.getElementById("nov").value;
+							var dez = document.getElementById("dez").value;
+							
+							new Chart(
+									document.getElementById("bar-chart"),
+									{
+										type : 'bar',
+										data : {
+											labels : [ "Janeiro", "Fevereiro",
+													"Março", "Abril", "Maio",
+													"Junho", "Julho", "Agosto",
+													"Setembro", "Outubro",
+													"Novembro", "Dezembro" ],
+											datasets : [ {
+												label : "Ordem de Serviço",
+												backgroundColor : [ "#3e95cd",
+														"#8e5ea2", "#3cba9f",
+														"#e8c3b9", "#c45850",
+														"#3e95cd", "#8e5ea2",
+														"#3cba9f", "#e8c3b9",
+														"#c45850", "#3e95cd",
+														"#8e5ea2" ],
+												data : [ jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez ]
+											} ]
+										},
+										options : {
+											legend : {
+												display : false
+											},
+											title : {
+												display : true,
+												text : 'Total de Ordem de Serviço 2019'
+											}
+										}
+									});
+						</script>
+				</div>			
+			</div>
+			
+
+		
+	 <div class="clearfix"> </div>
+  </div>
+<!--main page chart layer2-->		
+			
 	</form>
 	</section>
 	<div class="mdl-layout-spacer"></div>

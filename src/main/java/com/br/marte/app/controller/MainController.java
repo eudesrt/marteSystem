@@ -41,12 +41,24 @@ public class MainController {
 		
 		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();		
 		
-		Integer novo = 0; 
+		Integer novo = 0;
 		Integer desenvolvendo = 0;
 		Integer homologando = 0;
 		Integer pendente = 0;
 		Integer gerencia = 0;
 		Integer fechado = 0;
+		Integer jan = 0;
+		Integer fev = 0;
+		Integer mar = 0;
+		Integer abr = 0;
+		Integer mai = 0;
+		Integer jun = 0;
+		Integer jul = 0;
+		Integer ago = 0;
+		Integer set = 0;
+		Integer out = 0;
+		Integer nov = 0;
+		Integer dez = 0;
 		
 		for(Object[] s:statuStatic) {
 			
@@ -57,10 +69,21 @@ public class MainController {
 			pendente = Integer.valueOf(s[3].toString());
 			gerencia = Integer.valueOf(s[4].toString());
 			fechado = Integer.valueOf(s[5].toString());
-	
+			jan = Integer.valueOf(s[6].toString());
+			fev = Integer.valueOf(s[7].toString());
+			mar = Integer.valueOf(s[8].toString()); 
+			abr = Integer.valueOf(s[9].toString()); 
+			mai = Integer.valueOf(s[10].toString()); 
+			jun = Integer.valueOf(s[11].toString()); 
+			jul = Integer.valueOf(s[12].toString()); 
+			ago = Integer.valueOf(s[13].toString()); 
+			set = Integer.valueOf(s[14].toString()); 
+			out = Integer.valueOf(s[15].toString()); 
+			nov = Integer.valueOf(s[16].toString()); 
+			dez = Integer.valueOf(s[17].toString());	
 		}
  		
-		model.addAttribute("staticModel",  new StaticModel(novo, desenvolvendo , pendente , homologando, gerencia , fechado));
+		model.addAttribute("staticModel",  new StaticModel(novo, desenvolvendo , pendente , homologando, gerencia , fechado , jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez));
 
 		return "home";
 	}
