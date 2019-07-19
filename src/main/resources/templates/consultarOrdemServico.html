@@ -49,6 +49,9 @@
                                             <div th:if="${ordemServicoModel.status} == '1400' ">
                                                 <td><span class="label label-danger">na gerencia</span></td>
                                             </div>
+                                            <div th:if="${ordemServicoModel.status} == '9998' ">
+                                                <td><span class="label label-success">Cancelada&nbsp;</span></td>
+                                            </div>
                                             <div th:if="${ordemServicoModel.status} == '9999' ">
                                                 <td><span class="label label-success">commitada&nbsp;</span></td>
                                             </div>

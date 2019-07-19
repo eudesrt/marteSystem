@@ -1,1 +1,1 @@
-insert into tb_status (evento_id,status) values (9998,'DESCONTINUADO');
+insert into tb_status (evento_id,status) values (9998,'CANCELADA');
