@@ -1,165 +1,228 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="base/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base/layout">
+
 <head>
-<title>Home Dashboard</title>
+    <title>Home Dashboard</title>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta name="description" content="Marte System dashboard" />
-<meta name="author" content="Rafael Eudes" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Marte System dashboard" />
+    <meta name="author" content="Rafael Eudes" />
 </head>
+
 <body class="cbp-spmenu-push">
-	<section layout:fragment="content">
-	<!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
-	<div th:if="${msg_resultado}" id="msgSucesso">
-		<p id="p-mensagem-sucesso" class="sucesso-msg"	th:text="${msg_resultado}">...</p>
-	</div>
-	<form action="#" id="formulario-home" th:action="@{/home}" th:object="${staticModel}" method="post">	
-	<input type="hidden" id="jan" name="jan" th:value="*{jan}">
-	<input type="hidden" id="fev" name="fev" th:value="*{fev}">
-	<input type="hidden" id="mar" name="mar" th:value="*{mar}">
-	<input type="hidden" id="abr" name="abr" th:value="*{abr}">
-	<input type="hidden" id="mai" name="mai" th:value="*{mai}">
-	<input type="hidden" id="jun" name="jun" th:value="*{jun}">
-	<input type="hidden" id="jul" name="jul" th:value="*{jul}">
-	<input type="hidden" id="ago" name="ago" th:value="*{ago}">
-	<input type="hidden" id="set" name="set" th:value="*{set}">
-	<input type="hidden" id="out" name="out" th:value="*{out}">
-	<input type="hidden" id="nov" name="nov" th:value="*{nov}">
-	<input type="hidden" id="dez" name="dez" th:value="*{dez}">
-	
-		<div id="page-wrapper">
-			<div class="main-page">
-				<div class="col_3">
+    <section layout:fragment="content">
+        <!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
+        <div th:if="${msg_resultado}" id="msgSucesso">
+            <p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}">...</p>
+        </div>
+        <form action="#" id="formulario-home" th:action="@{/home}" th:object="${staticModel}" method="post">
+            <input type="hidden" id="jan" name="jan" th:value="*{jan}">
+            <input type="hidden" id="fev" name="fev" th:value="*{fev}">
+            <input type="hidden" id="mar" name="mar" th:value="*{mar}">
+            <input type="hidden" id="abr" name="abr" th:value="*{abr}">
+            <input type="hidden" id="mai" name="mai" th:value="*{mai}">
+            <input type="hidden" id="jun" name="jun" th:value="*{jun}">
+            <input type="hidden" id="jul" name="jul" th:value="*{jul}">
+            <input type="hidden" id="ago" name="ago" th:value="*{ago}">
+            <input type="hidden" id="set" name="set" th:value="*{set}">
+            <input type="hidden" id="out" name="out" th:value="*{out}">
+            <input type="hidden" id="nov" name="nov" th:value="*{nov}">
+            <input type="hidden" id="dez" name="dez" th:value="*{dez}">
+            <input type="hidden" id="slaFora" name="slaFora" th:value="*{slaFora}">
+            <input type="hidden" id="slaDentro" name="slaDentro" th:value="*{slaDentro}">
 
-					<div class="col-md-3 widget widget1">
-						<div class="r3_counter_box">
-							<i class="pull-left fa fa-floppy-o user1 icon-rounded"></i>
-							<div class="stats">
-								<h5>
-									<strong th:text="*{os_nova}"></strong>
-								</h5>
-								<span><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1000}">OS Nova</a></span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 widget widget1">
-						<div class="r3_counter_box">
-							<i class="pull-left fa fa-cogs user2 icon-rounded"></i>
-							<div class="stats">
-								<h5>
-									<strong th:text="*{os_desev}"></strong>
-								</h5>
-								<span><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1100}">Em Desenv</a></span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 widget widget1">
-						<div class="r3_counter_box">
-							<i class="pull-left fa fa-hourglass-o icon-rounded"></i>
-							<div class="stats">
-								<h5>
-									<strong th:text="*{os_pendente}"></strong>
-								</h5>
-								<span><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1300}">Pendente Info</a></span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 widget widget1">
-						<div class="r3_counter_box">
-							<i class="pull-left fa fa-laptop dollar1 icon-rounded"></i>
-							<div class="stats">
-								<h5>
-									<strong th:text="*{os_homol}"></strong>
-								</h5>
-								<span><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1200}">Em Homolog</a></span>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 widget">
-						<div class="r3_counter_box">
-							<i class="pull-left fa fa-thumbs-up dollar2 icon-rounded"></i>
-							<div class="stats">
-								<h5>
-									<strong th:text="*{os_fechas}" ></strong>
-								</h5>
-								<span><a th:href="@{/ordemServico/consultarOrdemServico?codigo=9999}">Fechadas</a></span>
-							</div>
-						</div>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-			
-			<br>
-			
-			<div class="row-one widgettable">
-				<div class="col-md-7 content-top-2 card">
-                   	<center><h3 class="tlt">Analytics</h3></center>
-                     <canvas id="bar-chart" width="1000" height="450"></canvas>
+            <div id="page-wrapper">
+                <div class="main-page">
+                    <div class="col_3">
 
-						<script>
-							// Bar chart
-							
-							var jan = document.getElementById("jan").value;
-							var fev = document.getElementById("fev").value;
-							var mar = document.getElementById("mar").value;
-							var abr = document.getElementById("abr").value;
-							var mai = document.getElementById("mai").value;
-							var jun = document.getElementById("jun").value;
-							var jul = document.getElementById("jul").value;
-							var ago = document.getElementById("ago").value;
-							var set = document.getElementById("set").value;
-							var out = document.getElementById("out").value;
-							var nov = document.getElementById("nov").value;
-							var dez = document.getElementById("dez").value;
-							
-							new Chart(
-									document.getElementById("bar-chart"),
-									{
-										type : 'bar',
-										data : {
-											labels : [ "Janeiro", "Fevereiro",
-													"Março", "Abril", "Maio",
-													"Junho", "Julho", "Agosto",
-													"Setembro", "Outubro",
-													"Novembro", "Dezembro" ],
-											datasets : [ {
-												label : "Ordem de Serviço",
-												backgroundColor : [ "#3e95cd",
-														"#8e5ea2", "#3cba9f",
-														"#e8c3b9", "#c45850",
-														"#3e95cd", "#8e5ea2",
-														"#3cba9f", "#e8c3b9",
-														"#c45850", "#3e95cd",
-														"#8e5ea2" ],
-												data : [ jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez ]
-											} ]
-										},
-										options : {
-											legend : {
-												display : false
-											},
-											title : {
-												display : true,
-												text : 'Total de Ordem de Serviço 2019'
-											}
-										}
-									});
-						</script>
-				</div>			
-			</div>
-			
+                        <div class="col-md-3 widget widget1">
+                            <div class="r3_counter_box">
+                                <i class="pull-left fa fa-floppy-o user1 icon-rounded"></i>
+                                <div class="stats">
+                                    <h5>
+										<strong th:text="*{os_nova}"></strong>
+									</h5>
+                                    <span><a
+										th:href="@{/ordemServico/consultarOrdemServico?codigo=1000}">OS
+											Nova</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 widget widget1">
+                            <div class="r3_counter_box">
+                                <i class="pull-left fa fa-cogs user2 icon-rounded"></i>
+                                <div class="stats">
+                                    <h5>
+										<strong th:text="*{os_desev}"></strong>
+									</h5>
+                                    <span><a
+										th:href="@{/ordemServico/consultarOrdemServico?codigo=1100}">Em
+											Desenv</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 widget widget1">
+                            <div class="r3_counter_box">
+                                <i class="pull-left fa fa-hourglass-o icon-rounded"></i>
+                                <div class="stats">
+                                    <h5>
+										<strong th:text="*{os_pendente}"></strong>
+									</h5>
+                                    <span><a
+										th:href="@{/ordemServico/consultarOrdemServico?codigo=1300}">Pendente
+											Info</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 widget widget1">
+                            <div class="r3_counter_box">
+                                <i class="pull-left fa fa-laptop dollar1 icon-rounded"></i>
+                                <div class="stats">
+                                    <h5>
+										<strong th:text="*{os_homol}"></strong>
+									</h5>
+                                    <span><a
+										th:href="@{/ordemServico/consultarOrdemServico?codigo=1200}">Em
+											Homolog</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 widget">
+                            <div class="r3_counter_box">
+                                <i class="pull-left fa fa-thumbs-up dollar2 icon-rounded"></i>
+                                <div class="stats">
+                                    <h5>
+										<strong th:text="*{os_fechas}"></strong>
+									</h5>
+                                    <span><a
+										th:href="@{/ordemServico/consultarOrdemServico?codigo=9999}">Fechadas</a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <br>
 
-		
-	 <div class="clearfix"> </div>
-  </div>
-<!--main page chart layer2-->		
-			
-	</form>
-	</section>
-	<div class="mdl-layout-spacer"></div>
+                <!-- mainpage-chit -->
+
+                <div class="col-md-6 chit-chat-layer1-left">
+                    <div class="geo-chart">
+
+                        <h3 class="tlt" align="center">Analytics YEAR</h3>
+                        <canvas id="bar-chart" width="800" height="450"></canvas>
+
+                        <script>
+                            // Bar chart
+
+                            var jan = document.getElementById("jan").value;
+                            var fev = document.getElementById("fev").value;
+                            var mar = document.getElementById("mar").value;
+                            var abr = document.getElementById("abr").value;
+                            var mai = document.getElementById("mai").value;
+                            var jun = document.getElementById("jun").value;
+                            var jul = document.getElementById("jul").value;
+                            var ago = document.getElementById("ago").value;
+                            var set = document.getElementById("set").value;
+                            var out = document.getElementById("out").value;
+                            var nov = document.getElementById("nov").value;
+                            var dez = document.getElementById("dez").value;
+
+                            new Chart(
+                                document.getElementById("bar-chart"), {
+                                    type: 'bar',
+                                    data: {
+                                        labels: ["Janeiro",
+                                            "Fevereiro", "Março",
+                                            "Abril", "Maio",
+                                            "Junho", "Julho",
+                                            "Agosto", "Setembro",
+                                            "Outubro", "Novembro",
+                                            "Dezembro"
+                                        ],
+                                        datasets: [{
+                                            label: "Ordem de Serviço",
+                                            backgroundColor: [
+                                                "#3e95cd",
+                                                "#8e5ea2",
+                                                "#3cba9f",
+                                                "#e8c3b9",
+                                                "#c45850",
+                                                "#3e95cd",
+                                                "#8e5ea2",
+                                                "#3cba9f",
+                                                "#e8c3b9",
+                                                "#c45850",
+                                                "#3e95cd",
+                                                "#8e5ea2"
+                                            ],
+                                            data: [jan, fev, mar,
+                                                abr, mai, jun, jul,
+                                                ago, set, out, nov,
+                                                dez
+                                            ]
+                                        }]
+                                    },
+                                    options: {
+                                        legend: {
+                                            display: false
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Total de Ordem de Serviço 2019'
+                                        }
+                                    }
+                                });
+                        </script>
+
+                    </div>
+                </div>
+                <div class="col-md-6 chit-chat-layer1-rit">
+                    <div class="geo-chart">
+                        <h3 class="tlt" align="center">SLA MONTH</h3>
+                        <canvas id="pie-chart" width="800" height="450"></canvas>
+                        <div class="wrapper-flex">
+                            <script>
+                                var slaFora = document.getElementById("slaFora").value;
+                                var slaDentro = document.getElementById("slaDentro").value;
+
+                                new Chart(
+                                    document.getElementById("pie-chart"), {
+                                        type: 'pie',
+                                        data: {
+                                            labels: ["Dentro do Prazo",
+                                                "Fora do Prazo"
+                                            ],
+                                            datasets: [{
+                                                label: "Population (millions)",
+                                                backgroundColor: [
+                                                    "#57ba3c",
+                                                    "#ba423c"
+                                                ],
+                                                data: [slaFora, slaDentro]
+                                            }]
+                                        },
+                                        options: {
+                                            title: {
+                                                display: true,
+                                                text: 'Ordem de Serviço Fechadas no Mês'
+                                            }
+                                        }
+                                    });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- //mainpage-chit -->
+
+                <div class="clearfix"></div>
+                <!--main page chart layer2-->
+            </div>
+        </form>
+    </section>
+    <div class="mdl-layout-spacer"></div>
 
 </body>
+
 </html>

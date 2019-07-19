@@ -46,19 +46,19 @@ public class OrdemServicoController {
 	
 	public static void main(String[] args) {		
 		
-        LocalDate nineApr = LocalDate.parse("2019-06-11");        
+        LocalDate dataPrazo = LocalDate.parse("2019-07-21"); 
+        LocalDate dataDia = LocalDate.now();   
          
-        boolean isBefore = nineApr.isAfter(LocalDate.now());
         
-        if(nineApr.isEqual(LocalDate.now())) {
-        	System.out.println("Status :: Data dia");
-        }else {
-            isBefore = nineApr.isAfter(LocalDate.now());
-            
-            if(isBefore) {
-            	System.out.println("Status :: Data Superior a data do dia");
+        if(dataPrazo.isEqual(dataDia)) {
+        	System.out.println("Status :: DATA NO PRAZO");
+        }else {            
+           
+        	if(dataPrazo.isAfter(dataDia)) {            	
+            	System.out.println("Status :: FORA DO PRAZO");
+            	
             } else {
-            	System.out.println("Status :: Data no prazo");
+            	System.out.println("Status :: DATA NO PRAZO");
             }
         }  		
 	}

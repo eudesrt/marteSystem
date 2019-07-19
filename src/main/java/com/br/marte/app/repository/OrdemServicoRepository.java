@@ -38,4 +38,15 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 			+ " FROM tb_servico u ", nativeQuery = true)
 	public List<Object[]> findStatusStatic();	
 	
+	
+	
+	//QUERY COM JPQL
+	@Query(value = "SELECT DT_VENC FROM TB_SERVICO where EXTRACT(MONTH FROM DT_VENC) = EXTRACT(MONTH FROM now())", nativeQuery = true)
+	public List<Object[]> findDateStatic();	
+	
+	
+	
+	
+	
+	
 }

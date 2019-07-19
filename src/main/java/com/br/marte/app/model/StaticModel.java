@@ -18,11 +18,13 @@ public class StaticModel {
 	private Integer set;
 	private Integer out;
 	private Integer nov;
-	private Integer dez;	
+	private Integer dez;
+	private Integer slaDentro;
+	private Integer slaFora;
 	
 	public StaticModel(Integer os_nova, Integer os_desev, Integer os_pendente, Integer os_homol, Integer os_gerencia,
 			Integer os_fechas, Integer jan, Integer fev, Integer mar, Integer abr, Integer mai, Integer jun,
-			Integer jul, Integer ago, Integer set, Integer out, Integer nov, Integer dez) {
+			Integer jul, Integer ago, Integer set, Integer out, Integer nov, Integer dez ,Integer slaDentro ,Integer slaFora) {
 		
 		this.os_nova = os_nova;
 		this.os_desev = os_desev;
@@ -42,6 +44,8 @@ public class StaticModel {
 		this.out = out;
 		this.nov = nov;
 		this.dez = dez;
+		this.slaDentro = slaDentro;
+		this.slaFora = slaFora;
 	}
 	
 	public Integer getOs_nova() {
@@ -151,6 +155,21 @@ public class StaticModel {
 	}
 	public void setDez(Integer dez) {
 		this.dez = dez;
-	}	
+	}
 
+	public Integer getSlaDentro() {
+		return slaDentro;
+	}
+
+	public void setSlaDentro(Integer slaDentro) {
+		this.slaDentro = slaDentro;
+	}
+
+	public Integer getSlaFora() {
+		return slaFora;
+	}
+
+	public void setSlaFora(Integer slaFora) {
+		this.slaFora = slaFora;
+	}	
 }

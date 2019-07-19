@@ -1,5 +1,6 @@
 package com.br.marte.app.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,10 @@ public class MainController {
 	public String home(Model model) {		
 	//	
 		
-		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();		
+		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();	
+		List<Object[]> dateStatic = this.ordemServicoRepository.findDateStatic();
+		
+		
 		
 		Integer novo = 0;
 		Integer desenvolvendo = 0;
@@ -59,6 +63,9 @@ public class MainController {
 		Integer out = 0;
 		Integer nov = 0;
 		Integer dez = 0;
+		Integer slaDentro = 0;
+		Integer slaFora = 0;
+
 		
 		for(Object[] s:statuStatic) {
 			
@@ -82,8 +89,31 @@ public class MainController {
 			nov = Integer.valueOf(s[16].toString()); 
 			dez = Integer.valueOf(s[17].toString());	
 		}
+		
+		
+		for(Object[] s:dateStatic) {
+			
+	        LocalDate dataPrazo = LocalDate.parse(s[0].toString()); 
+	        LocalDate dataDia = LocalDate.now();   
+	         
+	        
+	        if(dataPrazo.isEqual(dataDia)) {
+	        	System.out.println("Status :: DATA NO PRAZO");
+	        	slaFora ++;
+	        }else {            
+	           
+	        	if(dataPrazo.isAfter(dataDia)) {            	
+	            	System.out.println("Status :: FORA DO PRAZO");
+	            	slaDentro ++;
+	            } else {
+	            	System.out.println("Status :: DATA NO PRAZO");
+	            	slaFora++;
+	            }
+	        }  
+			
+		}
  		
-		model.addAttribute("staticModel",  new StaticModel(novo, desenvolvendo , pendente , homologando, gerencia , fechado , jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez));
+		model.addAttribute("staticModel",  new StaticModel(novo, desenvolvendo , pendente , homologando, gerencia , fechado , jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez,slaDentro,slaFora));
 
 		return "home";
 	}
