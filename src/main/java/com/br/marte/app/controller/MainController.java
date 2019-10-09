@@ -95,25 +95,29 @@ public class MainController {
 			
 	        LocalDate dataPrazo = LocalDate.parse(s[0].toString()); 
 	        LocalDate dataDia = LocalDate.now();   
+	        
+	        System.out.println("DATA DA OS : " + dataPrazo + " DATA DIA : " + dataDia);
 	         
 	        
 	        if(dataPrazo.isEqual(dataDia)) {
-            	System.out.println("Status :: DATA NO PRAZO");
+            	System.out.println("Status :: DATA NO PRAZO DATA DIA");
 	        	slaDentro ++;
 	        }else {            
 	           
 	        	if(dataPrazo.isAfter(dataDia)) {  
-	            	System.out.println("Status :: DATA NO PRAZO");
+	            	System.out.println("Status :: FORA NO PRAZO");	            	
 	            	slaFora ++;
 	            } else {
-	            	System.out.println("Status :: FORA DO PRAZO");
+	            	System.out.println("Status :: DENTRO DO PRAZO");
 	            	slaDentro++;
 	            }
 	        }  
 			
 		}
+		
  		
 		model.addAttribute("staticModel",  new StaticModel(novo, desenvolvendo , pendente , homologando, gerencia , fechado , jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez,slaDentro,slaFora));
+		System.out.println("slaDentro " + slaDentro + " slaFora " + slaFora);
 
 		return "home";
 	}
