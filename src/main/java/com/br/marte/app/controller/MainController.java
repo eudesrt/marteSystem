@@ -94,22 +94,20 @@ public class MainController {
 		for(Object[] s:dateStatic) {
 			
 	        LocalDate dataPrazo = LocalDate.parse(s[0].toString()); 
-	        LocalDate dataDia = LocalDate.now();   
-	        
-	        System.out.println("DATA DA OS : " + dataPrazo + " DATA DIA : " + dataDia);
-	         
+	        LocalDate dataDia = LocalDate.now();           
+      
 	        
 	        if(dataPrazo.isEqual(dataDia)) {
-            	System.out.println("Status :: DATA NO PRAZO DATA DIA");
+            	System.out.println("Status :: OS: " + s[1].toString() + " DENTRO NO PRAZO DATA DA OS : " + dataPrazo + " DATA DIA : " + dataDia + " DIA");	            	
 	        	slaDentro ++;
 	        }else {            
 	           
 	        	if(dataPrazo.isAfter(dataDia)) {  
-	            	System.out.println("Status :: FORA NO PRAZO");	            	
-	            	slaFora ++;
-	            } else {
-	            	System.out.println("Status :: DENTRO DO PRAZO");
+	            	System.out.println("Status :: OS: " + s[1].toString() + " DENTRO NO PRAZO DATA DA OS : " + dataPrazo + " DATA DIA : " + dataDia);      	
 	            	slaDentro++;
+	            } else {
+	            	System.out.println("Status :: OS: " + s[1].toString() + " FORA DO PRAZO DATA DA OS : " + dataPrazo + " DATA DIA : " + dataDia);	
+	            	slaFora ++;
 	            }
 	        }  
 			
