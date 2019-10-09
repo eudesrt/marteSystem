@@ -41,7 +41,9 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	
 	
 	//QUERY COM JPQL
-	@Query(value = "SELECT DT_VENC FROM TB_SERVICO where EXTRACT(MONTH FROM DT_VENC) = EXTRACT(MONTH FROM now())", nativeQuery = true)
+	@Query(value = "SELECT DT_VENC \r\n" + 
+			"FROM TB_SERVICO \r\n" + 
+			"where EXTRACT(MONTH FROM DT_ENTRADA) = EXTRACT(MONTH FROM now())", nativeQuery = true)
 	public List<Object[]> findDateStatic();	
 	
 	

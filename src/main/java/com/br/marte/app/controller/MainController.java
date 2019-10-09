@@ -98,16 +98,16 @@ public class MainController {
 	         
 	        
 	        if(dataPrazo.isEqual(dataDia)) {
-	        	System.out.println("Status :: DATA NO PRAZO");
-	        	slaFora ++;
+            	System.out.println("Status :: DATA NO PRAZO");
+	        	slaDentro ++;
 	        }else {            
 	           
-	        	if(dataPrazo.isAfter(dataDia)) {            	
-	            	System.out.println("Status :: FORA DO PRAZO");
-	            	slaDentro ++;
-	            } else {
+	        	if(dataPrazo.isAfter(dataDia)) {  
 	            	System.out.println("Status :: DATA NO PRAZO");
-	            	slaFora++;
+	            	slaFora ++;
+	            } else {
+	            	System.out.println("Status :: FORA DO PRAZO");
+	            	slaDentro++;
 	            }
 	        }  
 			
