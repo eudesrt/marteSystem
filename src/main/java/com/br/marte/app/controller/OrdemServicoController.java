@@ -113,7 +113,7 @@ public class OrdemServicoController {
 				message =  "OS salvo com sucesso!";
 
 			}else {
-				message = "Já existe uma OS " + ordemServicoModel.getOs() + " Cadastrada";
+				message = "A  OS " + ordemServicoModel.getOs() + " Já existe no sistema !!!!";
 				valida = false;
 			}
 
