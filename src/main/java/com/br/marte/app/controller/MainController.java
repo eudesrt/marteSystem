@@ -1,6 +1,7 @@
 package com.br.marte.app.controller;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,29 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.br.marte.app.entity.OrdemServico;
 import com.br.marte.app.model.StaticModel;
 import com.br.marte.app.repository.OrdemServicoRepository;
+import com.br.marte.app.repository.StatusRepository;
+import com.br.marte.app.service.OrdemServicoService;
+import com.br.marte.app.service.OrdermServicoByTi;
+import com.br.marte.app.service.UsuarioService;
 
 @Controller
 public class MainController {
-	
-	
+
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
-
+	
+	/** INJETANDO O OBJETO OrdemServicoService */
+	@Autowired
+	private OrdemServicoService ordemServicoService;
+	
+	@Autowired
+	private StatusRepository statusRepository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	/***
 	 * ESSE MÉTODO CARREGA A PAGINA(index.html) DE LOGIN DA NOSSA APLICAÇÃO
@@ -26,25 +40,23 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {	
+	public String index() {
 
 		return "index";
 	}
-	
+
 	/***
 	 * CARREGA À PAGINA INICIAL DA APLICAÇÃO APÓS EFETUARMOS O LOGIN
 	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Model model) {		
-	//	
-		
-		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();	
+	public String home(Model model) {
+		//
+
+		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();
 		List<Object[]> dateStatic = this.ordemServicoRepository.findDateStatic();
-		
-		
-		
+
 		Integer novo = 0;
 		Integer desenvolvendo = 0;
 		Integer homologando = 0;
@@ -66,10 +78,8 @@ public class MainController {
 		Integer slaDentro = 0;
 		Integer slaFora = 0;
 
-		
-		for(Object[] s:statuStatic) {
-			
-		
+		for (Object[] s : statuStatic) {
+
 			novo = Integer.valueOf(s[0].toString());
 			desenvolvendo = Integer.valueOf(s[1].toString());
 			homologando = Integer.valueOf(s[2].toString());
@@ -78,46 +88,83 @@ public class MainController {
 			fechado = Integer.valueOf(s[5].toString());
 			jan = Integer.valueOf(s[6].toString());
 			fev = Integer.valueOf(s[7].toString());
-			mar = Integer.valueOf(s[8].toString()); 
-			abr = Integer.valueOf(s[9].toString()); 
-			mai = Integer.valueOf(s[10].toString()); 
-			jun = Integer.valueOf(s[11].toString()); 
-			jul = Integer.valueOf(s[12].toString()); 
-			ago = Integer.valueOf(s[13].toString()); 
-			set = Integer.valueOf(s[14].toString()); 
-			out = Integer.valueOf(s[15].toString()); 
-			nov = Integer.valueOf(s[16].toString()); 
-			dez = Integer.valueOf(s[17].toString());	
+			mar = Integer.valueOf(s[8].toString());
+			abr = Integer.valueOf(s[9].toString());
+			mai = Integer.valueOf(s[10].toString());
+			jun = Integer.valueOf(s[11].toString());
+			jul = Integer.valueOf(s[12].toString());
+			ago = Integer.valueOf(s[13].toString());
+			set = Integer.valueOf(s[14].toString());
+			out = Integer.valueOf(s[15].toString());
+			nov = Integer.valueOf(s[16].toString());
+			dez = Integer.valueOf(s[17].toString());
 		}
-		
-		
-		for(Object[] s:dateStatic) {
-			
-	        LocalDate dataPrazo = LocalDate.parse(s[0].toString()); 
-	        LocalDate dataDia = LocalDate.now();           
-      
-	        
-	        if(dataPrazo.isEqual(dataDia)) {
-            	System.out.println("Status :: OS: " + s[1].toString() + " DENTRO NO PRAZO DATA DA OS : " + dataPrazo + " DATA DIA : " + dataDia + " DIA");	            	
-	        	slaDentro ++;
-	        }else {            
-	           
-	        	if(dataPrazo.isAfter(dataDia)) {  
-	            	System.out.println("Status :: OS: " + s[1].toString() + " DENTRO NO PRAZO DATA DA OS : " + dataPrazo + " DATA DIA : " + dataDia);      	
-	            	slaDentro++;
-	            } else {
-	            	System.out.println("Status :: OS: " + s[1].toString() + " FORA DO PRAZO DATA DA OS : " + dataPrazo + " DATA DIA : " + dataDia);	
-	            	slaFora ++;
-	            }
-	        }  
-			
+
+		for (Object[] s : dateStatic) {
+
+			LocalDate dataPrazo = LocalDate.parse(s[0].toString());
+			LocalDate dataDia = LocalDate.now();
+
+			if (dataPrazo.isEqual(dataDia)) {
+				System.out.println("Status :: OS: " + s[1].toString() + " DENTRO NO PRAZO DATA DA OS : " + dataPrazo
+						+ " DATA DIA : " + dataDia + " DIA");
+				slaDentro++;
+			} else {
+
+				if (dataPrazo.isAfter(dataDia)) {
+					System.out.println("Status :: OS: " + s[1].toString() + " DENTRO NO PRAZO DATA DA OS : " + dataPrazo
+							+ " DATA DIA : " + dataDia);
+					slaDentro++;
+				} else {
+					System.out.println("Status :: OS: " + s[1].toString() + " FORA DO PRAZO DATA DA OS : " + dataPrazo
+							+ " DATA DIA : " + dataDia);
+					slaFora++;
+				}
+			}
+
 		}
-		
- 		
-		model.addAttribute("staticModel",  new StaticModel(novo, desenvolvendo , pendente , homologando, gerencia , fechado , jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez,slaDentro,slaFora));
+
+		recebeNovaOS();
+
+		model.addAttribute("staticModel", new StaticModel(novo, desenvolvendo, pendente, homologando, gerencia, fechado,
+				jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez, slaDentro, slaFora));
 		System.out.println("slaDentro " + slaDentro + " slaFora " + slaFora);
 
 		return "home";
+	}
+
+	public void recebeNovaOS() {
+
+		OrdermServicoByTi ordermServicoByTi = new OrdermServicoByTi();
+
+		String[] info = ordermServicoByTi.JavaHttpUrlConnectionReader().toString().split(",");
+
+		for (String i : info) {
+			Integer codigo = 0;
+			String[] os = i.toString().split(";");
+
+			codigo = Integer.valueOf(os[0]);
+
+			OrdemServico ordemServicosEntity = ordemServicoRepository.findOrdemServicoIdBy(codigo);
+
+			if (ordemServicosEntity == null) {
+				System.out.println("CADASTRAR NOVA ORDEM DE SERVICOS " + codigo); 
+				OrdemServico ordemServicoEntity = new OrdemServico();
+				LocalDate localDate = LocalDate.now();
+				
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate dateVenc = LocalDate.parse(os[6].trim(),formatter);
+				
+				ordemServicoEntity.setOs(codigo);
+				ordemServicoEntity.setTitulo(os[3].trim());
+				ordemServicoEntity.setDt_entrada(localDate);
+				ordemServicoEntity.setDt_venc(dateVenc);
+				ordemServicoEntity.setStatus(statusRepository.getOne(1000));
+				ordemServicoEntity.setId_usuario(usuarioService.usuarioEntity);
+				
+				this.ordemServicoRepository.save(ordemServicoEntity);
+			} 
+		}
 	}
 
 	/***
