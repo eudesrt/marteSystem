@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.br.marte.app.entity.OrdemServico;
 import com.br.marte.app.model.OrdemServicoModel;
 import com.br.marte.app.model.StatusModel;
+import com.br.marte.app.repository.OrdemServicoRepository;
 import com.br.marte.app.service.OrdemServicoService;
 import com.br.marte.app.service.StatusService;
 
@@ -33,6 +35,9 @@ public class OrdemServicoController {
 	/** INJETANDO O OBJETO OrdemServicoService */
 	@Autowired
 	private OrdemServicoService ordemServicoService;
+	
+	@Autowired
+	private OrdemServicoRepository ordemServicoRepository;
 	
 	
 	@RequestMapping(value = "/novoCadastro", method = RequestMethod.GET)
@@ -77,7 +82,8 @@ public class OrdemServicoController {
 	@RequestMapping(value = "/salvarOrdemServico", method = RequestMethod.POST)
 	public ModelAndView salvarOrdemServico(@ModelAttribute @Valid OrdemServicoModel ordemServicoModel, final BindingResult result,
 			Model model, RedirectAttributes redirectAttributes) {
-
+		String message = "";
+		boolean valida = true;
 		/*
 		 * VERIFICA SE TEM ALGUM ERRO (@NotEmpty), SE TIVER ALGUM ERRO DEVEMOS RETORNAR
 		 * PARA A MESMA P�?GINA PARA O USUARIO CORRIGIR
@@ -99,7 +105,17 @@ public class OrdemServicoController {
 		} else {
 
 			/* SALVANDO UM NOVO REGISTRO */
-			ordemServicoService.salvarOrdemServico(ordemServicoModel);
+			
+			OrdemServico ordemServicosEntity = ordemServicoRepository.findOrdemServicoIdBy(ordemServicoModel.getOs());
+			
+			if(ordemServicosEntity == null) {
+				ordemServicoService.salvarOrdemServico(ordemServicoModel);
+				message =  "OS salvo com sucesso!";
+
+			}else {
+				message = "Já existe uma OS " + ordemServicoModel.getOs() + " Cadastrada";
+				valida = false;
+			}
 
 		}
 
@@ -109,7 +125,9 @@ public class OrdemServicoController {
 		 * PASSANDO O ATRIBUTO PARA O ModelAndView QUE VAI REALIZAR O REDIRECIONAMENTO
 		 * COM A MENSAGEM DE SUCESSO
 		 */
-		redirectAttributes.addFlashAttribute("msg_resultado", "OS salvo com sucesso!");
+		redirectAttributes.addFlashAttribute("msg_valida", valida);
+		redirectAttributes.addFlashAttribute("msg_resultado", message);
+
 
 		/* REDIRECIONANDO PARA UM NOVO CADASTRO */
 		return modelAndView;

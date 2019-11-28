@@ -35,7 +35,7 @@ public class UsuarioService implements UserDetailsService {
 	@Autowired
 	private PermissaoRepository permissaoRepository;
 	
-	Usuario usuarioEntity;
+	public Usuario usuarioEntity;
 	
 	/***
 	 * CONSULTA UM USU�?RIO POR LOGIN

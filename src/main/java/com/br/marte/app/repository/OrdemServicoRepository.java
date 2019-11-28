@@ -17,6 +17,11 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	
 	
 	//QUERY COM JPQL
+	@Query("SELECT u FROM OrdemServico u where u.os = :codigo")
+	public OrdemServico findOrdemServicoIdBy(@Param("codigo") Integer codigo);	
+	
+	
+	//QUERY COM JPQL
 	@Query(value = "SELECT SUM(CASE WHEN evento_id = 1000 THEN 1 ELSE 0 END) as NOVO ,\r\n" + 
 			"SUM(CASE WHEN evento_id = 1100 THEN 1 ELSE 0 END) as DESENVOLVENDO ,\r\n" + 
 			"SUM(CASE WHEN evento_id = 1200 THEN 1 ELSE 0 END) as HOMOLOGANDO ,\r\n" + 
