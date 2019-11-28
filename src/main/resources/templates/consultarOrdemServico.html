@@ -29,7 +29,7 @@
                                     <th:block th:each="ordemServicoModel : ${ordemServicoModel}">
                                         <tr>
                                             <td>
-                                                <a th:href="@{'../ordemServico/editarOrdemServico?' + codigo+'=' + ${ordemServicoModel.codigo}}" th:text="${ordemServicoModel.os}"></a>
+                                                <a th:href="@{'https://tiflash.flashcourier.com.br/os_altera.php?grupo_id=126&os_id=' + ${ordemServicoModel.os}}" target="_blank" th:text="${ordemServicoModel.os}"></a>
                                             </td>
                                             <td>
                                             	<a th:href="@{'../ordemServico/editarOrdemServico?' + codigo+'=' + ${ordemServicoModel.codigo}}" th:text="${ordemServicoModel.titulo}" class="mdl-data-table__cell--non-numeric"></a>
