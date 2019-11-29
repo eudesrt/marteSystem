@@ -150,7 +150,5 @@ public class OrdemServico {
 	@Override
 	public String toString() {
 		return "OrdemServico [codigo=" + codigo + ", os=" + os + "]";
-	}	
-	
-
+	}
 }

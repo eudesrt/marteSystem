@@ -14,7 +14,6 @@ import com.br.marte.app.entity.OrdemServico;
 import com.br.marte.app.model.StaticModel;
 import com.br.marte.app.repository.OrdemServicoRepository;
 import com.br.marte.app.repository.StatusRepository;
-import com.br.marte.app.service.OrdemServicoService;
 import com.br.marte.app.service.OrdermServicoByTi;
 import com.br.marte.app.service.UsuarioService;
 
@@ -23,10 +22,6 @@ public class MainController {
 
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
-	
-	/** INJETANDO O OBJETO OrdemServicoService */
-	@Autowired
-	private OrdemServicoService ordemServicoService;
 	
 	@Autowired
 	private StatusRepository statusRepository;
@@ -136,24 +131,27 @@ public class MainController {
 	public void recebeNovaOS() {
 
 		OrdermServicoByTi ordermServicoByTi = new OrdermServicoByTi();
-
+		OrdemServico ordemServico = null;
 		String[] info = ordermServicoByTi.JavaHttpUrlConnectionReader().toString().split(",");
 
+
 		for (String i : info) {
+			OrdemServico ordemServicoEntity = new OrdemServico();
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 			Integer codigo = 0;
 			String[] os = i.toString().split(";");
 
 			codigo = Integer.valueOf(os[0]);
+			LocalDate dateVenc = LocalDate.parse(os[6].trim(),formatter);
 
-			OrdemServico ordemServicosEntity = ordemServicoRepository.findOrdemServicoIdBy(codigo);
+			ordemServico = ordemServicoRepository.findOrdemServicoIdBy(codigo);
 
-			if (ordemServicosEntity == null) {
+			if (ordemServico == null) {
 				System.out.println("CADASTRAR NOVA ORDEM DE SERVICOS " + codigo); 
-				OrdemServico ordemServicoEntity = new OrdemServico();
 				LocalDate localDate = LocalDate.now();
 				
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-				LocalDate dateVenc = LocalDate.parse(os[6].trim(),formatter);
+				
 				
 				ordemServicoEntity.setOs(codigo);
 				ordemServicoEntity.setTitulo(os[3].trim());
@@ -163,7 +161,19 @@ public class MainController {
 				ordemServicoEntity.setId_usuario(usuarioService.usuarioEntity);
 				
 				this.ordemServicoRepository.save(ordemServicoEntity);
-			} 
+			} else {
+				
+				if(ordemServico.getStatus().equals(statusRepository.getOne(1200)) || ordemServico.getStatus().equals(statusRepository.getOne(1300))) {
+					System.out.println("ATUALIZANDO PEDIDNO " + codigo);
+					
+					ordemServico.setStatus(statusRepository.getOne(1000));
+					ordemServico.setDt_venc(dateVenc);
+					ordemServico.setDt_homologacao(null);
+					
+					this.ordemServicoRepository.saveAndFlush(ordemServico);
+				}
+				
+			}
 		}
 	}
 
