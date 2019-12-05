@@ -181,7 +181,7 @@ public class OrdemServicoController {
 		
 
 		/* APÓS SALVAR VAMOS REDIRICIONAR O ORDEM DE SERVICO PARA A PAGINA DE CONSULTA */
-		ModelAndView modelAndView = new ModelAndView("redirect:/ordemServico/consultarOrdemServico?codigo=0");		
+		ModelAndView modelAndView = new ModelAndView("redirect:/ordemServico/consultarOrdemServico?codigo=" + ordemServicoModel.getStatus());		
 		
 
 		/* RETORNANDO A VIEW */
