@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static java.nio.charset.StandardCharsets.*;
+
 /**
  *
  * A complete Java class that shows how to open a URL, then read data (text)
@@ -20,13 +22,13 @@ public class OrdermServicoByTi {
 	public String JavaHttpUrlConnectionReader() {
 		try {
 			String myUrl = "https://tiflash.flashcourier.com.br/eudes.php";
-			// if your url can contain weird characters you will want to
-			// encode it here, something like this:
-			// myUrl = URLEncoder.encode(myUrl, "UTF-8");
 
-			String results = doHttpUrlConnectionAction(myUrl);
+
+			String results = doHttpUrlConnectionAction(myUrl);		
+
 			
 			results = results.substring(0, results.length() -1);
+			
 				
 			return results.toString().trim();
 		
@@ -69,13 +71,14 @@ public class OrdermServicoByTi {
 			connection.connect();
 
 			// read the output from the server
-			reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+			reader = new BufferedReader(new InputStreamReader(connection.getInputStream(),ISO_8859_1));
 			stringBuilder = new StringBuilder();
 
 			String line = null;
 			while ((line = reader.readLine()) != null) {
 
 				if (!line.isEmpty() && line.length() > 1) {
+					System.out.println(line);
 					stringBuilder.append(line + "\r\n");
 				}
 			}
