@@ -40,7 +40,8 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 			"SUM(CASE WHEN EXTRACT(MONTH FROM dt_commit) = 10 THEN 1 ELSE 0 END) as OUT,\r\n" + 
 			"SUM(CASE WHEN EXTRACT(MONTH FROM dt_commit) = 11 THEN 1 ELSE 0 END) as NOV,\r\n" + 
 			"SUM(CASE WHEN EXTRACT(MONTH FROM dt_commit) = 12 THEN 1 ELSE 0 END) as DEZ"
-			+ " FROM tb_servico u ", nativeQuery = true)
+			+ " FROM tb_servico u WHERE "
+			+ "EXTRACT(YEAR  FROM dt_entrada) = EXTRACT(YEAR  FROM now()) ", nativeQuery = true)
 	public List<Object[]> findStatusStatic();	
 	
 	
@@ -48,7 +49,8 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	//QUERY COM JPQL
 	@Query(value = "SELECT DT_VENC, OS \r\n" + 
 			"FROM TB_SERVICO \r\n" + 
-			"where EXTRACT(MONTH FROM DT_ENTRADA) = EXTRACT(MONTH FROM now())", nativeQuery = true)
+			"where EXTRACT(MONTH FROM DT_ENTRADA) = EXTRACT(MONTH FROM now()) "
+			+ "and EXTRACT(MONTH FROM dt_entrada) = EXTRACT(MONTH FROM dt_entrada) ", nativeQuery = true)
 	public List<Object[]> findDateStatic();	
 	
 	
