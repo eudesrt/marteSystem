@@ -47,10 +47,11 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	
 	
 	//QUERY COM JPQL
-	@Query(value = "SELECT DT_VENC, OS \r\n" + 
-			"FROM TB_SERVICO \r\n" + 
-			"where EXTRACT(MONTH FROM DT_ENTRADA) = EXTRACT(MONTH FROM now()) "
-			+ "and EXTRACT(MONTH FROM dt_entrada) = EXTRACT(MONTH FROM dt_entrada) ", nativeQuery = true)
+	@Query(value = "SELECT SUM(CASE WHEN DT_VENC < dt_commit THEN 1 ELSE 0 END) as FORA_DO_PRAZO ,\r\n" + 
+			"SUM(CASE WHEN DT_VENC > dt_commit THEN 1 ELSE 0 END) as DENTRO_PRAZO \r\n" + 
+			"FROM TB_SERVICO\r\n" + 
+			"where evento_id = 9999\r\n" + 
+			"and EXTRACT(MONTH FROM dt_commit) = EXTRACT(MONTH FROM now()) ", nativeQuery = true)
 	public List<Object[]> findDateStatic();	
 	
 	

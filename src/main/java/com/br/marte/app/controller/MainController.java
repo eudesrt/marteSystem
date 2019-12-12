@@ -96,27 +96,8 @@ public class MainController {
 		}
 
 		for (Object[] s : dateStatic) {
-
-			LocalDate dataPrazo = LocalDate.parse(s[0].toString());
-			LocalDate dataDia = LocalDate.now();
-
-			if (dataPrazo.isEqual(dataDia)) {
-				System.out.println("Status :: OS: " + s[1].toString() + " DENTRO NO PRAZO DATA DA OS : " + dataPrazo
-						+ " DATA DIA : " + dataDia + " DIA");
-				slaDentro++;
-			} else {
-
-				if (dataPrazo.isAfter(dataDia)) {
-					System.out.println("Status :: OS: " + s[1].toString() + " DENTRO NO PRAZO DATA DA OS : " + dataPrazo
-							+ " DATA DIA : " + dataDia);
-					slaDentro++;
-				} else {
-					System.out.println("Status :: OS: " + s[1].toString() + " FORA DO PRAZO DATA DA OS : " + dataPrazo
-							+ " DATA DIA : " + dataDia);
-					slaFora++;
-				}
-			}
-
+			 slaFora = Integer.valueOf(s[0].toString());
+			 slaDentro= Integer.valueOf(s[1].toString());
 		}
 
 		recebeNovaOS();
