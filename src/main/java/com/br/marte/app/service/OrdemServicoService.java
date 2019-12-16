@@ -92,14 +92,37 @@ public class OrdemServicoService {
 	public void alterarOrdemServico(OrdemServicoModel ordemServicoModel) {
 
 		OrdemServico ordemServicoEntity = this.ordemServicoRepository.getOne(ordemServicoModel.getCodigo());
+		LocalDate dtHomologacao = null;
+		LocalDate dtCommits	= null;
+		
+		if(ordemServicoModel.getStatus().equals(1200)) {
+			if(ordemServicoModel.getDtHomologacao() != null) {
+				dtHomologacao = ordemServicoModel.getDtHomologacao();
+			}else {
+				dtHomologacao = LocalDate.now();
+			}
+			ordemServicoEntity.setDt_homologacao(dtHomologacao);
+		}else if(ordemServicoModel.getStatus().equals(9999)) {
+			if(ordemServicoModel.getDtCommit() != null) {
+				dtCommits = ordemServicoModel.getDtCommit();
+			}else {
+				dtCommits = LocalDate.now();
+			}
+			ordemServicoEntity.setDt_commit(dtCommits);
+		} else if(ordemServicoModel.getStatus().equals(1000) || ordemServicoModel.getStatus().equals(9998) || ordemServicoModel.getStatus().equals(1200) || ordemServicoModel.getStatus().equals(1100) || ordemServicoModel.getStatus().equals(1300)) {
+			dtCommits = null;
+			dtHomologacao = null;
+			ordemServicoEntity.setDt_commit(dtCommits);
+			ordemServicoEntity.setDt_homologacao(dtHomologacao);
+		}		
 
 		ordemServicoEntity.setOs(ordemServicoModel.getOs());
 		ordemServicoEntity.setDt_entrada(ordemServicoModel.getDtEntrada());
 		ordemServicoEntity.setDt_venc(ordemServicoModel.getDtVencimento());
 		ordemServicoEntity.setTitulo(ordemServicoModel.getTitulo());
 		ordemServicoEntity.setStatus(statusRepository.getOne(ordemServicoModel.getStatus().intValue()));
-		ordemServicoEntity.setDt_commit(ordemServicoModel.getDtCommit());
-		ordemServicoEntity.setDt_homologacao(ordemServicoModel.getDtHomologacao());
+		
+		
 
 		/* SALVANDO ALTERAÇÃO DO REGISTRO */
 		this.ordemServicoRepository.saveAndFlush(ordemServicoEntity);
