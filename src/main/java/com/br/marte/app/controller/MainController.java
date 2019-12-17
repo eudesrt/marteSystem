@@ -96,8 +96,8 @@ public class MainController {
 		}
 
 		for (Object[] s : dateStatic) {
-			 slaFora = Integer.valueOf(s[0].toString());
-			 slaDentro= Integer.valueOf(s[1].toString());
+			 slaFora = s[0] != null ? Integer.valueOf(s[0].toString()) : 0;
+			 slaDentro= s[1] != null ? Integer.valueOf(s[1].toString()) : 0;
 		}
 
 		recebeNovaOS();
@@ -130,9 +130,7 @@ public class MainController {
 
 			if (ordemServico == null) {
 				System.out.println("CADASTRAR NOVA ORDEM DE SERVICOS " + codigo); 
-				LocalDate localDate = LocalDate.now();
-				
-				
+				LocalDate localDate = LocalDate.now();				
 				
 				ordemServicoEntity.setOs(codigo);
 				ordemServicoEntity.setTitulo(os[3].trim());

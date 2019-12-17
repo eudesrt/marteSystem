@@ -108,6 +108,10 @@ public class OrdemServicoService {
 			}else {
 				dtCommits = LocalDate.now();
 			}
+			if(ordemServicoModel.getDtHomologacao() != null) {
+				dtHomologacao = ordemServicoModel.getDtHomologacao();
+				ordemServicoEntity.setDt_homologacao(dtHomologacao);
+			}
 			ordemServicoEntity.setDt_commit(dtCommits);
 		} else if(ordemServicoModel.getStatus().equals(1000) || ordemServicoModel.getStatus().equals(9998) || ordemServicoModel.getStatus().equals(1200) || ordemServicoModel.getStatus().equals(1100) || ordemServicoModel.getStatus().equals(1300)) {
 			dtCommits = null;

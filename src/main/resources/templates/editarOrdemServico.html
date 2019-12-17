@@ -29,12 +29,15 @@
                     <div class="form-body">
                         <form action="#" id="formulario-cadastro-os" th:action="@{../ordemServico/salvarAlteracao}" th:object="${ordemServicoModel}" method="post">
 
-                            <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST  -->
-                            <div th:if="${msg_resultado}" id="msgSucesso">
-                                <div class="alert alert-success" role="alert">
-                                    <p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}">...</p>
-                                </div>
-                            </div>
+							<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST  -->
+							<div th:if="${msg_resultado}" id="msgSucesso">
+								<div class="alert alert-success" role="alert" >
+									<div th:if="${msg_valida} == false ">
+										<b id="p-mensagem-erro" class="erro-msg"	th:text="${msg_resultado}">...</b>								
+									</div>
+								</div>								
+							</div>                 
+                            
                             
 							<div class="sign-u">
 								<input type="text" placeholder="Cod" id="input-codigo" th:field="*{codigo}" required="required" readonly="readonly" hidden="true">
