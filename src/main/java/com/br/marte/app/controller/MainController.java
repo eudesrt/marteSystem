@@ -47,9 +47,10 @@ public class MainController {
 	 */
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String home(Model model) {
-		//
-
+		recebeNovaOS();
+		
 		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();
+		List<Object[]> analyticsDate = this.ordemServicoRepository.findAnalyticsDate();		
 		List<Object[]> dateStatic = this.ordemServicoRepository.findDateStatic();
 
 		Integer novo = 0;
@@ -74,33 +75,35 @@ public class MainController {
 		Integer slaFora = 0;
 
 		for (Object[] s : statuStatic) {
-
-			novo = Integer.valueOf(s[0].toString());
+			novo = Integer.valueOf(s[0].toString()) ;
 			desenvolvendo = Integer.valueOf(s[1].toString());
 			homologando = Integer.valueOf(s[2].toString());
 			pendente = Integer.valueOf(s[3].toString());
 			gerencia = Integer.valueOf(s[4].toString());
 			fechado = Integer.valueOf(s[5].toString());
-			jan = Integer.valueOf(s[6].toString());
-			fev = Integer.valueOf(s[7].toString());
-			mar = Integer.valueOf(s[8].toString());
-			abr = Integer.valueOf(s[9].toString());
-			mai = Integer.valueOf(s[10].toString());
-			jun = Integer.valueOf(s[11].toString());
-			jul = Integer.valueOf(s[12].toString());
-			ago = Integer.valueOf(s[13].toString());
-			set = Integer.valueOf(s[14].toString());
-			out = Integer.valueOf(s[15].toString());
-			nov = Integer.valueOf(s[16].toString());
-			dez = Integer.valueOf(s[17].toString());
 		}
+		
+		
+		for(Object[] s : analyticsDate) {
+			jan = Integer.valueOf(s[0].toString());
+			fev = Integer.valueOf(s[1].toString());
+			mar = Integer.valueOf(s[2].toString());
+			abr = Integer.valueOf(s[3].toString());
+			mai = Integer.valueOf(s[4].toString());
+			jun = Integer.valueOf(s[5].toString());
+			jul = Integer.valueOf(s[6].toString());
+			ago = Integer.valueOf(s[7].toString());
+			set = Integer.valueOf(s[8].toString());
+			out = Integer.valueOf(s[9].toString());
+			nov = Integer.valueOf(s[10].toString());
+			dez = Integer.valueOf(s[11].toString());
+		}
+		
 
 		for (Object[] s : dateStatic) {
 			 slaFora = s[0] != null ? Integer.valueOf(s[0].toString()) : 0;
 			 slaDentro= s[1] != null ? Integer.valueOf(s[1].toString()) : 0;
-		}
-
-		recebeNovaOS();
+		}		
 
 		model.addAttribute("staticModel", new StaticModel(novo, desenvolvendo, pendente, homologando, gerencia, fechado,
 				jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez, slaDentro, slaFora));
