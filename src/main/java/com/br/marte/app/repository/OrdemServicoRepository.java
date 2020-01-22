@@ -46,7 +46,7 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 			"SUM(CASE WHEN EXTRACT(MONTH FROM dt_commit) = 11 THEN 1 ELSE 0 END) as NOV," + 
 			"SUM(CASE WHEN EXTRACT(MONTH FROM dt_commit) = 12 THEN 1 ELSE 0 END) as DEZ"
 			+ " FROM tb_servico u"
-			+ " WHERE EXTRACT(YEAR  FROM dt_commit) = EXTRACT(YEAR  FROM now())" , nativeQuery = true)
+			+ " WHERE EXTRACT(YEAR  FROM dt_commit) = EXTRACT(YEAR  FROM now()) AND evento_id = 9999 " , nativeQuery = true)
 	public List<Object[]> findAnalyticsDate();		
 	
 	//QUERY COM JPQL
