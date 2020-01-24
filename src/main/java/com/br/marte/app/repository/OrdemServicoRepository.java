@@ -52,7 +52,7 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	//QUERY COM JPQL
 	@Query(value = "SELECT " + 
 			"SUM(CASE WHEN DT_VENC < dt_commit THEN 1 ELSE 0 END) as FORA_DO_PRAZO ," + 
-			"SUM(CASE WHEN DT_VENC > dt_commit THEN 1 ELSE 0 END) as DENTRO_PRAZO " + 
+			"SUM(CASE WHEN DT_VENC >= dt_commit THEN 1 ELSE 0 END) as DENTRO_PRAZO " + 
 			"FROM TB_SERVICO\r\n" + 
 			"WHERE evento_id = 9999" + 
 			" AND dt_commit is not null" + 
