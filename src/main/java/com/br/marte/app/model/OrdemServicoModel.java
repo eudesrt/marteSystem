@@ -24,6 +24,10 @@ public class OrdemServicoModel {
 	
     @DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dtVencimento;
+    
+    private String descricao;
+    
+    private String solicitante;
 	
 	private Integer status;
 	
@@ -41,6 +45,21 @@ public class OrdemServicoModel {
 		this.dtVencimento = dtVencimento;
 		this.status = status;
 		this.id_usuario = id_usuario;
+	}
+	
+	public OrdemServicoModel(long codigo, Integer os, String titulo, LocalDate dtEntrada, LocalDate dtHomologacao, LocalDate dtCommit,
+			LocalDate dtVencimento , Integer status, Integer id_usuario,String descricao, String solicitante) {
+		this.codigo = codigo;
+		this.os = os;
+		this.titulo = titulo;
+		this.dtEntrada = dtEntrada;
+		this.dtHomologacao = dtHomologacao;
+		this.dtCommit = dtCommit;
+		this.dtVencimento = dtVencimento;
+		this.status = status;
+		this.id_usuario = id_usuario;
+		this.descricao = descricao;
+		this.solicitante = solicitante;
 	}
 	
 	
@@ -120,7 +139,21 @@ public class OrdemServicoModel {
 
 	public void setDtVencimento(LocalDate dtVencimento) {
 		this.dtVencimento = dtVencimento;
-	}	
-	
+	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getSolicitante() {
+		return solicitante;
+	}
+
+	public void setSolicitante(String solicitante) {
+		this.solicitante = solicitante;
+	}
 }

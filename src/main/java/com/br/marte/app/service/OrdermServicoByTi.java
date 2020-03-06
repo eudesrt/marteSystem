@@ -22,16 +22,10 @@ public class OrdermServicoByTi {
 	public String JavaHttpUrlConnectionReader() {
 		try {
 			String myUrl = "https://tiflash.flashcourier.com.br/eudes.php";
-
-
-			String results = doHttpUrlConnectionAction(myUrl);		
-
-			
-			results = results.substring(0, results.length() -1);
-			
+			String results = doHttpUrlConnectionAction(myUrl);				
+			results = results.substring(0, results.length() -1);	
 				
-			return results.toString().trim();
-		
+			return results.toString().trim();		
 		
 		} catch (Exception e) {
 			// deal with the exception in your "controller"

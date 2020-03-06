@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>	
-
+	
 	<script type="text/javascript" th:src="@{/js/datatables.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/jquery-1.11.1.min.js}"></script>
     <script type="text/javascript" th:src="@{/js/modernizr.custom.js}"></script>
@@ -84,14 +84,20 @@
                                 </ul>
                             </li>
                             <li class="treeview">
-                                <a th:href="@{/ordemServico/consultarOrdemServico?codigo=0}"> <i class="fa fa-pie-chart"></i> <span>Consultar</span> <span class="label label-primary pull-right">os</span>
+                                <a th:href="@{/ordemServico/consultarOrdemServico?codigo=0}"> <i class="fa fa-search"></i> <span>Consultar</span> <span class="label label-primary pull-right">os</span>
                                 </a>
                             </li>
                             <li class="treeview">
-                                <a href="#"> <i class="fa fa-laptop"></i> <span>Controle de Usuario</span><i class="fa fa-angle-left pull-right"></i></a>
+                                <a href="#"> <i class="fa fa-user"></i> <span>Controle de Usuario</span><i class="fa fa-angle-left pull-right"></i></a>
                                 <ul class="treeview-menu">
                                     <li><a th:href="@{/usuario/novoCadastro}"><i class="fa fa-angle-right"></i>Cadastro</a></li>
                                     <li><a th:href="@{/usuario/consultar}"><i class="fa fa-angle-right"></i>Consulta</a></li>
+                                </ul>
+                            </li>
+                            <li class="treeview">
+                                <a href="#"> <i class="fa fa-cog"></i> <span>Configuração</span><i class="fa fa-angle-left pull-right"></i></a>
+                                <ul class="treeview-menu">
+                                    <li><a th:href="@{/ordemServico/excel}"><i class="fa fa-angle-right"></i>Backup</a></li>
                                 </ul>
                             </li>
               			</ul>

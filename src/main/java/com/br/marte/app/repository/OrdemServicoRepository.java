@@ -15,6 +15,10 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo")
 	public List<OrdemServico> findStatus(@Param("codigo") Integer codigo);	
 	
+
+	//QUERY COM JPQL
+	@Query("SELECT u FROM OrdemServico u ")
+	public List<OrdemServico> pesquisaTodos();	
 	
 	//QUERY COM JPQL
 	@Query("SELECT u FROM OrdemServico u where u.os = :codigo")

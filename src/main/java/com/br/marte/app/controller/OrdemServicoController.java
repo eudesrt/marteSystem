@@ -1,13 +1,17 @@
 package com.br.marte.app.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +29,7 @@ import com.br.marte.app.service.StatusService;
 @Controller
 @RequestMapping("/ordemServico")
 public class OrdemServicoController {
-
+	
 	/** INJETANDO O OBJETO GrupoService */
 	@Autowired
 	private StatusService statusService;
@@ -162,10 +166,38 @@ public class OrdemServicoController {
 		 * APÓS SALVAR VAMOS REDIRICIONAR O ORDEM DE SERVICO PARA A PAGINA DE CONSULTA
 		 */
 		modelAndView = new ModelAndView("redirect:/home");
-//		modelAndView = new ModelAndView("redirect:/ordemServico/consultarOrdemServico?codigo=" + ordemServicoModel.getStatus());
+		//modelAndView = new ModelAndView("redirect:/ordemServico/consultarOrdemServico?codigo=" + ordemServicoModel.getStatus());
 
 		/* RETORNANDO A VIEW */
 		return modelAndView;
+	}
+	
+	@GetMapping(value = "/excel")
+	public ModelAndView allExcel(HttpServletRequest request, HttpServletResponse response,
+			RedirectAttributes redirectAttributes) throws IOException {
+		ModelAndView modelAndView = null;
+		List<OrdemServicoModel> ordemservico = this.ordemServicoService.findOrdemServico();
+
+		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, request, response);
+
+//        if (isFlag){
+//            String fullPath = request.getServletContext().getRealPath("/resources/report/" + "bkp_ordem_servico"  + ".xls");
+//            
+//            System.out.println("fullPath " + fullPath); 
+//            fileHandelService.filedownload(fullPath, response,"bkp_ordem_servico.xls");
+//
+//        }
+
+		redirectAttributes.addFlashAttribute("msg_valida", false);
+		redirectAttributes.addFlashAttribute("msg_resultado", "Backup Realizado com Sucesso Arquivo : " + nomeArquivo);
+
+		/*
+		 * APÓS SALVAR VAMOS REDIRICIONAR O ORDEM DE SERVICO PARA A PAGINA DE CONSULTA
+		 */
+		modelAndView = new ModelAndView("redirect:/home");
+		/* RETORNANDO A VIEW */
+		return modelAndView;
+
 	}
 
 }
