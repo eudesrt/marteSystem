@@ -283,7 +283,7 @@ public class OrdemServicoService {
                 workbook.write(outputStream);
 	            outputStream.flush();
 	            outputStream.close();
-	            return nomeArquivo;
+	            return file+"/" + nomeArquivo;
 
 	        }catch (Exception e){
 	            outputStream.flush();
