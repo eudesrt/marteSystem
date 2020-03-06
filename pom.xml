@@ -78,8 +78,9 @@
 
 		<!-- Migracoes Flyway -->
 		<dependency>
-		<groupId>org.flywaydb</groupId>
-		<artifactId>flyway-core</artifactId>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.8</version>
 		</dependency>
 
 	</dependencies>
