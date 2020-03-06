@@ -182,9 +182,9 @@ public class OrdemServicoService {
 	        
 	        SimpleDateFormat dt = new SimpleDateFormat("ddMMyyyyHHmmss");
 	        String nomeArquivo = "bkp_ordem_servico_" + dt.format(new Date())+  ".xls";
-	        FileOutputStream outputStream = new FileOutputStream(file+"/" + nomeArquivo);
 	        try{
-	            
+		        FileOutputStream outputStream = new FileOutputStream(file+"\\" + nomeArquivo);
+
 	            System.out.println("file " + file);
 	            System.out.println("outputStream " + outputStream);
 	            HSSFWorkbook workbook = new HSSFWorkbook();
@@ -198,11 +198,9 @@ public class OrdemServicoService {
 	            HSSFRow headerRow = workSheet.createRow(1);
 
 	            HSSFCell os = headerRow.createCell(0);
-	            os.setCellValue("OS");
 	            os.setCellStyle(headerCellStyle);
 
 	            HSSFCell titulo = headerRow.createCell(1);
-	            titulo.setCellValue("TITULO");
 	            titulo.setCellStyle(headerCellStyle);
 
 	            HSSFCell dt_entrada = headerRow.createCell(2);
@@ -283,11 +281,10 @@ public class OrdemServicoService {
                 workbook.write(outputStream);
 	            outputStream.flush();
 	            outputStream.close();
-	            return file+"/" + nomeArquivo;
+	            return nomeArquivo;
 
 	        }catch (Exception e){
-	            outputStream.flush();
-	            outputStream.close();
+
 	            return "FALHA DE PROCESSAMENTO";
 	        }
 	    }
