@@ -123,7 +123,7 @@ public class OrdemServicoService {
 	}
 
 	/**
-	 * ALTERA AS INFORMAÇÕES DO USU�?RIO
+	 * ALTERA AS INFORMAÇÕES DO USUARIO
 	 */
 	public void alterarOrdemServico(OrdemServicoModel ordemServicoModel) {
 

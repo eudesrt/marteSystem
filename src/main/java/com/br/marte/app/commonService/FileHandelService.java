@@ -1,14 +1,14 @@
 package com.br.marte.app.commonService;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
+
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class FileHandelService {
