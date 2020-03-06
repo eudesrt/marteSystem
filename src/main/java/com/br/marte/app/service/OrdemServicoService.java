@@ -1,7 +1,6 @@
 package com.br.marte.app.service;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -281,7 +280,7 @@ public class OrdemServicoService {
 	                i++;
 	            }
 
-	                workbook.write(outputStream);
+                workbook.write(outputStream);
 	            outputStream.flush();
 	            outputStream.close();
 	            return nomeArquivo;
