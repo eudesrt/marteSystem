@@ -171,7 +171,7 @@ public class OrdemServicoService {
 	
 	   public String createExcell(List<OrdemServicoModel> ordemServico, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		    //ServletContext context = request.getServletContext();
-	        String filePath = "c:/marteSystem/backup/";
+	        String filePath = "/marteSystem/backup/";
 	        File file = new File(filePath);
 	        
 	        boolean exists = new File(filePath).exists();
