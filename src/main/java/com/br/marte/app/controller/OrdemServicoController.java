@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.br.marte.app.commonService.FileHandelService;
 import com.br.marte.app.entity.OrdemServico;
 import com.br.marte.app.model.OrdemServicoModel;
 import com.br.marte.app.model.StatusModel;
@@ -30,6 +31,14 @@ import com.br.marte.app.service.StatusService;
 @RequestMapping("/ordemServico")
 public class OrdemServicoController {
 	
+	FileHandelService fileHandelService;
+	
+	
+	
+	public OrdemServicoController(FileHandelService fileHandelService) {
+		this.fileHandelService = fileHandelService;
+	}
+
 	/** INJETANDO O OBJETO GrupoService */
 	@Autowired
 	private StatusService statusService;
@@ -181,10 +190,9 @@ public class OrdemServicoController {
 		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, request, response);
 
 //        if (isFlag){
-//            String fullPath = request.getServletContext().getRealPath("/resources/report/" + "bkp_ordem_servico"  + ".xls");
-//            
-//            System.out.println("fullPath " + fullPath); 
-//            fileHandelService.filedownload(fullPath, response,"bkp_ordem_servico.xls");
+            String fullPath = request.getServletContext().getRealPath("/resources/report/" + nomeArquivo);
+            
+            fileHandelService.filedownload(fullPath, response,nomeArquivo);
 //
 //        }
 
