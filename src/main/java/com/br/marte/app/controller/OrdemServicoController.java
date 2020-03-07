@@ -3,6 +3,7 @@ package com.br.marte.app.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -31,12 +32,12 @@ import com.br.marte.app.service.StatusService;
 @RequestMapping("/ordemServico")
 public class OrdemServicoController {
 	
-	FileHandelService fileHandelService;
+	private final FileHandelService fileHandelService;
+	private final ServletContext context;	
 	
-	
-	
-	public OrdemServicoController(FileHandelService fileHandelService) {
+	public OrdemServicoController(FileHandelService fileHandelService,ServletContext context) {
 		this.fileHandelService = fileHandelService;
+		this.context = context;
 	}
 
 	/** INJETANDO O OBJETO GrupoService */
@@ -187,12 +188,12 @@ public class OrdemServicoController {
 		ModelAndView modelAndView = null;
 		List<OrdemServicoModel> ordemservico = this.ordemServicoService.findOrdemServico();
 
-		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, request, response);
+		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, context , request, response);
 
 //        if (isFlag){
             String fullPath = request.getServletContext().getRealPath("/resources/report/" + nomeArquivo);
             
-            fileHandelService.filedownload(fullPath, response,nomeArquivo);
+            fileHandelService.filedownload(fullPath, response, nomeArquivo);
 //
 //        }
 

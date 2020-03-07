@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -169,9 +170,11 @@ public class OrdemServicoService {
 	}
 	
 	
-	   public String createExcell(List<OrdemServicoModel> ordemServico, HttpServletRequest request, HttpServletResponse response) throws IOException {
+	   public String createExcell(List<OrdemServicoModel> ordemServico, ServletContext context, HttpServletRequest request, HttpServletResponse response) throws IOException {
 		    //ServletContext context = request.getServletContext();
-	        String filePath = "c:/marteSystem/backup/";
+		   
+		    String filePath = context.getRealPath("/resources/report");
+	        //String filePath = "c:/marteSystem/backup/";
 	        File file = new File(filePath);
 	        
 	        boolean exists = new File(filePath).exists();

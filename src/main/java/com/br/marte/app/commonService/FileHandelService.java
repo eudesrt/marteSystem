@@ -21,7 +21,6 @@ public class FileHandelService {
 
     public void filedownload(String fullPath, HttpServletResponse response, String files) {
     	
-    	ServletContext contexts = context;
 
     	System.out.println("context " + context);
         File file = new File(fullPath);
@@ -29,7 +28,7 @@ public class FileHandelService {
         if (file.exists()){
             try {
                 FileInputStream inputStream = new FileInputStream(file);
-                String mimeType = contexts.getMimeType(fullPath);
+                String mimeType = context.getMimeType(fullPath);
                 response.setContentType(mimeType);
                 response.setHeader("content-disposition:inline; ", "filename="+ files);
                 OutputStream outputStream = response.getOutputStream();
