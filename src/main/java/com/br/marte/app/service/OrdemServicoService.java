@@ -198,9 +198,10 @@ public class OrdemServicoService {
 	            headerCellStyle.setFillBackgroundColor(HSSFColor.BLUE.index);
 	            headerCellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
-	            HSSFRow headerRow = workSheet.createRow(1);
+	            HSSFRow headerRow = workSheet.createRow(0);
 
 	            HSSFCell os = headerRow.createCell(0);
+	            os.setCellValue("OS");
 	            os.setCellStyle(headerCellStyle);
 
 	            HSSFCell titulo = headerRow.createCell(1);

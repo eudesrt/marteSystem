@@ -1,14 +1,13 @@
 package com.br.marte.app.commonService;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.OutputStream;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
 
 @Service
 public class FileHandelService {
@@ -20,9 +19,6 @@ public class FileHandelService {
     }
 
     public void filedownload(String fullPath, HttpServletResponse response, String files) {
-    	
-
-    	System.out.println("context " + context);
         File file = new File(fullPath);
         final int BUFFER_SIZE = 4096;
         if (file.exists()){

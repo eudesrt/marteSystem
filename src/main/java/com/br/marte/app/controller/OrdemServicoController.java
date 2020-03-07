@@ -1,6 +1,9 @@
 package com.br.marte.app.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -20,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.br.marte.app.commonService.FileHandelService;
 import com.br.marte.app.entity.OrdemServico;
 import com.br.marte.app.model.OrdemServicoModel;
 import com.br.marte.app.model.StatusModel;
@@ -32,11 +34,9 @@ import com.br.marte.app.service.StatusService;
 @RequestMapping("/ordemServico")
 public class OrdemServicoController {
 	
-	private final FileHandelService fileHandelService;
 	private final ServletContext context;	
 	
-	public OrdemServicoController(FileHandelService fileHandelService,ServletContext context) {
-		this.fileHandelService = fileHandelService;
+	public OrdemServicoController(ServletContext context) {
 		this.context = context;
 	}
 
@@ -182,6 +182,35 @@ public class OrdemServicoController {
 		return modelAndView;
 	}
 	
+	
+    public void filedownload(String fullPath, HttpServletResponse response, String files) {
+        File file = new File(fullPath);
+        final int BUFFER_SIZE = 4096;
+        if (file.exists()){
+            try {
+                FileInputStream inputStream = new FileInputStream(file);
+                String mimeType = context.getMimeType(fullPath);
+                response.setContentType(mimeType);
+                response.setHeader("content-disposition:inline; ", "filename="+ files);
+                OutputStream outputStream = response.getOutputStream();
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bytestRead = -1;
+                while ((bytestRead = inputStream.read(buffer))!= -1){
+                    outputStream.write(buffer, 0, bytestRead);
+
+                }
+                inputStream.close();
+
+                outputStream.close();
+
+                file.delete();
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+	
 	@GetMapping(value = "/excel")
 	public ModelAndView allExcel(HttpServletRequest request, HttpServletResponse response,
 			RedirectAttributes redirectAttributes) throws IOException {
@@ -193,7 +222,7 @@ public class OrdemServicoController {
 //        if (isFlag){
             String fullPath = request.getServletContext().getRealPath("/resources/report/" + nomeArquivo);
             
-            fileHandelService.filedownload(fullPath, response, nomeArquivo);
+            filedownload(fullPath, response, nomeArquivo);
 //
 //        }
 
