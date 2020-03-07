@@ -189,9 +189,8 @@ public class OrdemServicoController {
         if (file.exists()){
             try {
                 FileInputStream inputStream = new FileInputStream(file);
-                String mimeType = context.getMimeType(fullPath);
-                response.setContentType(mimeType);
-                response.setHeader("content-disposition:inline; ", "filename="+ files);
+                response.setContentType("application/csv");
+                response.setHeader("Content-Disposition", "attachment; filename=" +  files);
                 OutputStream outputStream = response.getOutputStream();
                 byte[] buffer = new byte[BUFFER_SIZE];
                 int bytestRead = -1;
@@ -212,29 +211,18 @@ public class OrdemServicoController {
     }
 	
 	@GetMapping(value = "/excel")
-	public ModelAndView allExcel(HttpServletRequest request, HttpServletResponse response,
+	public void allExcel(HttpServletRequest request, HttpServletResponse response,
 			RedirectAttributes redirectAttributes) throws IOException {
-		ModelAndView modelAndView = null;
 		List<OrdemServicoModel> ordemservico = this.ordemServicoService.findOrdemServico();
 
 		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, context , request, response);
 
-//        if (isFlag){
             String fullPath = request.getServletContext().getRealPath("/resources/report/" + nomeArquivo);
             
             filedownload(fullPath, response, nomeArquivo);
-//
-//        }
 
-		redirectAttributes.addFlashAttribute("msg_valida", false);
-		redirectAttributes.addFlashAttribute("msg_resultado", "Backup Realizado com Sucesso Arquivo : " + nomeArquivo);
 
-		/*
-		 * APÓS SALVAR VAMOS REDIRICIONAR O ORDEM DE SERVICO PARA A PAGINA DE CONSULTA
-		 */
-		modelAndView = new ModelAndView("redirect:/home");
-		/* RETORNANDO A VIEW */
-		return modelAndView;
+
 
 	}
 
