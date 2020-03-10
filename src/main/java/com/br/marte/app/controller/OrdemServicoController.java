@@ -217,7 +217,7 @@ public class OrdemServicoController {
 
 		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, context , request, response);
 
-            String fullPath = request.getServletContext().getRealPath("/resources/report/" + nomeArquivo);
+            String fullPath = request.getServletContext().getRealPath("/" + nomeArquivo);
             
             filedownload(fullPath, response, nomeArquivo);
 
