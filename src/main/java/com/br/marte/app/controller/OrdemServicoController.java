@@ -185,7 +185,7 @@ public class OrdemServicoController {
 	
     public void filedownload(String fullPath, HttpServletResponse response, String files) {
         File file = new File(fullPath);
-        final int BUFFER_SIZE = 4096;
+        final int BUFFER_SIZE = 1024;
         if (file.exists()){
             try {
                 FileInputStream inputStream = new FileInputStream(file);
@@ -217,7 +217,7 @@ public class OrdemServicoController {
 
 		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, context , request, response);
 
-            String fullPath = request.getServletContext().getRealPath("/" + nomeArquivo);
+            String fullPath = request.getServletContext().getRealPath(nomeArquivo);
             
             filedownload(fullPath, response, nomeArquivo);
 

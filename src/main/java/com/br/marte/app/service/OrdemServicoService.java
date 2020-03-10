@@ -186,10 +186,10 @@ public class OrdemServicoService {
 	        SimpleDateFormat dt = new SimpleDateFormat("ddMMyyyyHHmmss");
 	        String nomeArquivo = "bkp_ordem_servico_" + dt.format(new Date())+  ".xls";
 	        try{
-		        FileOutputStream outputStream = new FileOutputStream(file+"\\" + nomeArquivo);
+		        FileOutputStream outputStream = new FileOutputStream(file+"/" + nomeArquivo);
 
-	            System.out.println("file " + file);
-	            System.out.println("outputStream " + outputStream);
+	            System.out.println("Arquivo caminho: " + file);
+
 	            HSSFWorkbook workbook = new HSSFWorkbook();
 	            HSSFSheet workSheet = workbook.createSheet("ordem_servico");
 	            workSheet.setDefaultColumnWidth(10);
