@@ -76,28 +76,15 @@
                                 <a th:href="@{/home}"> <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                                 </a>
                             </li>
+							<li class="treeview">
+								<a th:href="@{/ordemServico/novoCadastro}"><i class="fa fa-laptop"></i> <span>Cadastro OS</span> <span class="label label-primary pull-right">new</span></a>
+							</li>
                             <li class="treeview">
-                                <a href="#"> <i class="fa fa-laptop"></i> <span>Ordem Servico</span> <i class="fa fa-angle-left pull-right"></i>
-                                </a>
+                                <a href="#"><i class="fa fa-search"></i> <span>Consulta</span> <i class="fa fa-angle-left pull-right"></i></a>
                                 <ul class="treeview-menu">
-                                    <li><a th:href="@{/ordemServico/novoCadastro}"><i class="fa fa-angle-right"></i>Cadastro OS</a></li>
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=0}"><i class="fa fa-angle-right"></i>Consulta</a></li>
-                                </ul>
-                            </li>
-<!--                             <li class="treeview"> -->
-<!--                                 <a th:href="@{/ordemServico/consultarOrdemServico?codigo=0}">  -->
-<!--                                 	<i class="fa fa-search"></i> <span>Consultar</span> <span class="label label-primary pull-right">os</span> -->
-<!--                                 </a> -->
-<!--                             </li> -->                            
-                            
-                            
-                            <li class="treeview">
-                                <a href="#"> <i class="fa fa-search"></i> <span>Consulta</span> <i class="fa fa-angle-left pull-right"></i>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=0}"><i class="fa fa-angle-right"></i>Todos</a></li>
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1}"><i class="fa fa-angle-right"></i>Fora de Prazo Mes</a></li>
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=2}"><i class="fa fa-angle-right"></i>Fora de Prazo Todos</a></li>
+                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=0}"><i class="fa fa-angle-right"></i>Todas</a></li>
+                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1}"><i class="fa fa-angle-right"></i>Fora do Prazo Mes</a></li>
+                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=2}"><i class="fa fa-angle-right"></i>Fora do Prazo Todas</a></li>
                                 </ul>
                             </li>
                             
@@ -105,7 +92,7 @@
                                 <a href="#"> <i class="fa fa-user"></i> <span>Controle de Usuario</span><i class="fa fa-angle-left pull-right"></i></a>
                                 <ul class="treeview-menu">
                                     <li><a th:href="@{/usuario/novoCadastro}"><i class="fa fa-angle-right"></i>Cadastro</a></li>
-                                    <li><a th:href="@{/usuario/consultar}"><i class="fa fa-angle-right"></i>Consulta</a></li>
+                                    <li><a th:href="@{/usuario/consultar}"><i class="fa fa-angle-right"></i>Lista de Usuarios</a></li>
                                 </ul>
                             </li>
                             <li class="treeview">
