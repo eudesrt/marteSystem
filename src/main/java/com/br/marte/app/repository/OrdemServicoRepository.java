@@ -15,6 +15,22 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo")
 	public List<OrdemServico> findStatus(@Param("codigo") Integer codigo);	
 	
+	
+	//QUERY COM JPQL
+	@Query("SELECT u FROM OrdemServico u " 
+			+ " WHERE EXTRACT(YEAR  FROM dt_commit) = EXTRACT(YEAR  FROM now()) "
+			+ "AND EXTRACT(MONTH FROM dt_commit) =   EXTRACT(MONTH FROM now()) " 
+			+ "AND dt_commit is not null "
+			+ "AND evento_id = 9999 " 
+			+ "AND DT_VENC < dt_commit")
+	public List<OrdemServico> findForaPrazoMes();	
+	
+	//QUERY COM JPQL
+	@Query("SELECT u FROM OrdemServico u " 
+			+ " WHERE dt_commit is not null "
+			+ "AND evento_id = 9999 " 
+			+ "AND DT_VENC < dt_commit")
+	public List<OrdemServico> findForaPrazoTodos();
 
 	//QUERY COM JPQL
 	@Query("SELECT u FROM OrdemServico u ")

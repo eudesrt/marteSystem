@@ -72,6 +72,10 @@ public class OrdemServicoService {
 		
 		if(codigo == null || codigo == 0) {
 			ordemServicosEntity = this.ordemServicoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
+		}else if (codigo == 1) {
+			ordemServicosEntity = this.ordemServicoRepository.findForaPrazoMes();
+		}else if (codigo == 2) {
+			ordemServicosEntity = this.ordemServicoRepository.findForaPrazoTodos();			
 		}else {
 			ordemServicosEntity = this.ordemServicoRepository.findStatus(codigo);
 		}
