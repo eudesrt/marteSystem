@@ -1,9 +1,6 @@
 package com.br.marte.app.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.br.marte.app.commonService.FileHandelService;
 import com.br.marte.app.entity.OrdemServico;
 import com.br.marte.app.model.OrdemServicoModel;
 import com.br.marte.app.model.StatusModel;
@@ -35,9 +33,11 @@ import com.br.marte.app.service.StatusService;
 public class OrdemServicoController {
 	
 	private final ServletContext context;	
+	private final FileHandelService fileHandelService;
 	
-	public OrdemServicoController(ServletContext context) {
+	public OrdemServicoController(ServletContext context,FileHandelService fileHandelService) {
 		this.context = context;
+		this.fileHandelService = fileHandelService;
 	}
 
 	/** INJETANDO O OBJETO GrupoService */
@@ -182,48 +182,15 @@ public class OrdemServicoController {
 		return modelAndView;
 	}
 	
-	
-    public void filedownload(String fullPath, HttpServletResponse response, String files) {
-        File file = new File(fullPath);
-        final int BUFFER_SIZE = 1024;
-        if (file.exists()){
-            try {
-                FileInputStream inputStream = new FileInputStream(file);
-                response.setContentType("application/csv");
-                response.setHeader("Content-Disposition", "attachment; filename=" +  files);
-                OutputStream outputStream = response.getOutputStream();
-                byte[] buffer = new byte[BUFFER_SIZE];
-                int bytestRead = -1;
-                while ((bytestRead = inputStream.read(buffer))!= -1){
-                    outputStream.write(buffer, 0, bytestRead);
-
-                }
-                inputStream.close();
-
-                outputStream.close();
-
-                file.delete();
-
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-	
 	@GetMapping(value = "/excel")
-	public void allExcel(HttpServletRequest request, HttpServletResponse response,
-			RedirectAttributes redirectAttributes) throws IOException {
+	public void allExcel(HttpServletRequest request, HttpServletResponse response,RedirectAttributes redirectAttributes) throws IOException {
 		List<OrdemServicoModel> ordemservico = this.ordemServicoService.findOrdemServico();
 
-		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, context , request, response);
+		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, context, request, response);
 
-            String fullPath = request.getServletContext().getRealPath(nomeArquivo);
-            
-            filedownload(fullPath, response, nomeArquivo);
+		String fullPath = request.getServletContext().getRealPath(nomeArquivo);
 
-
-
-
+		fileHandelService.filedownload(fullPath, response, nomeArquivo);
 	}
 
 }
