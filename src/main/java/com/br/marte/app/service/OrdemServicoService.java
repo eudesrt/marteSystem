@@ -195,8 +195,8 @@ public class OrdemServicoService {
 	            workSheet.setDefaultColumnWidth(10);
 
 	            HSSFCellStyle headerCellStyle = workbook.createCellStyle();
-	            headerCellStyle.setFillBackgroundColor(HSSFColor.BLUE.index);
-	            headerCellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+//	            headerCellStyle.setFillBackgroundColor(HSSFColor.BLUE.index);
+//	            headerCellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
 	            HSSFRow headerRow = workSheet.createRow(0);
 
@@ -205,30 +205,39 @@ public class OrdemServicoService {
 	            os.setCellStyle(headerCellStyle);
 
 	            HSSFCell titulo = headerRow.createCell(1);
+	            titulo.setCellValue("Titulo");
 	            titulo.setCellStyle(headerCellStyle);
 
 	            HSSFCell dt_entrada = headerRow.createCell(2);
+	            dt_entrada.setCellValue("dt_entrada");
 	            dt_entrada.setCellStyle(headerCellStyle);
 
 	            HSSFCell dt_homologacao = headerRow.createCell(3);
+	            dt_homologacao.setCellValue("dt_homologacao");
 	            dt_homologacao.setCellStyle(headerCellStyle);
 	            
 	            HSSFCell dt_commit = headerRow.createCell(4);
+	            dt_commit.setCellValue("dt_commit");
 	            dt_commit.setCellStyle(headerCellStyle);
 	            
 	            HSSFCell dt_venc = headerRow.createCell(5);
+	            dt_venc.setCellValue("dt_venc");
 	            dt_venc.setCellStyle(headerCellStyle);
 	            
 	            HSSFCell descricao = headerRow.createCell(6);
+	            descricao.setCellValue("descricao");
 	            descricao.setCellStyle(headerCellStyle);
 	            
 	            HSSFCell solicitante = headerRow.createCell(7);
+	            solicitante.setCellValue("solicitante");
 	            solicitante.setCellStyle(headerCellStyle);
 	            
 	            HSSFCell evento = headerRow.createCell(8);
+	            evento.setCellValue("evento");
 	            evento.setCellStyle(headerCellStyle);
 	            
 	            HSSFCell usuario = headerRow.createCell(9);
+	            usuario.setCellValue("usuario");
 	            usuario.setCellStyle(headerCellStyle);
 
 	            Integer i = 1;
@@ -237,7 +246,7 @@ public class OrdemServicoService {
 	                HSSFRow bodyRow = workSheet.createRow(i);
 
 	                HSSFCellStyle bodyCellStyle = workbook.createCellStyle();
-	                bodyCellStyle.setFillForegroundColor(HSSFColor.WHITE.index);
+//	                bodyCellStyle.setFillForegroundColor(HSSFColor.WHITE.index);
 
 	                HSSFCell coluna_os = bodyRow.createCell(0);
 	                coluna_os.setCellValue(o.getOs());
