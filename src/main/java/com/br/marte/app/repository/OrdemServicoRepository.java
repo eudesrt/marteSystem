@@ -11,10 +11,17 @@ import com.br.marte.app.entity.OrdemServico;
 public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long> {
 
 	// QUERY COM JPQL
-	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo")
+	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo Order by u.os DESC")
 	public List<OrdemServico> findStatus(@Param("codigo") Integer codigo);
 	
-	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo and EXTRACT(YEAR  FROM dt_commit) = :ano")
+	@Query("SELECT u FROM OrdemServico u "
+			+ "JOIN FETCH u.status "
+			+ "where u.status.evento_id = :codigo "
+			+ "AND EXTRACT(MONTH FROM dt_commit) =   EXTRACT(MONTH FROM now()) "
+			+ "AND EXTRACT(YEAR  FROM dt_commit) = EXTRACT(YEAR  FROM now()) Order by u.os DESC" )
+	public List<OrdemServico> findStatusMonth(@Param("codigo") Integer codigo);
+	
+	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo and EXTRACT(YEAR  FROM dt_commit) = :ano Order by u.os DESC" )
 	public List<OrdemServico> findStatusYear(@Param("codigo") Integer codigo, @Param("ano") Integer ano);
 
 	@Query("SELECT u FROM OrdemServico u " 
@@ -22,14 +29,15 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 			+ "AND EXTRACT(MONTH FROM dt_commit) =   EXTRACT(MONTH FROM now()) " 
 			+ "AND dt_commit is not null "
 			+ "AND evento_id = 9999 " 
-			+ "AND DT_VENC < dt_commit")
+			+ "AND DT_VENC < dt_commit Order by u.os DESC")
 	public List<OrdemServico> findForaPrazoMes();
 
-	@Query("SELECT u FROM OrdemServico u " + " WHERE dt_commit is not null " + "AND evento_id = 9999 "
-			+ "AND DT_VENC < dt_commit")
+	@Query("SELECT u FROM OrdemServico u " + " WHERE dt_commit is not null " 
+			+ "AND evento_id = 9999 "
+			+ "AND DT_VENC < dt_commit Order by u.os DESC")
 	public List<OrdemServico> findForaPrazoTodos();
 
-	@Query("SELECT u FROM OrdemServico u ")
+	@Query("SELECT u FROM OrdemServico u Order by u.os DESC")
 	public List<OrdemServico> pesquisaTodos();
 
 	@Query("SELECT u FROM OrdemServico u where u.os = :codigo")

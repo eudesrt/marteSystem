@@ -140,7 +140,7 @@ public class OrdemServicoController {
 		} else if (codigo.equals(1300)) {
 			model.addAttribute("status", "Pedente Informação");
 		} else if (codigo.equals(1400)) {
-			model.addAttribute("status", "Na Gerencia");
+			model.addAttribute("status", "Na Gerência");
 		} else if (codigo.equals(9998)) {
 			model.addAttribute("status", "Cancelada");
 		} else if (codigo.equals(9999)) {
@@ -153,6 +153,8 @@ public class OrdemServicoController {
 			model.addAttribute("status", "Fora do Prazo Mês Vigente");
 		} else if (codigo.equals(2)) {
 			model.addAttribute("status", "Fora do Prazo Todas");
+		} else if (codigo.equals(3)) {
+			model.addAttribute("status", "Finalizadas do Mês Vigente");
 		} else {
 			model.addAttribute("status", "Todas");
 		}
