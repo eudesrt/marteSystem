@@ -67,20 +67,20 @@ public class OrdemServicoService {
 	 */
 	public List<OrdemServicoModel> consultarOrdemServico(Integer codigo) {
 		List<OrdemServicoModel> ordemServicoModel = new ArrayList<OrdemServicoModel>();
-		
+
 		List<OrdemServico> ordemServicosEntity = null;
-		
-		if(codigo == null || codigo == 0) {
+
+		if (codigo == null || codigo == 0) {
 			ordemServicosEntity = this.ordemServicoRepository.findAll(Sort.by(Sort.Direction.DESC, "codigo"));
-		}else if (codigo == 1) {
+		} else if (codigo == 1) {
 			ordemServicosEntity = this.ordemServicoRepository.findForaPrazoMes();
-		}else if (codigo == 2) {
-			ordemServicosEntity = this.ordemServicoRepository.findForaPrazoTodos();			
-		}else if (codigo == 2019) {
-			ordemServicosEntity = this.ordemServicoRepository.findStatusYear(9999,codigo);
-		}else if (codigo == 2020) {
-			ordemServicosEntity = this.ordemServicoRepository.findStatusYear(9999,codigo);			
-		}else {
+		} else if (codigo == 2) {
+			ordemServicosEntity = this.ordemServicoRepository.findForaPrazoTodos();
+		} else if (codigo == 2019) {
+			ordemServicosEntity = this.ordemServicoRepository.findStatusYear(9999, codigo);
+		} else if (codigo == 2020) {
+			ordemServicosEntity = this.ordemServicoRepository.findStatusYear(9999, codigo);
+		} else {
 			ordemServicosEntity = this.ordemServicoRepository.findStatus(codigo);
 		}
 
@@ -95,8 +95,7 @@ public class OrdemServicoService {
 
 		return ordemServicoModel;
 	}
-	
-	
+
 	public List<OrdemServicoModel> findOrdemServico() {
 
 		List<OrdemServico> ordemServicosEntity = null;
@@ -111,7 +110,8 @@ public class OrdemServicoService {
 					ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
 					ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),
 					ordemServicoEntity.getDt_venc(), ordemServicoEntity.getStatus().getEvento_id(),
-					ordemServicoEntity.getId_usuario().getCodigo().intValue(),ordemServicoEntity.getDescricao(),ordemServicoEntity.getSolicitante() ));
+					ordemServicoEntity.getId_usuario().getCodigo().intValue(), ordemServicoEntity.getDescricao(),
+					ordemServicoEntity.getSolicitante()));
 		});
 
 		return ordemServicoModel;
@@ -137,47 +137,47 @@ public class OrdemServicoService {
 
 		OrdemServico ordemServicoEntity = this.ordemServicoRepository.getOne(ordemServicoModel.getCodigo());
 		LocalDate dtHomologacao = null;
-		LocalDate dtCommits	= null;
-		
-		if(ordemServicoModel.getStatus().equals(1200)) {
-			if(ordemServicoModel.getDtHomologacao() != null) {
+		LocalDate dtCommits = null;
+
+		if (ordemServicoModel.getStatus().equals(1200)) {
+			if (ordemServicoModel.getDtHomologacao() != null) {
 				dtHomologacao = ordemServicoModel.getDtHomologacao();
-			}else {
+			} else {
 				dtHomologacao = LocalDate.now();
 			}
 			ordemServicoEntity.setDt_homologacao(dtHomologacao);
-		}else if(ordemServicoModel.getStatus().equals(9999)) {
-			if(ordemServicoModel.getDtCommit() != null) {
+		} else if (ordemServicoModel.getStatus().equals(9999)) {
+			if (ordemServicoModel.getDtCommit() != null) {
 				dtCommits = ordemServicoModel.getDtCommit();
-			}else {
+			} else {
 				dtCommits = LocalDate.now();
 			}
-			if(ordemServicoModel.getDtHomologacao() != null) {
+			if (ordemServicoModel.getDtHomologacao() != null) {
 				dtHomologacao = ordemServicoModel.getDtHomologacao();
 				ordemServicoEntity.setDt_homologacao(dtHomologacao);
 			}
 			ordemServicoEntity.setDt_commit(dtCommits);
-		} else if(ordemServicoModel.getStatus().equals(1000) || ordemServicoModel.getStatus().equals(9998) || ordemServicoModel.getStatus().equals(1200) || ordemServicoModel.getStatus().equals(1100) || ordemServicoModel.getStatus().equals(1300)) {
+		} else if (ordemServicoModel.getStatus().equals(1000) || ordemServicoModel.getStatus().equals(9998)
+				|| ordemServicoModel.getStatus().equals(1200) || ordemServicoModel.getStatus().equals(1100)
+				|| ordemServicoModel.getStatus().equals(1300)) {
 			dtCommits = null;
 			dtHomologacao = null;
 			ordemServicoEntity.setDt_commit(dtCommits);
 			ordemServicoEntity.setDt_homologacao(dtHomologacao);
-		}		
+		}
 
 		ordemServicoEntity.setOs(ordemServicoModel.getOs());
 		ordemServicoEntity.setDt_entrada(ordemServicoModel.getDtEntrada());
 		ordemServicoEntity.setDt_venc(ordemServicoModel.getDtVencimento());
 		ordemServicoEntity.setTitulo(ordemServicoModel.getTitulo());
 		ordemServicoEntity.setStatus(statusRepository.getOne(ordemServicoModel.getStatus().intValue()));
-		
-		
 
 		/* SALVANDO ALTERAÇÃO DO REGISTRO */
 		this.ordemServicoRepository.saveAndFlush(ordemServicoEntity);
 	}
-	
-	
-	public String createExcell(List<OrdemServicoModel> ordemServico, ServletContext context, HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+	public String createExcell(List<OrdemServicoModel> ordemServico, ServletContext context, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 
 		String filePath = context.getRealPath("/");
 		File file = new File(filePath);

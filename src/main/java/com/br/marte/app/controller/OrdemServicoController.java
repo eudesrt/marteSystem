@@ -31,11 +31,11 @@ import com.br.marte.app.service.StatusService;
 @Controller
 @RequestMapping("/ordemServico")
 public class OrdemServicoController {
-	
-	private final ServletContext context;	
+
+	private final ServletContext context;
 	private final FileHandelService fileHandelService;
-	
-	public OrdemServicoController(ServletContext context,FileHandelService fileHandelService) {
+
+	public OrdemServicoController(ServletContext context, FileHandelService fileHandelService) {
 		this.context = context;
 		this.fileHandelService = fileHandelService;
 	}
@@ -131,6 +131,32 @@ public class OrdemServicoController {
 		/* CONSULTA USUARIOS CADASTRADOS */
 		model.addAttribute("ordemServicoModel", this.ordemServicoService.consultarOrdemServico(codigo));
 
+		if (codigo.equals(1000)) {
+			model.addAttribute("status", "Nova");
+		} else if (codigo.equals(1100)) {
+			model.addAttribute("status", "Em Desenvolvimento");
+		} else if (codigo.equals(1200)) {
+			model.addAttribute("status", "Em Homologação");
+		} else if (codigo.equals(1300)) {
+			model.addAttribute("status", "Pedente Informação");
+		} else if (codigo.equals(1400)) {
+			model.addAttribute("status", "Na Gerencia");
+		} else if (codigo.equals(9998)) {
+			model.addAttribute("status", "Cancelada");
+		} else if (codigo.equals(9999)) {
+			model.addAttribute("status", "Finalizadas");
+		} else if (codigo.equals(2019)) {
+			model.addAttribute("status", "Finalizadas 2019");
+		} else if (codigo.equals(2020)) {
+			model.addAttribute("status", "Finalizadas 2020");
+		} else if (codigo.equals(1)) {
+			model.addAttribute("status", "Fora do Prazo Mês Vigente");
+		} else if (codigo.equals(2)) {
+			model.addAttribute("status", "Fora do Prazo Todas");
+		} else {
+			model.addAttribute("status", "Todas");
+		}
+
 		/* RETORNA A VIEW */
 		return new ModelAndView("consultarOrdemServico");
 	}
@@ -155,15 +181,18 @@ public class OrdemServicoController {
 	}
 
 	@RequestMapping(value = "/salvarAlteracao", method = RequestMethod.POST)
-	public ModelAndView salvarAlteracao(@ModelAttribute @Valid OrdemServicoModel ordemServicoModel, final BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+	public ModelAndView salvarAlteracao(@ModelAttribute @Valid OrdemServicoModel ordemServicoModel,
+			final BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
 		ModelAndView modelAndView = null;
 		if (ordemServicoModel.getStatus().equals(9999)) {
 			if (ordemServicoModel.getDtHomologacao() == null) {
 				redirectAttributes.addFlashAttribute("msg_valida", false);
-				redirectAttributes.addFlashAttribute("msg_resultado", "A Data de Homologação e necessária pra finalizar a ordem de serviço.");
-				
-				modelAndView = new ModelAndView("redirect:/ordemServico/editarOrdemServico?codigo=" + ordemServicoModel.getCodigo());
+				redirectAttributes.addFlashAttribute("msg_resultado",
+						"A Data de Homologação e necessária pra finalizar a ordem de serviço.");
+
+				modelAndView = new ModelAndView(
+						"redirect:/ordemServico/editarOrdemServico?codigo=" + ordemServicoModel.getCodigo());
 
 				return modelAndView;
 			}
@@ -176,14 +205,17 @@ public class OrdemServicoController {
 		 * APÓS SALVAR VAMOS REDIRICIONAR O ORDEM DE SERVICO PARA A PAGINA DE CONSULTA
 		 */
 		modelAndView = new ModelAndView("redirect:/home");
-		//modelAndView = new ModelAndView("redirect:/ordemServico/consultarOrdemServico?codigo=" + ordemServicoModel.getStatus());
+		// modelAndView = new
+		// ModelAndView("redirect:/ordemServico/consultarOrdemServico?codigo=" +
+		// ordemServicoModel.getStatus());
 
 		/* RETORNANDO A VIEW */
 		return modelAndView;
 	}
-	
+
 	@GetMapping(value = "/excel")
-	public void allExcel(HttpServletRequest request, HttpServletResponse response,RedirectAttributes redirectAttributes) throws IOException {
+	public void allExcel(HttpServletRequest request, HttpServletResponse response,
+			RedirectAttributes redirectAttributes) throws IOException {
 		List<OrdemServicoModel> ordemservico = this.ordemServicoService.findOrdemServico();
 
 		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, context, request, response);
