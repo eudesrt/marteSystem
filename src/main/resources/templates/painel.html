@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base/layout">
+
+<head>
+    <title>Painel Dashboard</title>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Marte System dashboard" />
+    <meta name="author" content="Rafael Eudes" />
+
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $("#owl-demo").owlCarousel({
+                items: 3,
+                lazyLoad: true,
+                autoPlay: true,
+                pagination: true,
+                nav: true,
+            });
+        });
+
+        $(document).ready(
+            function() {
+                $('#demo-pie-1').pieChart({
+                    barColor: '#8e43e7',
+                    trackColor: '#eee',
+                    lineCap: 'round',
+                    lineWidth: 8,
+                    onStep: function(from, to, percent) {
+                        $(this.element).find('.pie-value').text(
+                            Math.round(percent) + '%');
+                    }
+                });
+
+                $('#demo-pie-2').pieChart({
+                    barColor: '#2dde98',
+                    trackColor: '#eee',
+                    lineCap: 'butt',
+                    lineWidth: 8,
+                    onStep: function(from, to, percent) {
+                        $(this.element).find('.pie-value').text(
+                            Math.round(percent) + '%');
+                    }
+                });
+
+                $('#demo-pie-3').pieChart({
+                    barColor: '#e80229',
+                    trackColor: '#eee',
+                    lineCap: 'square',
+                    lineWidth: 8,
+                    onStep: function(from, to, percent) {
+                        $(this.element).find('.pie-value').text(
+                            Math.round(percent) + '%');
+                    }
+                });
+
+            });
+    </script>
+</head>
+
+<body class="cbp-spmenu-push">
+    <section layout:fragment="content">
+
+        <form action="#" id="formulario-painel" th:action="@{/painel}" th:object="${staticModel}" method="post">
+
+            <input type="hidden" id="jan" name="jan" th:value="*{jan}">
+            <input type="hidden" id="fev" name="fev" th:value="*{fev}">
+            <input type="hidden" id="mar" name="mar" th:value="*{mar}">
+            <input type="hidden" id="abr" name="abr" th:value="*{abr}">
+            <input type="hidden" id="mai" name="mai" th:value="*{mai}">
+            <input type="hidden" id="jun" name="jun" th:value="*{jun}">
+            <input type="hidden" id="jul" name="jul" th:value="*{jul}">
+            <input type="hidden" id="ago" name="ago" th:value="*{ago}">
+            <input type="hidden" id="set" name="set" th:value="*{set}">
+            <input type="hidden" id="out" name="out" th:value="*{out}">
+            <input type="hidden" id="nov" name="nov" th:value="*{nov}">
+            <input type="hidden" id="dez" name="dez" th:value="*{dez}">
+            <input type="hidden" id="slaFora" name="slaFora" th:value="*{slaFora}">
+            <input type="hidden" id="slaDentro" name="slaDentro" th:value="*{slaDentro}">
+			<input type="hidden" id="ano" name="ano" th:value="*{ano}">
+			
+            <div id="page-wrapper">
+                <div class="main-page">
+                    <div class="col_3">
+
+                        <div class="col-md-4 stat">
+                            <div class="content-top-1">
+                                <div class="col-md-6 top-content">
+                                    <h5><span><a th:href="@{/ordemServico/consultarOrdemServico?codigo=}+*{ano}">Finalizadas</a></span></h5>
+                                    <label><strong th:text="*{slaDentro + slaFora}"></strong>+</label>
+                                </div>
+                                <div class="col-md-6 top-content1">
+                                    <div id="demo-pie-1" class="pie-title-center" data-percent="100">
+                                        <span class="pie-value"></span>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 stat">
+                            <div class="content-top-1">
+                                <div class="col-md-6 top-content">
+                                    <h5>Dentro do Prazo</h5>
+                                    <label><strong th:text="*{slaDentro}"></strong>+</label>
+
+                                </div>
+                                <div class="col-md-6 top-content1">
+                                    <div id="demo-pie-2" class="pie-title-center" data-percent="100">
+                                        <span class="pie-value"></span>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 stat">
+                            <div class="content-top-1">
+                                <div class="col-md-6 top-content">
+                                    <h5>Fora do prazo</h5>
+                                    <label><strong th:text="*{slaFora}"></strong>+</label>
+                                </div>
+                                <div class="col-md-6 top-content1">
+                                    <div id="demo-pie-3" class="pie-title-center" data-percent="100">
+                                        <span class="pie-value"></span>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="col-md-6 chit-chat-layer1-left">
+                    <div class="geo-chart">
+
+                        <h3 class="tlt" align="center">Analytics YEAR <strong th:text="*{ano}"></strong> </h3>
+                        <canvas id="bar-chart" width="800" height="450"></canvas>
+
+                        <script>
+                            // Bar chart
+
+                            var jan = document.getElementById("jan").value;
+                            var fev = document.getElementById("fev").value;
+                            var mar = document.getElementById("mar").value;
+                            var abr = document.getElementById("abr").value;
+                            var mai = document.getElementById("mai").value;
+                            var jun = document.getElementById("jun").value;
+                            var jul = document.getElementById("jul").value;
+                            var ago = document.getElementById("ago").value;
+                            var set = document.getElementById("set").value;
+                            var out = document.getElementById("out").value;
+                            var nov = document.getElementById("nov").value;
+                            var dez = document.getElementById("dez").value;
+                            var ano = document.getElementById("ano").value;
+
+                            new Chart(document.getElementById("bar-chart"), {
+                                type: 'bar',
+                                data: {
+                                    labels: ["Janeiro", "Fevereiro",
+                                        "Março", "Abril", "Maio",
+                                        "Junho", "Julho", "Agosto",
+                                        "Setembro", "Outubro",
+                                        "Novembro", "Dezembro"
+                                    ],
+                                    datasets: [{
+                                        label: "Ordem de Serviço",
+                                        backgroundColor: [
+                                        	"#3e95cd", "#8e5ea2", 
+                                        	"#3cba9f", "#e8c3b9", 
+                                        	"#c45850", "#D8BFD8", 
+                                        	"#8e5ea2", "#3cba9f",
+                                        	"#e8c3b9", "#c45850", 
+                                        	"#3e95cd", "#D8BFD8"
+                                        ],
+                                        data: [jan, fev, mar, abr,
+                                            mai, jun, jul, ago,
+                                            set, out, nov, dez
+                                        ]
+                                    }]
+                                },
+                                options: {
+                                    legend: {
+                                        display: false
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Ordem de Serviço'
+                                    }
+                                }
+                            });
+                        </script>
+
+                    </div>
+                </div>
+                <div class="col-md-6 chit-chat-layer1-rit">
+                    <div class="geo-chart">
+                        <h3 class="tlt" align="center">SLA YEAR</h3>
+                        <canvas id="pie-chart" width="800" height="450"></canvas>
+                        <div class="wrapper-flex">
+                            <script>
+                                var slaFora = document.getElementById("slaFora").value;
+                                var slaDentro = document.getElementById("slaDentro").value;
+
+                                var slaDentroPorcetagem = 100 - slaFora;
+                                $("#demo-pie-2").attr("data-percent", slaDentroPorcetagem.toString());
+
+                                var slaForaPorcetagem = slaFora;
+                                $("#demo-pie-3").attr("data-percent", slaForaPorcetagem.toString());
+
+                                var totalOS = slaDentro + slaFora;
+
+                                new Chart(
+                                    document.getElementById("pie-chart"), {
+                                        type: 'pie',
+                                        data: {
+                                            labels: ["Dentro do Prazo","Fora do Prazo"],
+                                            datasets: [{
+                                                label: "Population (millions)",
+                                                backgroundColor: ["#57ba3c","#ba423c"],
+                                                data: [slaDentro, slaFora]
+                                            }]
+                                        },
+                                        options: {
+                                            title: {
+                                                display: true,
+                                                text: 'Ordem de Serviço Fechadas'
+                                            }
+                                        }
+                                    });
+                            </script>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+                <!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST -->
+                <div th:if="${msg_resultado}" id="msgSucesso">
+                    <div class="alert alert-success" role="alert">
+                        <p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}">...</p>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+                <!--main page chart layer2-->
+            </div>
+        </form>
+    </section>
+    <div class="mdl-layout-spacer"></div>
+</body>
+</html>

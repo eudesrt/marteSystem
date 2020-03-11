@@ -76,6 +76,10 @@ public class OrdemServicoService {
 			ordemServicosEntity = this.ordemServicoRepository.findForaPrazoMes();
 		}else if (codigo == 2) {
 			ordemServicosEntity = this.ordemServicoRepository.findForaPrazoTodos();			
+		}else if (codigo == 2019) {
+			ordemServicosEntity = this.ordemServicoRepository.findStatusYear(9999,codigo);
+		}else if (codigo == 2020) {
+			ordemServicosEntity = this.ordemServicoRepository.findStatusYear(9999,codigo);			
 		}else {
 			ordemServicosEntity = this.ordemServicoRepository.findStatus(codigo);
 		}

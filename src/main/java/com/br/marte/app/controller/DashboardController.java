@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.br.marte.app.model.StaticModel;
 import com.br.marte.app.repository.OrdemServicoRepository;
@@ -14,7 +15,7 @@ import com.br.marte.app.repository.OrdemServicoRepository;
 @Controller
 @RequestMapping("/dashboard")
 public class DashboardController {
-
+	
 	@Autowired
 	private OrdemServicoRepository ordemServicoRepository;
 	
@@ -23,19 +24,12 @@ public class DashboardController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/painel2019", method = RequestMethod.GET)
-	public String home(Model model) {
-		
-		List<Object[]> statuStatic = this.ordemServicoRepository.findStatusStatic();
-		List<Object[]> analyticsDate = this.ordemServicoRepository.findAnalyticsDateYear(2019);		
-		List<Object[]> dateStatic = this.ordemServicoRepository.findDateStaticYear(2019);
+	@RequestMapping(value = "/painel", method = RequestMethod.GET)
+	public String home(@RequestParam("ano") Integer ano, Model model) {
 
-		Integer novo = 0;
-		Integer desenvolvendo = 0;
-		Integer homologando = 0;
-		Integer pendente = 0;
-		Integer gerencia = 0;
-		Integer fechado = 0;
+		List<Object[]> analyticsDate = this.ordemServicoRepository.findAnalyticsDateYear(ano);
+		List<Object[]> dateStatic = this.ordemServicoRepository.findDateStaticYear(ano);
+
 		Integer jan = 0;
 		Integer fev = 0;
 		Integer mar = 0;
@@ -51,17 +45,7 @@ public class DashboardController {
 		Integer slaDentro = 0;
 		Integer slaFora = 0;
 
-		for (Object[] s : statuStatic) {
-			novo = Integer.valueOf(s[0].toString()) ;
-			desenvolvendo = Integer.valueOf(s[1].toString());
-			homologando = Integer.valueOf(s[2].toString());
-			pendente = Integer.valueOf(s[3].toString());
-			gerencia = Integer.valueOf(s[4].toString());
-			fechado = Integer.valueOf(s[5].toString());
-		}
-		
-		
-		for(Object[] s : analyticsDate) {
+		for (Object[] s : analyticsDate) {
 			jan = Integer.valueOf(s[0].toString());
 			fev = Integer.valueOf(s[1].toString());
 			mar = Integer.valueOf(s[2].toString());
@@ -75,18 +59,15 @@ public class DashboardController {
 			nov = Integer.valueOf(s[10].toString());
 			dez = Integer.valueOf(s[11].toString());
 		}
-		
 
 		for (Object[] s : dateStatic) {
-			 slaFora = s[0] != null ? Integer.valueOf(s[0].toString()) : 0;
-			 slaDentro= s[1] != null ? Integer.valueOf(s[1].toString()) : 0;
-		}		
+			slaFora = s[0] != null ? Integer.valueOf(s[0].toString()) : 0;
+			slaDentro = s[1] != null ? Integer.valueOf(s[1].toString()) : 0;
+		}
 
-		model.addAttribute("staticModel", new StaticModel(novo, desenvolvendo, pendente, homologando, gerencia, fechado,
-				jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez, slaDentro, slaFora));
-		System.out.println("slaDentro " + slaDentro + " slaFora " + slaFora);
+		model.addAttribute("staticModel", new StaticModel(jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez, slaDentro, slaFora, ano));
 
-		return "painel2019";
+		return "painel";
 	}
 
 

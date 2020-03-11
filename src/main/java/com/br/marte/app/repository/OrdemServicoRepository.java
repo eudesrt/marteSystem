@@ -13,10 +13,16 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	// QUERY COM JPQL
 	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo")
 	public List<OrdemServico> findStatus(@Param("codigo") Integer codigo);
+	
+	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo and EXTRACT(YEAR  FROM dt_commit) = :ano")
+	public List<OrdemServico> findStatusYear(@Param("codigo") Integer codigo, @Param("ano") Integer ano);
 
-	@Query("SELECT u FROM OrdemServico u " + " WHERE EXTRACT(YEAR  FROM dt_commit) = EXTRACT(YEAR  FROM now()) "
-			+ "AND EXTRACT(MONTH FROM dt_commit) =   EXTRACT(MONTH FROM now()) " + "AND dt_commit is not null "
-			+ "AND evento_id = 9999 " + "AND DT_VENC < dt_commit")
+	@Query("SELECT u FROM OrdemServico u " 
+			+ " WHERE EXTRACT(YEAR  FROM dt_commit) = EXTRACT(YEAR  FROM now()) "
+			+ "AND EXTRACT(MONTH FROM dt_commit) =   EXTRACT(MONTH FROM now()) " 
+			+ "AND dt_commit is not null "
+			+ "AND evento_id = 9999 " 
+			+ "AND DT_VENC < dt_commit")
 	public List<OrdemServico> findForaPrazoMes();
 
 	@Query("SELECT u FROM OrdemServico u " + " WHERE dt_commit is not null " + "AND evento_id = 9999 "
@@ -37,7 +43,7 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 			+ "SUM(CASE WHEN evento_id = 9999 THEN 1 ELSE 0 END) as FECHADO" 
 			+ " FROM tb_servico u", nativeQuery = true)
 	public List<Object[]> findStatusStatic();
-
+	
 	@Query(value = "SELECT " + "SUM(CASE WHEN EXTRACT(MONTH FROM dt_commit) =  1 THEN 1 ELSE 0 END) as JAN,"
 			+ "SUM(CASE WHEN EXTRACT(MONTH FROM dt_commit) =  2 THEN 1 ELSE 0 END) as FEV,"
 			+ "SUM(CASE WHEN EXTRACT(MONTH FROM dt_commit) =  3 THEN 1 ELSE 0 END) as MAR,"
