@@ -59,7 +59,7 @@
     </script>
 </head>
 
-<body class="cbp-spmenu-push">
+<body class="cbp-spmenu-push" >
     <section layout:fragment="content">
 
         <form action="#" id="formulario-painel" th:action="@{/painel}" th:object="${staticModel}" method="post">
@@ -80,11 +80,13 @@
             <input type="hidden" id="slaDentro" name="slaDentro" th:value="*{slaDentro}">
 			<input type="hidden" id="ano" name="ano" th:value="*{ano}">
 			
-            <div id="page-wrapper">
+            <div id="page-wrapper"  >
                 <div class="main-page">
                     <div class="col_3">
-
-                        <div class="col-md-4 stat">
+						<div class="form-title">
+							<h3><strong>Painel Dashboard ano</strong><strong th:text="*{ano}"></strong> </h3>
+						</div>
+                        <div class="col-md-4 stat" style="padding-left: 0%">
                             <div class="content-top-1">
                                 <div class="col-md-6 top-content">
                                     <h5><span><a th:href="@{/ordemServico/consultarOrdemServico?codigo=}+*{ano}">Finalizadas</a></span></h5>
