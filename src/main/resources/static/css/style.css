@@ -1440,7 +1440,7 @@ section#tables  p {
     padding: 2em 2em 0.5em;
 }
 .tables .table > thead > tr > th, .tables .table > tbody > tr > th, .tables .table > tfoot > tr > th, .tables .table > thead > tr > td, .tables .table > tbody > tr > td, .tables .table > tfoot > tr > td {
-    padding: 10px;
+    padding: 9px;
 	border-top: 1px solid #E0E0E0;
 }
 .bs-example {
