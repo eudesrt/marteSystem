@@ -1,18 +1,13 @@
 package com.br.marte.app.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.br.marte.app.commonService.FileHandelService;
 import com.br.marte.app.entity.OrdemServico;
 import com.br.marte.app.model.OrdemServicoModel;
 import com.br.marte.app.model.StatusModel;
@@ -31,15 +25,7 @@ import com.br.marte.app.service.StatusService;
 @Controller
 @RequestMapping("/ordemServico")
 public class OrdemServicoController {
-
-	private final ServletContext context;
-	private final FileHandelService fileHandelService;
-
-	public OrdemServicoController(ServletContext context, FileHandelService fileHandelService) {
-		this.context = context;
-		this.fileHandelService = fileHandelService;
-	}
-
+	
 	/** INJETANDO O OBJETO GrupoService */
 	@Autowired
 	private StatusService statusService;
@@ -154,7 +140,7 @@ public class OrdemServicoController {
 		} else if (codigo.equals(2)) {
 			model.addAttribute("status", "Fora do Prazo Todas");
 		} else if (codigo.equals(3)) {
-			model.addAttribute("status", "Finalizadas do Mês Vigente");
+			model.addAttribute("status", "Finalizadas no Mês Vigente");
 		} else {
 			model.addAttribute("status", "Todas");
 		}
@@ -213,18 +199,6 @@ public class OrdemServicoController {
 
 		/* RETORNANDO A VIEW */
 		return modelAndView;
-	}
-
-	@GetMapping(value = "/excel")
-	public void allExcel(HttpServletRequest request, HttpServletResponse response,
-			RedirectAttributes redirectAttributes) throws IOException {
-		List<OrdemServicoModel> ordemservico = this.ordemServicoService.findOrdemServico();
-
-		String nomeArquivo = this.ordemServicoService.createExcell(ordemservico, context, request, response);
-
-		String fullPath = request.getServletContext().getRealPath(nomeArquivo);
-
-		fileHandelService.filedownload(fullPath, response, nomeArquivo);
 	}
 
 }
