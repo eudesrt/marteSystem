@@ -22,6 +22,9 @@
                                         <th>Status</th>
                                         <th>Data Entrada</th>
                                         <th>Data Vencimento</th>
+                                       	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' ">
+                                        	<th>Data Commits</th>
+                                        </div>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -57,6 +60,10 @@
                                             </div>
                                             <td th:text="${#temporals.format(ordemServicoModel.dtEntrada, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
                                             <td th:text="${#temporals.format(ordemServicoModel.dtVencimento, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                            
+                                        	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' ">
+                                        		<td th:text="${#temporals.format(ordemServicoModel.dtCommit, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                        	</div>
                                         </tr>
                                     </th:block>
                                 </tbody>
