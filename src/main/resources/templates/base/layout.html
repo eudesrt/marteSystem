@@ -76,38 +76,49 @@
                              <li class="treeview">
                                 <a href="#"><i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i></a>
                                 <ul class="treeview-menu">
-                                    <li><a th:href="@{/home}"><i class="fa fa-angle-right"></i>Home</a></li>
-                                    <li><a th:href="@{/dashboard/painel?ano=2019}"><i class="fa fa-angle-right"></i>Painel 2019</a></li>
-                                    <li><a th:href="@{/dashboard/painel?ano=2020}"><i class="fa fa-angle-right"></i>Painel 2020</a></li>
+                                    <li><a th:href="@{/home}"><i class="fa fa-arrow-circle-right"></i>Home</a></li>
+                                    <li><a th:href="@{/dashboard/painel?ano=2019}"><i class="fa fa-arrow-circle-right"></i>Painel 2019</a></li>
+                                    <li><a th:href="@{/dashboard/painel?ano=2020}"><i class="fa fa-arrow-circle-right"></i>Painel 2020</a></li>
                                 </ul>
                             </li>
                               
 							<li class="treeview">
 								<a th:href="@{/ordemServico/novoCadastro}"><i class="fa fa-laptop"></i> <span>Cadastro OS</span> <span class="label label-primary pull-right">new</span></a>
 							</li>
+							
+							<li class="treeview">
+								<a href=""> <i class="fa fa-send"></i> <span>Operação</span> <i class="fa fa-angle-left pull-right"></i> </a>
+									<ul class="treeview-menu">
+									<li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1000}"><i class="fa fa-arrow-circle-right"></i>OS NOVA</a></li>
+									<li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1100}"><i class="fa fa-arrow-circle-right"></i>EM DESV</a></li>
+									<li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1300}"><i class="fa fa-arrow-circle-right"></i>PE INFO</a></li>
+									<li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1200}"><i class="fa fa-arrow-circle-right"></i>EM HOMO</a></li>
+									<li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=3}   "><i class="fa fa-arrow-circle-right"></i>OS FECH</a></li>
+								</ul>
+							</li>
+							
                             <li class="treeview">
                                 <a href="#"><i class="fa fa-search"></i> <span>Consulta</span> <i class="fa fa-angle-left pull-right"></i></a>
                                 <ul class="treeview-menu">
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=0}"><i class="fa fa-angle-right"></i>Todas</a></li>
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1}"><i class="fa fa-angle-right"></i>Fora do Prazo Mes</a></li>
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=2}"><i class="fa fa-angle-right"></i>Fora do Prazo Todas</a></li>
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=3}"><i class="fa fa-angle-right"></i>Finalizadas do Mês</a></li>
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=9998}"><i class="fa fa-angle-right"></i>Canceladas</a></li>
-                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1400}"><i class="fa fa-angle-right"></i>Na Gerência</a></li>
+                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=0}"><i class="fa fa-arrow-circle-right"></i>Todas</a></li>
+                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1}"><i class="fa fa-arrow-circle-right"></i>Fora do Prazo Mes</a></li>
+                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=2}"><i class="fa fa-arrow-circle-right"></i>Fora do Prazo Todas</a></li>
+                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=9998}"><i class="fa fa-arrow-circle-right"></i>Canceladas</a></li>
+                                    <li><a th:href="@{/ordemServico/consultarOrdemServico?codigo=1400}"><i class="fa fa-arrow-circle-right"></i>Na Gerência</a></li>
                                 </ul>
                             </li>
                             
                             <li class="treeview">
                                 <a href="#"> <i class="fa fa-user"></i> <span>Controle de Usuario</span><i class="fa fa-angle-left pull-right"></i></a>
                                 <ul class="treeview-menu">
-                                    <li><a th:href="@{/usuario/novoCadastro}"><i class="fa fa-angle-right"></i>Cadastro</a></li>
-                                    <li><a th:href="@{/usuario/consultar}"><i class="fa fa-angle-right"></i>Lista de Usuarios</a></li>
+                                    <li><a th:href="@{/usuario/novoCadastro}"><i class="fa fa-arrow-circle-right"></i>Cadastro</a></li>
+                                    <li><a th:href="@{/usuario/consultar}"><i class="fa fa-arrow-circle-right"></i>Lista de Usuarios</a></li>
                                 </ul>
                             </li>
                             <li class="treeview">
                                 <a href="#"> <i class="fa fa-cog"></i> <span>Configuração</span><i class="fa fa-angle-left pull-right"></i></a>
                                 <ul class="treeview-menu">
-                                    <li><a th:href="@{/ordemServico/excel}"><i class="fa fa-angle-right"></i>Backup</a></li>
+                                    <li><a th:href="@{/operacaoEspecial/excel}"><i class="fa fa-arrow-circle-right"></i>Backup Base</a></li>
                                 </ul>
                             </li>
               			</ul>
