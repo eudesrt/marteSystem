@@ -32,9 +32,11 @@ public class OrdemServicoModel {
 	private Integer status;
 	
 	private Integer id_usuario;
+	
+	private String tempDescricao;
 
 	public OrdemServicoModel(long codigo, Integer os, String titulo, LocalDate dtEntrada, LocalDate dtHomologacao, LocalDate dtCommit,
-			LocalDate dtVencimento , Integer status, Integer id_usuario) {
+			LocalDate dtVencimento , Integer status, Integer id_usuario, String descricao) {
 		super();
 		this.codigo = codigo;
 		this.os = os;
@@ -45,6 +47,7 @@ public class OrdemServicoModel {
 		this.dtVencimento = dtVencimento;
 		this.status = status;
 		this.id_usuario = id_usuario;
+		this.descricao = descricao;
 	}
 	
 	public OrdemServicoModel(long codigo, Integer os, String titulo, LocalDate dtEntrada, LocalDate dtHomologacao, LocalDate dtCommit,
@@ -156,4 +159,12 @@ public class OrdemServicoModel {
 	public void setSolicitante(String solicitante) {
 		this.solicitante = solicitante;
 	}
+
+	public String getTempDescricao() {
+		return tempDescricao;
+	}
+
+	public void setTempDescricao(String tempDescricao) {
+		this.tempDescricao = tempDescricao;
+	}	
 }

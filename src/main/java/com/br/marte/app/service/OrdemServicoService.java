@@ -40,12 +40,13 @@ public class OrdemServicoService {
 		ordemServicoEntity.setDt_entrada(localDate);
 		ordemServicoEntity.setDt_venc(ordemServicoModel.getDtVencimento());
 		ordemServicoEntity.setStatus(statusRepository.getOne(1000));
+		ordemServicoEntity.setDescricao(ordemServicoModel.getDescricao() != null ? ordemServicoModel.getDescricao() : "");
 		ordemServicoEntity.setId_usuario(usuarioService.usuarioEntity);
 
 		/* SALVANDO O REGISTRO */
 		this.ordemServicoRepository.save(ordemServicoEntity);
 	}
-
+	
 	/***
 	 * CONSULTA NOVA ORDEM DE SERVICO CADASTRADOS
 	 * 
@@ -78,7 +79,7 @@ public class OrdemServicoService {
 					ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
 					ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),
 					ordemServicoEntity.getDt_venc(), ordemServicoEntity.getStatus().getEvento_id(),
-					ordemServicoEntity.getId_usuario().getCodigo().intValue()));
+					ordemServicoEntity.getId_usuario().getCodigo().intValue(), ordemServicoEntity.getDescricao()));
 		});
 
 		return ordemServicoModel;
@@ -114,7 +115,7 @@ public class OrdemServicoService {
 				ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
 				ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),
 				ordemServicoEntity.getDt_venc(), ordemServicoEntity.getStatus().getEvento_id(),
-				ordemServicoEntity.getId_usuario().getCodigo().intValue());
+				ordemServicoEntity.getId_usuario().getCodigo().intValue(), ordemServicoEntity.getDescricao());
 
 	}
 
@@ -126,6 +127,18 @@ public class OrdemServicoService {
 		OrdemServico ordemServicoEntity = this.ordemServicoRepository.getOne(ordemServicoModel.getCodigo());
 		LocalDate dtHomologacao = null;
 		LocalDate dtCommits = null;
+		
+		
+		LocalDate localDate = LocalDate.now();
+		String descricao = ordemServicoModel.getDescricao() != null ? ordemServicoModel.getDescricao() : "" ;
+		if(ordemServicoModel.getTempDescricao() != null) {
+			if(descricao != "") {
+				descricao = "-------------------------------"+localDate +"------------------------------- \n" + ordemServicoModel.getTempDescricao() +"\n" + descricao;
+			}else {
+				descricao = "-------------------------------"+localDate +"------------------------------- \n" + ordemServicoModel.getTempDescricao();
+			}
+			
+		}
 
 		if (ordemServicoModel.getStatus().equals(1200)) {
 			if (ordemServicoModel.getDtHomologacao() != null) {
@@ -158,6 +171,7 @@ public class OrdemServicoService {
 		ordemServicoEntity.setDt_entrada(ordemServicoModel.getDtEntrada());
 		ordemServicoEntity.setDt_venc(ordemServicoModel.getDtVencimento());
 		ordemServicoEntity.setTitulo(ordemServicoModel.getTitulo());
+		ordemServicoEntity.setDescricao(descricao);
 		ordemServicoEntity.setStatus(statusRepository.getOne(ordemServicoModel.getStatus().intValue()));
 
 		/* SALVANDO ALTERAÇÃO DO REGISTRO */

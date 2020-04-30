@@ -43,21 +43,20 @@
 								<input type="text" placeholder="Cod" id="input-codigo" th:field="*{codigo}" required="required" readonly="readonly" hidden="true">
 								<div class="clearfix"> </div>
 							</div>
+							
                             <div class="form-group">
                                 <div class="form-group col-md-2">
                                     <label for="exampleInputName1"><b>Ordem de Serviço:</b></label>
                                     <input type=text class="form-control" placeholder="" id="input-os" th:field="*{os}" required="required">
                                 </div>
                                 <div class="form-group col-md-7">
-                                    <label for="exampleInputEmail1"><b>Titulo:</b></label>
+                                    <label for="titlo"><b>Titulo:</b></label>
                                     <input type=text class="form-control" placeholder="" id="input-titulo" th:field="*{titulo}" required="required">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="dtVencimento"><b>Data Vencimento:</b></label>
                                     <input type="date" class="form-control" placeholder="" id="input-dtVencimento" th:field="*{dtVencimento}" >
                                 </div>
-                                
-
                             </div>
 
                             <div class="form-group">
@@ -83,6 +82,17 @@
                                     <input type="date" class="form-control" placeholder="" id="input-dtEntrada" th:field="*{dtEntrada}" >
                                 </div>
                             </div>
+                            
+							<div class="form-group">
+								<div class="form-group col-md-6">
+                             		<label for="novadescricao"><b>Nova Descrição:</b></label>
+                                    <textarea rows="4" class="form-control" placeholder="" id="input-novadescricao" th:field="*{tempDescricao}"></textarea>
+								</div>
+								<div class="form-group col-md-6">
+                             		<label for="descricao"><b>Descrição:</b></label>
+                                    <textarea rows="4" class="form-control" placeholder="" id="input-descricao" th:field="*{descricao}" disabled="true"></textarea>
+								</div>
+							</div>
 
                             <div class="form-group row">
                                 <div class="col-sm-12">

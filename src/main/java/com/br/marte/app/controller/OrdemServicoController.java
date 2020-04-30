@@ -169,18 +169,15 @@ public class OrdemServicoController {
 	}
 
 	@RequestMapping(value = "/salvarAlteracao", method = RequestMethod.POST)
-	public ModelAndView salvarAlteracao(@ModelAttribute @Valid OrdemServicoModel ordemServicoModel,
-			final BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+	public ModelAndView salvarAlteracao(@ModelAttribute @Valid OrdemServicoModel ordemServicoModel,	final BindingResult result, Model model, RedirectAttributes redirectAttributes) {
 
 		ModelAndView modelAndView = null;
 		if (ordemServicoModel.getStatus().equals(9999)) {
 			if (ordemServicoModel.getDtHomologacao() == null) {
 				redirectAttributes.addFlashAttribute("msg_valida", false);
-				redirectAttributes.addFlashAttribute("msg_resultado",
-						"A Data de Homologação e necessária pra finalizar a ordem de serviço.");
+				redirectAttributes.addFlashAttribute("msg_resultado", "A Data de Homologação e necessária pra finalizar a ordem de serviço.");
 
-				modelAndView = new ModelAndView(
-						"redirect:/ordemServico/editarOrdemServico?codigo=" + ordemServicoModel.getCodigo());
+				modelAndView = new ModelAndView("redirect:/ordemServico/editarOrdemServico?codigo=" + ordemServicoModel.getCodigo());
 
 				return modelAndView;
 			}
