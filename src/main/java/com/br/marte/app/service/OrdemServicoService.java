@@ -131,7 +131,7 @@ public class OrdemServicoService {
 		
 		LocalDate localDate = LocalDate.now();
 		String descricao = ordemServicoModel.getDescricao() != null ? ordemServicoModel.getDescricao() : "" ;
-		if(ordemServicoModel.getTempDescricao() != null) {
+		if(!ordemServicoModel.getTempDescricao().isEmpty()) {
 			if(descricao != "") {
 				descricao = "-------------------------------"+localDate +"------------------------------- \n" + ordemServicoModel.getTempDescricao() +"\n" + descricao;
 			}else {
