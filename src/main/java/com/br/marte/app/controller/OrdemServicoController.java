@@ -44,6 +44,8 @@ public class OrdemServicoController {
 
 		return new ModelAndView("novaOrdemServico");
 	}
+	
+	public Integer retornoPagina = 1;
 
 	/***
 	 * SALVA UMAM NOVA ORDEM DE SERVICO
@@ -186,16 +188,29 @@ public class OrdemServicoController {
 		/* SALVANDO AS INFORMAÇÕES ALTERADAS DE ORDEM DE SERVICO */
 		ordemServicoService.alterarOrdemServico(ordemServicoModel);
 
+		
+		redirectAttributes.addFlashAttribute("msg_valida", true);
+		redirectAttributes.addFlashAttribute("msg_resultado", "Alterado com sucesso");
+		redirectAttributes.addFlashAttribute("pagina", "2");
+
 		/*
 		 * APÓS SALVAR VAMOS REDIRICIONAR O ORDEM DE SERVICO PARA A PAGINA DE CONSULTA
 		 */
-		modelAndView = new ModelAndView("redirect:/home");
+		modelAndView = new ModelAndView("redirect:/ordemServico/editarOrdemServico?codigo=" + ordemServicoModel.getCodigo());
 		// modelAndView = new
 		// ModelAndView("redirect:/ordemServico/consultarOrdemServico?codigo=" +
 		// ordemServicoModel.getStatus());
 
 		/* RETORNANDO A VIEW */
 		return modelAndView;
+	}
+
+	public Integer getRetornoPagina() {
+		return retornoPagina;
+	}
+
+	public void setRetornoPagina(Integer retornoPagina) {
+		this.retornoPagina = retornoPagina;
 	}
 
 }
