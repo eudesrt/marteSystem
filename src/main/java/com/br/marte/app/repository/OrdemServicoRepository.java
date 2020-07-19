@@ -1,6 +1,7 @@
 package com.br.marte.app.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,8 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	// QUERY COM JPQL
 	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo Order by u.os DESC")
 	public List<OrdemServico> findStatus(@Param("codigo") Integer codigo);
+	
+	public Optional<OrdemServico> findByos(Integer os);
 	
 	@Query("SELECT u FROM OrdemServico u "
 			+ "JOIN FETCH u.status "
