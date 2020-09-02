@@ -22,15 +22,25 @@ public class OrdermServicoByTi {
 	public String JavaHttpUrlConnectionReader() {
 		try {
 			String myUrl = "https://tiflash.flashcourier.com.br/eudes.php";
-			String results = doHttpUrlConnectionAction(myUrl);				
-			results = results.substring(0, results.length() -1);	
+			String results = null;		
+			
+			results = doHttpUrlConnectionAction(myUrl);
+			
+			if(results !=null && !results.isEmpty()) {
+				results = results.substring(0, results.length() -1);
+			}else {
+				System.out.println("Pagina de pesquisa TI FLASH sem registro");
+				
+				return null;
+			}
+				
 				
 			return results.toString().trim();		
 		
 		} catch (Exception e) {
-			// deal with the exception in your "controller"
+			System.out.println("Pagina de pesquisa TI FLASH off line");
+			return null;
 		}
-		return null;
 	}
 
 	/**

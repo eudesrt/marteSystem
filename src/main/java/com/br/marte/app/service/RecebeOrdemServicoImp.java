@@ -1,4 +1,4 @@
-package com.br.marte.app.repository;
+package com.br.marte.app.service;
 
 public interface RecebeOrdemServicoImp {
 	

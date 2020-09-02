@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.br.marte.app.model.StaticModel;
 import com.br.marte.app.repository.OrdemServicoRepository;
-import com.br.marte.app.repository.RecebeOrdemServico;
-import com.br.marte.app.repository.RecebeOrdemServicoImp;
 import com.br.marte.app.repository.StatusRepository;
+import com.br.marte.app.service.RecebeOrdemServico;
+import com.br.marte.app.service.RecebeOrdemServicoImp;
 import com.br.marte.app.service.UsuarioService;
 
 @Controller
