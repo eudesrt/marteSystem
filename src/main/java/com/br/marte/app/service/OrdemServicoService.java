@@ -42,6 +42,10 @@ public class OrdemServicoService {
 		ordemServicoEntity.setStatus(statusRepository.getOne(1000));
 		ordemServicoEntity.setDescricao(ordemServicoModel.getDescricao() != null ? ordemServicoModel.getDescricao() : "");
 		ordemServicoEntity.setId_usuario(usuarioService.usuarioEntity);
+		ordemServicoEntity.setSolicitante(ordemServicoModel.getSolicitante());
+		ordemServicoEntity.setDepartamento(ordemServicoModel.getDepartamento());
+		ordemServicoEntity.setTipoSistema(ordemServicoModel.getTipoSistema());
+		ordemServicoEntity.setTipoOs(ordemServicoModel.getTipoOs());
 
 		/* SALVANDO O REGISTRO */
 		this.ordemServicoRepository.save(ordemServicoEntity);
@@ -79,7 +83,8 @@ public class OrdemServicoService {
 					ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
 					ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),
 					ordemServicoEntity.getDt_venc(), ordemServicoEntity.getStatus().getEvento_id(),
-					ordemServicoEntity.getId_usuario().getCodigo().intValue(), ordemServicoEntity.getDescricao()));
+					ordemServicoEntity.getId_usuario().getCodigo().intValue(), ordemServicoEntity.getDescricao(),
+					ordemServicoEntity.getSolicitante(), ordemServicoEntity.getDepartamento(), ordemServicoEntity.getTipoSistema(), ordemServicoEntity.getTipoOs()));
 		});
 
 		return ordemServicoModel;
@@ -100,7 +105,7 @@ public class OrdemServicoService {
 					ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),
 					ordemServicoEntity.getDt_venc(), ordemServicoEntity.getStatus().getEvento_id(),
 					ordemServicoEntity.getId_usuario().getCodigo().intValue(), ordemServicoEntity.getDescricao(),
-					ordemServicoEntity.getSolicitante()));
+					ordemServicoEntity.getSolicitante(), ordemServicoEntity.getDepartamento(), ordemServicoEntity.getTipoSistema(), ordemServicoEntity.getTipoOs()));
 		});
 
 		return ordemServicoModel;
@@ -115,7 +120,8 @@ public class OrdemServicoService {
 				ordemServicoEntity.getTitulo(), ordemServicoEntity.getDt_entrada(),
 				ordemServicoEntity.getDt_homologacao(), ordemServicoEntity.getDt_commit(),
 				ordemServicoEntity.getDt_venc(), ordemServicoEntity.getStatus().getEvento_id(),
-				ordemServicoEntity.getId_usuario().getCodigo().intValue(), ordemServicoEntity.getDescricao());
+				ordemServicoEntity.getId_usuario().getCodigo().intValue(), ordemServicoEntity.getDescricao(),
+				ordemServicoEntity.getSolicitante(), ordemServicoEntity.getDepartamento(), ordemServicoEntity.getTipoSistema(), ordemServicoEntity.getTipoOs());
 
 	}
 
@@ -173,6 +179,10 @@ public class OrdemServicoService {
 		ordemServicoEntity.setTitulo(ordemServicoModel.getTitulo());
 		ordemServicoEntity.setDescricao(descricao);
 		ordemServicoEntity.setStatus(statusRepository.getOne(ordemServicoModel.getStatus().intValue()));
+		ordemServicoEntity.setSolicitante(ordemServicoModel.getSolicitante());
+		ordemServicoEntity.setTipoOs(ordemServicoModel.getTipoOs());
+		ordemServicoEntity.setTipoSistema(ordemServicoModel.getTipoSistema());
+		ordemServicoEntity.setDepartamento(ordemServicoModel.getDepartamento());
 
 		/* SALVANDO ALTERAÇÃO DO REGISTRO */
 		this.ordemServicoRepository.saveAndFlush(ordemServicoEntity);

@@ -85,18 +85,18 @@ public class MainController {
 		}
 
 		for (Object[] s : analyticsDate) {
-			jan = Integer.valueOf(s[0].toString());
-			fev = Integer.valueOf(s[1].toString());
-			mar = Integer.valueOf(s[2].toString());
-			abr = Integer.valueOf(s[3].toString());
-			mai = Integer.valueOf(s[4].toString());
-			jun = Integer.valueOf(s[5].toString());
-			jul = Integer.valueOf(s[6].toString());
-			ago = Integer.valueOf(s[7].toString());
-			set = Integer.valueOf(s[8].toString());
-			out = Integer.valueOf(s[9].toString());
-			nov = Integer.valueOf(s[10].toString());
-			dez = Integer.valueOf(s[11].toString());
+			jan = Integer.valueOf(s[0] != null ? s[0].toString() : "0");
+			fev = Integer.valueOf(s[1] != null ? s[1].toString() : "0");
+			mar = Integer.valueOf(s[2] != null ? s[2].toString() : "0");
+			abr = Integer.valueOf(s[3] != null ? s[3].toString() : "0");
+			mai = Integer.valueOf(s[4] != null ? s[4].toString() : "0");
+			jun = Integer.valueOf(s[5] != null ? s[5].toString() : "0");
+			jul = Integer.valueOf(s[6] != null ? s[6].toString() : "0");
+			ago = Integer.valueOf(s[7] != null ? s[7].toString() : "0");
+			set = Integer.valueOf(s[8] != null ? s[8].toString() : "0");
+			out = Integer.valueOf(s[9] != null ? s[9].toString() : "0");
+			nov = Integer.valueOf(s[10] != null ? s[10].toString() : "0");
+			dez = Integer.valueOf(s[11] != null ? s[11].toString() : "0");
 		}
 
 		for (Object[] s : dateStatic) {

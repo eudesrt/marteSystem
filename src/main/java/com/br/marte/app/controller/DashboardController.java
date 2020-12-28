@@ -46,18 +46,18 @@ public class DashboardController {
 		Integer slaFora = 0;
 
 		for (Object[] s : analyticsDate) {
-			jan = Integer.valueOf(s[0].toString());
-			fev = Integer.valueOf(s[1].toString());
-			mar = Integer.valueOf(s[2].toString());
-			abr = Integer.valueOf(s[3].toString());
-			mai = Integer.valueOf(s[4].toString());
-			jun = Integer.valueOf(s[5].toString());
-			jul = Integer.valueOf(s[6].toString());
-			ago = Integer.valueOf(s[7].toString());
-			set = Integer.valueOf(s[8].toString());
-			out = Integer.valueOf(s[9].toString());
-			nov = Integer.valueOf(s[10].toString());
-			dez = Integer.valueOf(s[11].toString());
+			jan = s[0] != null ? Integer.valueOf(s[0].toString()) : 0;
+			fev = s[1] != null ? Integer.valueOf(s[1].toString()) : 0;
+			mar = s[2] != null ? Integer.valueOf(s[2].toString()) : 0;
+			abr = s[3] != null ? Integer.valueOf(s[3].toString()) : 0;
+			mai = s[4] != null ? Integer.valueOf(s[4].toString()) : 0;
+			jun = s[5] != null ? Integer.valueOf(s[5].toString()) : 0;
+			jul = s[6] != null ? Integer.valueOf(s[6].toString()) : 0;
+			ago = s[7] != null ? Integer.valueOf(s[7].toString()) : 0;
+			set = s[8] != null ? Integer.valueOf(s[8].toString()) : 0;
+			out = s[9] != null ? Integer.valueOf(s[9].toString()) : 0;
+			nov = s[10] != null ? Integer.valueOf(s[10].toString()) : 0;
+			dez = s[11] != null ? Integer.valueOf(s[11].toString()) : 0;
 		}
 
 		for (Object[] s : dateStatic) {

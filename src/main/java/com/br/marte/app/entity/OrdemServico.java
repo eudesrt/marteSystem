@@ -45,7 +45,15 @@ public class OrdemServico {
 	
 	@Column(name="solicitante")
 	private String solicitante;
-
+	
+	@Column(name="departamento")
+	private String departamento;
+	
+	@Column(name="tipo_sistema")
+	private String tipoSistema;
+	
+	@Column(name="tipo_os")
+	private String tipoOs;
 	
 	@NotNull
 	@JoinColumn(name = "evento_id")	
@@ -145,6 +153,31 @@ public class OrdemServico {
 
 	public void setSolicitante(String solicitante) {
 		this.solicitante = solicitante;
+	}
+	
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+	public String getTipoSistema() {
+		return tipoSistema;
+	}
+
+	public void setTipoSistema(String tipoSistema) {
+		this.tipoSistema = tipoSistema;
+	}
+
+	public String getTipoOs() {
+		return tipoOs;
+	}
+
+	public void setTipoOs(String tipoOs) {
+		this.tipoOs = tipoOs;
 	}
 
 	@Override

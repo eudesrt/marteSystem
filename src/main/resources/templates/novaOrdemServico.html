@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base/layout">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="base/layout">
 <head>
 <title>Cadastro de Novo Usuario</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,64 +17,121 @@
 
 
 </script>
-    
+
 </head>
 <body class="cbp-spmenu-push">
-    <!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
+	<!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
 
-    <section layout:fragment="content">
-	<div id="page-wrapper">
-	     <div class="forms">
-	         <div class="form-grids row widget-shadow" data-example-id="basic-forms">
-	             <div class="form-title">
-	                 <h4>Cadastro de Nova Ordem de Servico:</h4>
-	             </div>
-	             <div class="form-body">
-	                 <form action="#" id="formulario-cadastro-os"  th:action="@{../ordemServico/salvarOrdemServico}" th:object="${ordemServicoModel}" method="post">
-	                 
-						<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST  -->
-						<div th:if="${msg_resultado}" id="msgSucesso">
-							<div class="alert alert-success" role="alert" >
-								<div th:if="${msg_valida} == true ">
-									<b id="p-mensagem-sucesso" class="sucesso-msg"	th:text="${msg_resultado}">...</b>								
+	<section layout:fragment="content">
+		<div id="page-wrapper">
+			<div class="forms">
+				<div class="form-grids row widget-shadow"
+					data-example-id="basic-forms">
+					<div class="form-title">
+						<h4>Cadastro de Nova Ordem de Servico:</h4>
+					</div>
+					<div class="form-body">
+						<form action="#" id="formulario-cadastro-os"
+							th:action="@{../ordemServico/salvarOrdemServico}"
+							th:object="${ordemServicoModel}" method="post">
+
+							<!-- MENSAGEM A SER MOSTRADA APÓS EXECUTARMOS O POST  -->
+							<div th:if="${msg_resultado}" id="msgSucesso">
+								<div class="alert alert-success" role="alert">
+									<div th:if="${msg_valida} == true ">
+										<b id="p-mensagem-sucesso" class="sucesso-msg"
+											th:text="${msg_resultado}">...</b>
+									</div>
+									<div th:if="${msg_valida} == false ">
+										<b id="p-mensagem-erro" class="erro-msg"
+											th:text="${msg_resultado}">...</b>
+									</div>
 								</div>
-								<div th:if="${msg_valida} == false ">
-									<b id="p-mensagem-erro" class="erro-msg"	th:text="${msg_resultado}">...</b>								
-								</div>
-							</div>								
-						</div>
- 						<div class="form-group">
-		     	            <div class="form-group col-md-2">
-		                         <label for="exampleInputName1">Ordem de Serviço:</label>
-		                         <input type=text class="form-control" placeholder="" id="input-os" th:field="*{os}" required="required" onfocus="limparMensagem()">
-		                     </div>
-		                     <div class="form-group col-md-7">
-		                         <label for="exampleInputEmail1">Titulo:</label>
-		                         <input type=text class="form-control" placeholder="" id="input-titulo" th:field="*{titulo}" required="required" >
-		                     </div>
-   		                     <div class="form-group col-md-3">
-		                         <label for="exampleInputEmail1">Data Vencimento:</label>
-		                         <input type="date" class="form-control" placeholder="" id="input-dtVencimento" th:field="*{dtVencimento}" required="required" >
-		                     </div>
-						</div>
-						
-						<div class="form-group">
-							<div class="form-group col-md-12">
-                         		<label for="descricao"><b>Descrição:</b></label>
-                                <textarea rows="4" class="form-control" placeholder="" id="input-descricao" th:field="*{descricao}"></textarea>
 							</div>
-						</div>
-						
+							<div class="form-group">
+								<div class="form-group col-md-2">
+									<label for="exampleInputName1">Ordem de Serviço:</label> <input
+										type=text class="form-control" placeholder="" id="input-os"
+										th:field="*{os}" required="required"
+										onfocus="limparMensagem()">
+								</div>
+								<div class="form-group col-md-7">
+									<label for="exampleInputEmail1">Titulo:</label> <input
+										type=text class="form-control" placeholder=""
+										id="input-titulo" th:field="*{titulo}" required="required">
+								</div>
+								<div class="form-group col-md-3">
+									<label for="exampleInputEmail1">Data Vencimento:</label> <input
+										type="date" class="form-control" placeholder=""
+										id="input-dtVencimento" th:field="*{dtVencimento}"
+										required="required">
+								</div>
+							</div>
 
-  						<button type="submit" class="btn btn-primary">Salvar</button>
+							<div class="form-group">
+								<div class="form-group col-md-3">
+									<label for="departamento"><b>Departamento:</b></label> <select
+										th:field="*{departamento}" class="form-control">
+										<option value="IMPLANTACAO">IMPLANTACAO</option>
+										<option value="DESENVOLVIMENTO">DESENVOLVIMENTO</option>
+										<option value="PROJETOS">PROJETOS</option>
+										<option value="PRESIDENCIA">PRESIDENCIA</option>
+									</select>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="tipoSistema"><b>Tipo Sistemas:</b></label> <select
+										th:field="*{tipoSistema}" class="form-control">
+										<option value="PROCESSADOR PYXIS">PROCESSADOR PYXIS</option>
+										<option value="PROCESSADOR JALL">PROCESSADOR JALL</option>
+										<option value="WS PEGASUS">WS PEGASUS</option>
+										<option value="WS FLASH ONLINE">WS FLASH ONLINE</option>
+										<option value="WS FLASH">WS FLASH</option>
+										<option value="WS C1">WS C1</option>
+										<option value="JALL">JALL</option>
+										<option value="PHOENIX">PHOENIX</option>
+										<option value="FLASH PEGASUS">FLASH PEGASUS</option>
+										<option value="FLASH ONLINE">FLASH ONLINE</option>
+										<option value="FLASH PRINT">FLASH PRINT</option>
+										<option value="FLASH NFE">FLASH NFE</option>
+										<option value="OUTROS">OUTROS</option>
+									</select>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="tipoOs"><b>Tipo OS:</b></label> <select
+										th:field="*{tipoOs}" class="form-control">
+										<option value="Correção (BUG do Sistema)">Correção
+											(BUG do Sistema)</option>
+										<option value="Solicitacao Nova">Solicitacao Nova</option>
+										<option value="Solicitacao Interna">Solicitacao
+											Interna</option>
+									</select>
+								</div>
 
-	                     
-	                 </form>
-	             </div>
-	         </div>
-	     </div>
-	</div>
-    </section> 
+								<div class="form-group col-md-3">
+									<label for="Solicitante"><b>Solicitante:</b></label> <input
+										type=text class="form-control" placeholder=""
+										id="input-solicitante" th:field="*{solicitante}">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="form-group col-md-12">
+									<label for="descricao"><b>Descrição:</b></label>
+									<textarea rows="4" class="form-control" placeholder=""
+										id="input-descricao" th:field="*{descricao}"></textarea>
+								</div>
+							</div>
+
+
+							<button type="submit" class="btn btn-primary">Salvar</button>
+
+
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
 
 
 </body>

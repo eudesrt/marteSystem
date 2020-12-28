@@ -33,25 +33,31 @@ public class OrdemServicoModel {
 	
 	private Integer id_usuario;
 	
-	private String tempDescricao;
+	private String tempDescricao;	
+	
+	private String departamento;
+	
+	private String tipoSistema;
+	
+	private String tipoOs;
 
-	public OrdemServicoModel(long codigo, Integer os, String titulo, LocalDate dtEntrada, LocalDate dtHomologacao, LocalDate dtCommit,
-			LocalDate dtVencimento , Integer status, Integer id_usuario, String descricao) {
-		super();
-		this.codigo = codigo;
-		this.os = os;
-		this.titulo = titulo;
-		this.dtEntrada = dtEntrada;
-		this.dtHomologacao = dtHomologacao;
-		this.dtCommit = dtCommit;
-		this.dtVencimento = dtVencimento;
-		this.status = status;
-		this.id_usuario = id_usuario;
-		this.descricao = descricao;
-	}
+//	public OrdemServicoModel(long codigo, Integer os, String titulo, LocalDate dtEntrada, LocalDate dtHomologacao, LocalDate dtCommit,
+//			LocalDate dtVencimento , Integer status, Integer id_usuario, String descricao) {
+//		super();
+//		this.codigo = codigo;
+//		this.os = os;
+//		this.titulo = titulo;
+//		this.dtEntrada = dtEntrada;
+//		this.dtHomologacao = dtHomologacao;
+//		this.dtCommit = dtCommit;
+//		this.dtVencimento = dtVencimento;
+//		this.status = status;
+//		this.id_usuario = id_usuario;
+//		this.descricao = descricao;
+//	}
 	
 	public OrdemServicoModel(long codigo, Integer os, String titulo, LocalDate dtEntrada, LocalDate dtHomologacao, LocalDate dtCommit,
-			LocalDate dtVencimento , Integer status, Integer id_usuario,String descricao, String solicitante) {
+			LocalDate dtVencimento , Integer status, Integer id_usuario,String descricao, String solicitante,String departamento, String tipoSistema, String tipoOs ) {
 		this.codigo = codigo;
 		this.os = os;
 		this.titulo = titulo;
@@ -63,6 +69,10 @@ public class OrdemServicoModel {
 		this.id_usuario = id_usuario;
 		this.descricao = descricao;
 		this.solicitante = solicitante;
+		this.departamento = departamento;
+		this.tipoSistema = tipoSistema;
+		this.tipoOs = tipoOs;
+		
 	}
 	
 	
@@ -166,5 +176,30 @@ public class OrdemServicoModel {
 
 	public void setTempDescricao(String tempDescricao) {
 		this.tempDescricao = tempDescricao;
-	}	
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+	public String getTipoSistema() {
+		return tipoSistema;
+	}
+
+	public void setTipoSistema(String tipoSistema) {
+		this.tipoSistema = tipoSistema;
+	}
+
+	public String getTipoOs() {
+		return tipoOs;
+	}
+
+	public void setTipoOs(String tipoOs) {
+		this.tipoOs = tipoOs;
+	}		
+	
 }

@@ -70,6 +70,50 @@
                                     <input type="date" class="form-control" placeholder="" id="input-dtVencimento" th:field="*{dtVencimento}" >
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+								<div class="form-group col-md-3">
+									<label for="departamento"><b>Departamento:</b></label> 
+									<select th:field="*{departamento}" class="form-control">
+						                <option value="IMPLANTACAO">IMPLANTACAO</option>
+						                <option value="DESENVOLVIMENTO">DESENVOLVIMENTO</option>
+					                    <option value="PROJETOS">PROJETOS</option>
+					                    <option value="PRESIDENCIA">PRESIDENCIA</option>
+									</select>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="tipoSistema"><b>Tipo Sistemas:</b></label> 
+									<select th:field="*{tipoSistema}" class="form-control">
+						                <option value="PROCESSADOR PYXIS">PROCESSADOR PYXIS</option>
+						                <option value="PROCESSADOR JALL">PROCESSADOR JALL</option>
+					                    <option value="WS PEGASUS">WS PEGASUS</option>
+					                    <option value="WS FLASH ONLINE">WS FLASH ONLINE</option>
+					                    <option value="WS FLASH">WS FLASH</option>
+					                    <option value="WS C1">WS C1</option>
+					                    <option value="JALL">JALL</option>
+					                    <option value="PHOENIX">PHOENIX</option>
+					                    <option value="FLASH PEGASUS">FLASH PEGASUS</option>
+					                    <option value="FLASH ONLINE">FLASH ONLINE</option>
+					                    <option value="FLASH PRINT">FLASH PRINT</option>	
+					                    <option value="FLASH NFE">FLASH NFE</option>
+					                    <option value="OUTROS">OUTROS</option> 				                    
+									</select>
+								</div>
+								<div class="form-group col-md-3">
+									<label for="tipoOs"><b>Tipo OS:</b></label> 
+									<select th:field="*{tipoOs}" class="form-control">
+										<option value="Alteracao">Alteracao</option>
+						                <option value="Correção (BUG do Sistema)">Correção (BUG do Sistema)</option>
+						                <option value="Solicitacao Nova">Solicitacao Nova</option>
+					                    <option value="Solicitacao Interna">Solicitacao Interna</option>
+									</select>
+								</div>
+
+								<div class="form-group col-md-3">
+									<label for="Solicitante"><b>Solicitante:</b></label>
+										<input type=text class="form-control" placeholder="" id="input-solicitante" th:field="*{solicitante}" >
+								</div>
+							</div>
 
                             <div class="form-group">
                                 <div class="form-group col-md-3">
@@ -94,6 +138,7 @@
                                     <input type="date" class="form-control" placeholder="" id="input-dtEntrada" th:field="*{dtEntrada}" >
                                 </div>
                             </div>
+
                             
 							<div class="form-group">
 								<div class="form-group col-md-6">
