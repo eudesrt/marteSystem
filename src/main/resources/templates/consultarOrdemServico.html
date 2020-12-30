@@ -22,7 +22,8 @@
                                         <th>Status</th>
                                         <th>Data Entrada</th>
                                         <th>Data Vencimento</th>
-                                       	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' ">
+                                       	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' 
+                                       	OR  ${status} == 'Todas' OR  ${status} == 'Diario'  ">
                                         	<th>Data Homolog</th>
                                         	<th>Data Commits</th>
                                         </div>
@@ -65,7 +66,8 @@
                                             <td th:text="${#temporals.format(ordemServicoModel.dtEntrada, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
                                             <td style="color: red" th:text="${#temporals.format(ordemServicoModel.dtVencimento, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
                                             
-                                        	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' ">
+                                        	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' 
+                                        	OR  ${status} == 'Todas' OR  ${status} == 'Diario'">
                                        			<td style="color: blue" th:text="${#temporals.format(ordemServicoModel.dtHomologacao, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
                                         		<td style="color: blue" th:text="${#temporals.format(ordemServicoModel.dtCommit, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
                                         	</div>

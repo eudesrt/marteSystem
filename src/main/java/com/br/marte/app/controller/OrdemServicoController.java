@@ -143,6 +143,8 @@ public class OrdemServicoController {
 			model.addAttribute("status", "Fora do Prazo Todas");
 		} else if (codigo.equals(3)) {
 			model.addAttribute("status", "Finalizadas no Mês Vigente");
+		} else if (codigo.equals(4)) {
+			model.addAttribute("status", "Diario");
 		} else {
 			model.addAttribute("status", "Todas");
 		}

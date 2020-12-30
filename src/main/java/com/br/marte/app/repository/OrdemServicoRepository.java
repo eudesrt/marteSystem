@@ -1,5 +1,7 @@
 package com.br.marte.app.repository;
 
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +44,9 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 
 	@Query("SELECT u FROM OrdemServico u Order by u.os DESC")
 	public List<OrdemServico> pesquisaTodos();
+	
+	@Query("SELECT u FROM OrdemServico u WHERE dt_homologacao = :data  Order by u.os DESC")
+	public List<OrdemServico> pesquisaDiario(@Param("data") LocalDate data);
 
 	@Query("SELECT u FROM OrdemServico u where u.os = :codigo")
 	public OrdemServico findOrdemServicoIdBy(@Param("codigo") Integer codigo);
