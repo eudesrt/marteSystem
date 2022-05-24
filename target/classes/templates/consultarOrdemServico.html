@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="description" content="Marte System dashboard" />
     <meta name="author" content="Rafael Eudes" />
-    <title>Consultar ordem de Servico</title>
+    <title>Consulta ordem de Servico</title>
 
     <body>
         <section layout:fragment="content">
@@ -13,7 +13,7 @@
                 <div class="main-page">
                     <div class="tables">
                         <div class="panel-body widget-shadow">
-                            <h4>Ordem de Servico</h4>
+                            <h4><strong>Ordem de Serviço - </strong></strong><strong th:text="${status}"></strong></h4> 
                             <table class="table table-striped" id="tabelaos">
                                 <thead>
                                     <tr>
@@ -22,6 +22,14 @@
                                         <th>Status</th>
                                         <th>Data Entrada</th>
                                         <th>Data Vencimento</th>
+                                       	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' 
+                                       	OR  ${status} == 'Todas' OR  ${status} == 'Diario'  ">
+                                        	<th>Data Homolog</th>
+                                        	<th>Data Commits</th>
+                                        </div>
+                                        <div th:if="${status} == 'Em Homologação' ">
+                                        	<th>Data Homolog</th>
+                                        </div>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,7 +37,7 @@
                                     <th:block th:each="ordemServicoModel : ${ordemServicoModel}">
                                         <tr>
                                             <td>
-                                                <a th:href="@{'../ordemServico/editarOrdemServico?' + codigo+'=' + ${ordemServicoModel.codigo}}" th:text="${ordemServicoModel.os}"></a>
+                                                <a th:href="@{'https://tiflash.flashcourier.com.br/os_altera.php?grupo_id=126&os_id=' + ${ordemServicoModel.os}}" target="_blank" th:text="${ordemServicoModel.os}"></a>
                                             </td>
                                             <td>
                                             	<a th:href="@{'../ordemServico/editarOrdemServico?' + codigo+'=' + ${ordemServicoModel.codigo}}" th:text="${ordemServicoModel.titulo}" class="mdl-data-table__cell--non-numeric"></a>
@@ -38,22 +46,35 @@
                                                 <td><span class="label label-default">os aberta&nbsp;&nbsp;&nbsp;</span></td>
                                             </div>
                                             <div th:if="${ordemServicoModel.status} == '1100' ">
-                                                <td><span class="label label-primary">em desenvo</span></td>
+                                                <td><span class="label label-primary">em desenve</span></td>
                                             </div>
                                             <div th:if="${ordemServicoModel.status} == '1200' ">
                                                 <td><span class="label label-warning">homologan</span></td>
                                             </div>
                                             <div th:if="${ordemServicoModel.status} == '1300' ">
-                                                <td><span class="label label-info">pedentente&nbsp;</span></td>
+                                                <td><span class="label label-info">os pendente</span></td>
                                             </div>
                                             <div th:if="${ordemServicoModel.status} == '1400' ">
                                                 <td><span class="label label-danger">na gerencia</span></td>
+                                            </div>
+                                            <div th:if="${ordemServicoModel.status} == '9998' ">
+                                                <td><span class="label label-success">Cancelada&nbsp;</span></td>
                                             </div>
                                             <div th:if="${ordemServicoModel.status} == '9999' ">
                                                 <td><span class="label label-success">commitada&nbsp;</span></td>
                                             </div>
                                             <td th:text="${#temporals.format(ordemServicoModel.dtEntrada, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
-                                            <td th:text="${#temporals.format(ordemServicoModel.dtVencimento, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                            <td style="color: red" th:text="${#temporals.format(ordemServicoModel.dtVencimento, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                            
+                                        	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' 
+                                        	OR  ${status} == 'Todas' OR  ${status} == 'Diario'">
+                                       			<td style="color: blue" th:text="${#temporals.format(ordemServicoModel.dtHomologacao, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                        		<td style="color: blue" th:text="${#temporals.format(ordemServicoModel.dtCommit, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                        	</div>
+                                        	
+                            	           	<div th:if="${status} == 'Em Homologação' ">
+                                        		<td style="color: blue" th:text="${#temporals.format(ordemServicoModel.dtHomologacao, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                        	</div>
                                         </tr>
                                     </th:block>
                                 </tbody>
@@ -66,7 +87,8 @@
             <script>
                 $(document).ready(function() {
                     $('#tabelaos').DataTable({
-                        "language": {
+                    	"ordering": false,
+                        "language": {                        	
                             "lengthMenu": "Mostrando _MENU_ registros por página",
                             "zeroRecords": "Nada encontrado",
                             "info": "Mostrando página _PAGE_ de _PAGES_",
