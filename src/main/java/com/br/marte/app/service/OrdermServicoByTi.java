@@ -1,12 +1,21 @@
 package com.br.marte.app.service;
 
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
-import static java.nio.charset.StandardCharsets.*;
+import com.br.marte.app.model.JsonOrdemServicoRecebida;
+import com.br.marte.app.model.JsonTokenModel;
+import com.br.marte.app.model.TokenFeedback;
+import com.br.marte.app.model.TokenFeedbackCache;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
 
 /**
  *
@@ -19,6 +28,7 @@ import static java.nio.charset.StandardCharsets.*;
  */
 public class OrdermServicoByTi {
 	
+	@Deprecated
 	public String JavaHttpUrlConnectionReader() {
 		try {
 			String myUrl = "https://tiflash.flashcourier.com.br/eudes.php";
@@ -41,6 +51,63 @@ public class OrdermServicoByTi {
 			System.out.println("Pagina de pesquisa TI FLASH off line");
 			return null;
 		}
+	}
+	
+	public String postToken() {
+		
+		try {
+			HttpResponse<String> response = Unirest.post("https://backos.jall.com.br/security/oauth/token")
+					  .header("Authorization", "Basic dGlmbGFzaHdlYjp0MWZsQHNoVzNi")
+					  .header("Content-Type", "application/x-www-form-urlencoded")
+					  .header("Cookie", "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaW1pdE9TX3VzdWFyaW8iOjAsInVzdWFyaW9faWQiOjEzNDUsInVzZXJfbmFtZSI6ImV1ZGVzIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImRlcGFydGFtZW50b3MiOlt7ImlkIjoxMTEsIm5vbWUiOiJVc3XDoXJpbyIsImF0aXZvIjp0cnVlfSx7ImlkIjoxMjYsIm5vbWUiOiJEZXNlbnZvbHZpbWVudG8iLCJhdGl2byI6dHJ1ZX1dLCJhdGkiOiI2TzZIay0wRWctelloN1JmWVdJaDlZUmJBNEEiLCJub21lIjoicmFmYWVsIGV1ZGVzIiwiZXhwIjoxNjYyMTQ4ODM3LCJhdXRob3JpdGllcyI6WyJST0xFX1BFU1FVSVNBUl9ERVBBUlRBTUVOVE8iLCJST0xFX1BFU1FVSVNBUl9GTFVYTyIsIlJPTEVfUEVTUVVJU0FSX1VTVUFSSU8iLCJST0xFX0NSSUFSX09SREVNU0VSVklDTyIsIlJPTEVfUEVTUVVJU0FSX09SREVNU0VSVklDTyIsIlJPTEVfUEVTUVVJU0FSX1BFUk1JU1NBTyJdLCJqdGkiOiJQSmdBMGk3bXF6THlfSnd2Y255XzFHeGthNVkiLCJjbGllbnRfaWQiOiJ0aWZsYXNod2ViIn0.hGVhmgal4tLrNW5Abq0zcb1Dxqn7xtu38d_ZQN0RrLM; ROUTEID=.route1")
+					  .field("grant_type", "password")
+					  .field("client", "tiflashweb")
+					  .field("username", "eudes")
+					  .field("password", "123")
+					  .asString();
+			
+			Integer status_http = response.getStatus();
+
+			
+			if(!status_http.equals(200)) {
+				return null;
+			}	
+			
+			JsonTokenModel jsonTokenModel = JsonTokenModel.create(response.getBody());
+			
+			
+			
+			return jsonTokenModel.getAccess_token() != null ? jsonTokenModel.getAccess_token() : null ;
+
+		} catch (Exception e) {
+			return null;
+		}		
+	}
+	
+
+	
+	public List<JsonOrdemServicoRecebida> postOrdemServico(String token) {
+		
+		try {
+			HttpResponse<String> response = Unirest.get("https://backos.jall.com.br/ordem-servico/departamento/126/full")
+					  .header("Authorization", "Bearer " + token)
+					  .asString();	
+			
+			Integer status_http = response.getStatus();
+			
+			if(!status_http.equals(200)) {
+				return null;
+			}
+			
+			List<JsonOrdemServicoRecebida> jsonOrdemServicoRecebida = JsonOrdemServicoRecebida.creates(response.getBody());
+			
+			System.out.println(jsonOrdemServicoRecebida.get(0).toJSON());
+			
+			return jsonOrdemServicoRecebida;
+
+		} catch (Exception e) {
+			return null;
+		}		
 	}
 
 	/**

@@ -2,8 +2,15 @@ package com.br.marte.app.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import com.br.marte.app.entity.OrdemServico;
+import com.br.marte.app.model.JsonOrdemServicoRecebida;
+import com.br.marte.app.model.TokenFeedback;
+import com.br.marte.app.model.TokenFeedbackCache;
 import com.br.marte.app.repository.OrdemServicoRepository;
 import com.br.marte.app.repository.StatusRepository;
 
@@ -12,6 +19,15 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 	private OrdemServicoRepository ordemServicoRepository;
 	private StatusRepository statusRepository;
 	private UsuarioService usuarioService;
+	
+	private static final Map<String, String> TIPO_ORDEM_SERVICO;
+	
+	static {
+		TIPO_ORDEM_SERVICO = new HashMap<String, String>();
+		TIPO_ORDEM_SERVICO.put("FLASH PHOENIX","PHOENIX");
+		TIPO_ORDEM_SERVICO.put("WEB-SERVICE","WS PEGASUS");
+		TIPO_ORDEM_SERVICO.put("IMPORTACAO/EXPORTACAO","PROCESSADOR JALL");
+	}
 
 	public RecebeOrdemServico(OrdemServicoRepository ordemServicoRepository, StatusRepository statusRepository,
 			UsuarioService usuarioService) {
@@ -26,31 +42,60 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 		OrdermServicoByTi ordermServicoByTi = new OrdermServicoByTi();
 		OrdemServico ordemServico = null;
 
-		String[] info = null;
+		String token = "";
+		TokenFeedback tokenFeedbackCache = TokenFeedbackCache.getTokenFeedback("eudes");
+		List<JsonOrdemServicoRecebida> jsonOrdemServicoRecebida = new ArrayList<JsonOrdemServicoRecebida>();
+		
+		if(tokenFeedbackCache != null && tokenFeedbackCache.getToken() != null) {
+			
+			System.out.println("Executando postOrdemServico TOKEN CACHE");
+			jsonOrdemServicoRecebida =  ordermServicoByTi.postOrdemServico(tokenFeedbackCache.getToken());
+			
+			if(jsonOrdemServicoRecebida.isEmpty()) {
+				token = ordermServicoByTi.postToken();
+				
+				TokenFeedbackCache.addTokenFeedback(new TokenFeedback (token, "eudes"));
 
-		if (ordermServicoByTi.JavaHttpUrlConnectionReader() != null) {
-			info = ordermServicoByTi.JavaHttpUrlConnectionReader().toString().split(",");
+				jsonOrdemServicoRecebida =  ordermServicoByTi.postOrdemServico(tokenFeedbackCache.getToken());
 
-			for (String i : info) {
+			}
+
+		}else {
+			token = ordermServicoByTi.postToken();
+			 
+			TokenFeedbackCache.addTokenFeedback(new TokenFeedback (token, "eudes"));
+			
+			System.out.println("Executando postOrdemServico TOKEN NEW");
+
+			jsonOrdemServicoRecebida = ordermServicoByTi.postOrdemServico(token);
+		}
+
+		
+		if(!jsonOrdemServicoRecebida.isEmpty()) {
+			
+			for (JsonOrdemServicoRecebida i : jsonOrdemServicoRecebida) {
 				OrdemServico ordemServicoEntity = new OrdemServico();
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 				Integer codigo = 0;
-				String[] os = i.toString().split(";");
 
-				codigo = Integer.valueOf(os[0]);
-				LocalDate dateVenc = LocalDate.parse(os[6].trim(), formatter);
+				codigo = Integer.valueOf(i.getId());
+				LocalDate dateVenc = LocalDate.parse(i.getDataVencimento(), formatter);
 
 				ordemServico = ordemServicoRepository.findOrdemServicoIdBy(codigo);
 
 				if (ordemServico == null) {
 					System.out.println("CADASTRAR NOVA ORDEM DE SERVICOS " + codigo);
 					LocalDate localDate = LocalDate.now();
+					
+					String tipoSistema = TIPO_ORDEM_SERVICO.getOrDefault(i.getTipoSistema().toUpperCase(), null);
 
 					ordemServicoEntity.setOs(codigo);
-					ordemServicoEntity.setTitulo(os[3].trim());
+					ordemServicoEntity.setTipoSistema(tipoSistema);
+					ordemServicoEntity.setTitulo(i.getTitulo());
 					ordemServicoEntity.setDt_entrada(localDate);
 					ordemServicoEntity.setDt_venc(dateVenc);
+					ordemServicoEntity.setSolicitante(i.getSolicitante());
 					ordemServicoEntity.setStatus(statusRepository.getOne(1000));
 					ordemServicoEntity.setId_usuario(usuarioService.usuarioEntity);
 
