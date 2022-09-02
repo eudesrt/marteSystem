@@ -27,6 +27,7 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 		TIPO_ORDEM_SERVICO.put("FLASH PHOENIX","PHOENIX");
 		TIPO_ORDEM_SERVICO.put("WEB-SERVICE","WS PEGASUS");
 		TIPO_ORDEM_SERVICO.put("IMPORTACAO/EXPORTACAO","PROCESSADOR JALL");
+		TIPO_ORDEM_SERVICO.put("BANCO DE DADOS","OUTROS");
 	}
 
 	public RecebeOrdemServico(OrdemServicoRepository ordemServicoRepository, StatusRepository statusRepository,
