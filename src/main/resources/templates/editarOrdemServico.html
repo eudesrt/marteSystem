@@ -32,7 +32,7 @@
             <div class="forms">
                 <div class="form-grids row widget-shadow" data-example-id="basic-forms">
                     <div class="form-title">
-                        <h4>Edição - Ordem de Servico:</h4>
+                        <h4>Edição - Ordem de Servico: <a th:href="@{'https://os.jall.com.br/ordem-de-servico/details/' + *{ordemServicoModel.Os}}" target="_blank" th:text="*{ordemServicoModel.Os}"></a> </h4> 
                     </div>
                     <div class="form-body">
                         <form action="#" id="formulario-cadastro-os" th:action="@{../ordemServico/salvarAlteracao}" th:object="${ordemServicoModel}" method="post">
