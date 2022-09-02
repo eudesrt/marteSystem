@@ -51,15 +51,6 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 			System.out.println("Executando postOrdemServico TOKEN CACHE");
 			jsonOrdemServicoRecebida =  ordermServicoByTi.postOrdemServico(tokenFeedbackCache.getToken());
 			
-			if(jsonOrdemServicoRecebida.isEmpty()) {
-				token = ordermServicoByTi.postToken();
-				
-				TokenFeedbackCache.addTokenFeedback(new TokenFeedback (token, "eudes"));
-
-				jsonOrdemServicoRecebida =  ordermServicoByTi.postOrdemServico(tokenFeedbackCache.getToken());
-
-			}
-
 		}else {
 			token = ordermServicoByTi.postToken();
 			 
@@ -71,7 +62,7 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 		}
 
 		
-		if(!jsonOrdemServicoRecebida.isEmpty()) {
+		if(jsonOrdemServicoRecebida != null && (jsonOrdemServicoRecebida.size() >= 1 )) {
 			
 			for (JsonOrdemServicoRecebida i : jsonOrdemServicoRecebida) {
 				OrdemServico ordemServicoEntity = new OrdemServico();

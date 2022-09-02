@@ -84,9 +84,41 @@ public class OrdermServicoByTi {
 		}		
 	}
 	
-
 	
 	public List<JsonOrdemServicoRecebida> postOrdemServico(String token) {
+		try {
+			
+			
+			HttpResponse<String> response = consultaOrdemServico(token);
+			
+			Integer status_http = response.getStatus();
+			
+			if(!status_http.equals(200)) {
+				
+				token = postToken();
+				TokenFeedbackCache.addTokenFeedback(new TokenFeedback (token, "eudes"));
+
+				response = consultaOrdemServico(token);
+				
+				status_http = response.getStatus();
+				if(!status_http.equals(200)) {
+					
+					return null;
+				}
+				
+			}
+			
+			List<JsonOrdemServicoRecebida> jsonOrdemServicoRecebida = JsonOrdemServicoRecebida.creates(response.getBody());
+
+			return jsonOrdemServicoRecebida;
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	
+	public HttpResponse<String> consultaOrdemServico(String token) {
 		
 		try {
 			HttpResponse<String> response = Unirest.get("https://backos.jall.com.br/ordem-servico/departamento/126/full")
@@ -99,11 +131,8 @@ public class OrdermServicoByTi {
 				return null;
 			}
 			
-			List<JsonOrdemServicoRecebida> jsonOrdemServicoRecebida = JsonOrdemServicoRecebida.creates(response.getBody());
 			
-			System.out.println(jsonOrdemServicoRecebida.get(0).toJSON());
-			
-			return jsonOrdemServicoRecebida;
+			return response;
 
 		} catch (Exception e) {
 			return null;
