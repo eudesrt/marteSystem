@@ -93,8 +93,7 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 
 					this.ordemServicoRepository.save(ordemServicoEntity);
 				} else {
-					if (ordemServico.getStatus().equals(statusRepository.getOne(1200))
-							|| ordemServico.getStatus().equals(statusRepository.getOne(1300))) {
+					if (ordemServico.getStatus().equals(statusRepository.getOne(1200)) || ordemServico.getStatus().equals(statusRepository.getOne(1300))) {
 						System.out.println("ATUALIZANDO PEDIDNO " + codigo);
 
 						ordemServico.setStatus(statusRepository.getOne(1000));
