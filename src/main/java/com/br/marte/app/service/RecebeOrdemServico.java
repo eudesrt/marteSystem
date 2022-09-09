@@ -24,10 +24,13 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 	
 	static {
 		TIPO_ORDEM_SERVICO = new HashMap<String, String>();
-		TIPO_ORDEM_SERVICO.put("FLASH PHOENIX","PHOENIX");
-		TIPO_ORDEM_SERVICO.put("WEB-SERVICE","WS PEGASUS");
-		TIPO_ORDEM_SERVICO.put("IMPORTACAO/EXPORTACAO","PROCESSADOR JALL");
-		TIPO_ORDEM_SERVICO.put("BANCO DE DADOS","OUTROS");
+		TIPO_ORDEM_SERVICO.put("FLASH PHOENIX",			"PHOENIX");
+		TIPO_ORDEM_SERVICO.put("WEB-SERVICE",			"WS PEGASUS");
+		TIPO_ORDEM_SERVICO.put("BANCO DE DADOS",		"OUTROS");
+		
+		TIPO_ORDEM_SERVICO.put("IMPORTACAO/EXPORTACAO",	"PROCESSADOR JALL");
+		TIPO_ORDEM_SERVICO.put("WEB JALL",				"PROCESSADOR JALL");
+		
 	}
 
 	public RecebeOrdemServico(OrdemServicoRepository ordemServicoRepository, StatusRepository statusRepository,
@@ -68,7 +71,7 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 			for (JsonOrdemServicoRecebida i : jsonOrdemServicoRecebida) {
 				OrdemServico ordemServicoEntity = new OrdemServico();
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
+				LocalDate localDate = LocalDate.now();
 				Integer codigo = 0;
 
 				codigo = Integer.valueOf(i.getId());
@@ -78,7 +81,6 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 
 				if (ordemServico == null) {
 					System.out.println("CADASTRAR NOVA ORDEM DE SERVICOS " + codigo);
-					LocalDate localDate = LocalDate.now();
 					
 					String tipoSistema = TIPO_ORDEM_SERVICO.getOrDefault(i.getTipoSistema().toUpperCase(), null);
 
@@ -101,6 +103,31 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 						ordemServico.setDt_homologacao(null);
 
 						this.ordemServicoRepository.saveAndFlush(ordemServico);
+					}else {
+						
+						if(ordemServico != null) {
+							//"id": 2200, "nome": "Com Desenvolvedor",
+							if(i.getEvento() != null  && (i.getEvento().getId().equals(2200) )) {
+								ordemServico.setStatus(statusRepository.getOne(1100));
+								
+								this.ordemServicoRepository.saveAndFlush(ordemServico);
+
+					        //"id": 1700, "nome": "Devolver à Gerência",
+							}else if (i.getEvento() != null  && i.getEvento().getId().equals(1700)) {
+								ordemServico.setStatus(statusRepository.getOne(1300));
+								this.ordemServicoRepository.saveAndFlush(ordemServico);
+
+						    
+								
+							//"id": 1800,1900,2000,2100,2300,2400,2500,2600 , "nome": "* - Liberado Homolog",	
+							}else if (i.getEvento() != null  && (i.getEvento().getId().equals(1800) || i.getEvento().getId().equals(1900) || i.getEvento().getId().equals(2000) || i.getEvento().getId().equals(2100)
+									|| i.getEvento().getId().equals(2300) || i.getEvento().getId().equals(2400) || i.getEvento().getId().equals(2500) || i.getEvento().getId().equals(2600)) ) {
+								ordemServico.setStatus(statusRepository.getOne(1300));
+								ordemServico.setDt_homologacao(localDate);
+								this.ordemServicoRepository.saveAndFlush(ordemServico);
+
+							}	
+						}				        					
 					}
 				}
 			}

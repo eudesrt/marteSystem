@@ -24,7 +24,7 @@ public class JsonOrdemServicoRecebida {
 	public Object horasGastas;
 	public Integer diasVencimento;
 	public String comDesenvolvedor;
-//	public Evento evento;
+	public Evento evento;
 //	public DepartamentoAbertura departamentoAbertura;
 //	public List<Status> status = null;
 //	public List<Arquivo> arquivos = null;
@@ -169,5 +169,30 @@ public class JsonOrdemServicoRecebida {
 
 	public void setComDesenvolvedor(String comDesenvolvedor) {
 		this.comDesenvolvedor = comDesenvolvedor;
+	}
+	
+	public Evento getEvento() {
+		return evento;
+	}
+
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
+
+	public static class Evento {
+		public Integer id;
+		public String nome;
+		public Integer getId() {
+			return id;
+		}
+		public void setId(Integer id) {
+			this.id = id;
+		}
+		public String getNome() {
+			return nome;
+		}
+		public void setNome(String nome) {
+			this.nome = nome;
+		}		
 	}
 }

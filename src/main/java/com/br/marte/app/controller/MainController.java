@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.br.marte.app.model.StaticModel;
 import com.br.marte.app.repository.OrdemServicoRepository;
@@ -45,8 +47,8 @@ public class MainController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public String home(Model model) {
+	@RequestMapping(value = "/home", method = RequestMethod.GET)	
+	public ModelAndView home(Model model, RedirectAttributes redirectAttributes) {
 		recebeOrdemServico = new RecebeOrdemServico(ordemServicoRepository, statusRepository, usuarioService);
 		recebeOrdemServico.aplicar();
 		
@@ -108,8 +110,13 @@ public class MainController {
 				jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez, slaDentro, slaFora));
 		
 		System.out.println("slaDentro " + slaDentro + " slaFora " + slaFora);
+		
+		
+		redirectAttributes.addFlashAttribute("msg_valida", true);
+		redirectAttributes.addFlashAttribute("msg_resultado", " TESTE 2 " );
 
-		return "home";
+
+		return new ModelAndView("home");
 	}
 
 

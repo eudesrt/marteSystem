@@ -20,12 +20,22 @@
 <body class="cbp-spmenu-push">
     <section layout:fragment="content">
         <!-- MONTANDO O GRID PARA POSICIONAR O FORMULÁRIO NO CENTRO -->
-        <div th:if="${msg_resultado}" id="msgSucesso">
-            <p id="p-mensagem-sucesso" class="sucesso-msg" th:text="${msg_resultado}">...</p>
-        </div>
-        <form action="#" id="formulario-home" th:action="@{/home}" th:object="${staticModel}" method="post">
-        	
 
+		
+		<form action="#" id="formulario-home" th:action="@{/home}" th:object="${staticModel}" method="post">
+		
+							<div th:if="${msg_resultado}" id="msgSucesso">
+								<div class="alert alert-success" role="alert">
+									<div th:if="${msg_valida} == true ">
+										<b id="p-mensagem-sucesso" class="sucesso-msg"
+											th:text="${msg_resultado}">...</b>
+									</div>
+									<div th:if="${msg_valida} == false ">
+										<b id="p-mensagem-erro" class="erro-msg"
+											th:text="${msg_resultado}">...</b>
+									</div>
+								</div>
+							</div>
         
             <input type="hidden" id="jan" name="jan" th:value="*{jan}">
             <input type="hidden" id="fev" name="fev" th:value="*{fev}">
@@ -116,7 +126,7 @@
                 <div class="col-md-6 chit-chat-layer1-left">
                     <div class="geo-chart">
 
-                        <h3 class="tlt" align="center">Analytics YEAR</h3>
+                        <h3 class="tlt" align="center">Analytics YEAR </strong></h3>
                         <canvas id="bar-chart" width="800" height="450"></canvas>
 
                         <script>
@@ -134,6 +144,7 @@
                             var out = document.getElementById("out").value;
                             var nov = document.getElementById("nov").value;
                             var dez = document.getElementById("dez").value;
+
 
                             new Chart(
                                 document.getElementById("bar-chart"), {
@@ -172,7 +183,7 @@
                                         },
                                         title: {
                                             display: true,
-                                            text: 'Total de Ordem de Serviço 2020'
+                                            text: 'Total de Ordem de Serviço ' 
                                         }
                                     }
                                 });
