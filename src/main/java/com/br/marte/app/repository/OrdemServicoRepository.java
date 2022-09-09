@@ -1,7 +1,6 @@
 package com.br.marte.app.repository;
 
 import java.time.LocalDate;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +15,9 @@ public interface OrdemServicoRepository extends JpaRepository<OrdemServico, Long
 	// QUERY COM JPQL
 	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id = :codigo Order by u.os DESC")
 	public List<OrdemServico> findStatus(@Param("codigo") Integer codigo);
+	
+	@Query("SELECT u FROM OrdemServico u JOIN FETCH u.status where u.status.evento_id in (:codigo) Order by u.os DESC")
+	public List<OrdemServico> findListaStatus(@Param("codigo") List<Integer> codigo);
 	
 	public Optional<OrdemServico> findByos(Integer os);
 	

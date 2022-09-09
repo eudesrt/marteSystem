@@ -7,10 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 import com.br.marte.app.model.JsonOrdemServicoRecebida;
+import com.br.marte.app.model.JsonOrdemServicoRecebida.JsonOrdemServicoConsulta;
 import com.br.marte.app.model.JsonTokenModel;
 import com.br.marte.app.model.TokenFeedback;
 import com.br.marte.app.model.TokenFeedbackCache;
@@ -59,7 +59,6 @@ public class OrdermServicoByTi {
 			HttpResponse<String> response = Unirest.post("https://backos.jall.com.br/security/oauth/token")
 					  .header("Authorization", "Basic dGlmbGFzaHdlYjp0MWZsQHNoVzNi")
 					  .header("Content-Type", "application/x-www-form-urlencoded")
-					  .header("Cookie", "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsaW1pdE9TX3VzdWFyaW8iOjAsInVzdWFyaW9faWQiOjEzNDUsInVzZXJfbmFtZSI6ImV1ZGVzIiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImRlcGFydGFtZW50b3MiOlt7ImlkIjoxMTEsIm5vbWUiOiJVc3XDoXJpbyIsImF0aXZvIjp0cnVlfSx7ImlkIjoxMjYsIm5vbWUiOiJEZXNlbnZvbHZpbWVudG8iLCJhdGl2byI6dHJ1ZX1dLCJhdGkiOiI2TzZIay0wRWctelloN1JmWVdJaDlZUmJBNEEiLCJub21lIjoicmFmYWVsIGV1ZGVzIiwiZXhwIjoxNjYyMTQ4ODM3LCJhdXRob3JpdGllcyI6WyJST0xFX1BFU1FVSVNBUl9ERVBBUlRBTUVOVE8iLCJST0xFX1BFU1FVSVNBUl9GTFVYTyIsIlJPTEVfUEVTUVVJU0FSX1VTVUFSSU8iLCJST0xFX0NSSUFSX09SREVNU0VSVklDTyIsIlJPTEVfUEVTUVVJU0FSX09SREVNU0VSVklDTyIsIlJPTEVfUEVTUVVJU0FSX1BFUk1JU1NBTyJdLCJqdGkiOiJQSmdBMGk3bXF6THlfSnd2Y255XzFHeGthNVkiLCJjbGllbnRfaWQiOiJ0aWZsYXNod2ViIn0.hGVhmgal4tLrNW5Abq0zcb1Dxqn7xtu38d_ZQN0RrLM; ROUTEID=.route1")
 					  .field("grant_type", "password")
 					  .field("client", "tiflashweb")
 					  .field("username", "eudes")
@@ -116,8 +115,41 @@ public class OrdermServicoByTi {
 			return null;
 		}
 	}
-
 	
+	public JsonOrdemServicoConsulta postOrdemServicoConsulta(String token, Integer id) {
+		try {
+			
+			
+			HttpResponse<String> response = consultaOrdemServicoConsulta(token, id);
+			
+			Integer status_http = response.getStatus();
+			
+			if(!status_http.equals(200)) {
+				
+				token = postToken();
+				TokenFeedbackCache.addTokenFeedback(new TokenFeedback (token, "eudes"));
+
+				response = consultaOrdemServico(token);
+				
+				status_http = response.getStatus();
+				if(!status_http.equals(200)) {
+					
+					return null;
+				}
+				
+			}
+			
+			JsonOrdemServicoConsulta jsonOrdemServicoConsulta = JsonOrdemServicoConsulta.create(response.getBody());
+			
+			System.out.println(jsonOrdemServicoConsulta.toJSON());
+
+			return jsonOrdemServicoConsulta;
+			
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	public HttpResponse<String> consultaOrdemServico(String token) {
 		
 		try {
@@ -137,6 +169,37 @@ public class OrdermServicoByTi {
 		} catch (Exception e) {
 			return null;
 		}		
+	}
+	
+	
+	public HttpResponse<String> consultaOrdemServicoConsulta(String token, Integer id) {
+		
+		try {
+			
+			HttpResponse<String> response = Unirest.get("https://backos.jall.com.br/ordem-servico/?id=" + id)
+					  .header("Authorization", "Bearer " + token)
+					  .asString();	
+			
+			Integer status_http = response.getStatus();
+			
+			if(!status_http.equals(200)) {
+				return null;
+			}
+			
+			
+			return response;
+
+		} catch (Exception e) {
+			return null;
+		}		
+	}
+	
+	
+	public static void main(String[] args) {
+		OrdermServicoByTi a = new OrdermServicoByTi();
+		String token = a.postToken();
+				
+		a.postOrdemServicoConsulta(token, 58);
 	}
 
 	/**

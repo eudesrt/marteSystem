@@ -195,4 +195,37 @@ public class JsonOrdemServicoRecebida {
 			this.nome = nome;
 		}		
 	}
+	
+	public static class JsonOrdemServicoConsulta {
+		public List<JsonOrdemServicoRecebida> content = null;
+		
+		public static JsonOrdemServicoConsulta create(String json) {
+			try {
+				return new Gson().fromJson(json, JsonOrdemServicoConsulta.class);
+			} catch (Exception e) {
+				return null;
+			}
+		}		
+		
+		public static List<JsonOrdemServicoConsulta> creates(String json) {
+
+			Type collectionType = new TypeToken<List<JsonOrdemServicoConsulta>>() {
+			}.getType();
+
+			return new Gson().fromJson(json, collectionType);
+		}
+
+		public List<JsonOrdemServicoRecebida> getContent() {
+			return content;
+		}
+
+		public void setContent(List<JsonOrdemServicoRecebida> content) {
+			this.content = content;
+		}
+		
+		public String toJSON() {
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			return gson.toJson(this);
+		}
+	}
 }
