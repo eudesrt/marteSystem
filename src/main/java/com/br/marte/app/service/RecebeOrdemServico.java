@@ -122,52 +122,51 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 					}
 				}
 			}
-		}else {
+		}
 			
-			List<OrdemServico> ordemServicos = ordemServicoRepository.findListaStatus(Arrays.asList(1000,1100));
-			
-			if (!ordemServicos.isEmpty()) {
-				for (OrdemServico os : ordemServicos) {
-					
-					if(tokenFeedbackCache != null ) {
-						token = tokenFeedbackCache.getToken();
-					}else {
-						token = ordermServicoByTi.postToken();
-						 
-						TokenFeedbackCache.addTokenFeedback(new TokenFeedback (token, "eudes"));
-					}
+		List<OrdemServico> ordemServicos = ordemServicoRepository.findListaStatus(Arrays.asList(1000,1100));
+		
+		if (!ordemServicos.isEmpty()) {
+			for (OrdemServico os : ordemServicos) {
+				
+				if(tokenFeedbackCache != null ) {
+					token = tokenFeedbackCache.getToken();
+				}else {
+					token = ordermServicoByTi.postToken();
+					 
+					TokenFeedbackCache.addTokenFeedback(new TokenFeedback (token, "eudes"));
+				}
 
-					JsonOrdemServicoConsulta ordemServicoConsulta = ordermServicoByTi.postOrdemServicoConsulta(token, os.getOs());
+				JsonOrdemServicoConsulta ordemServicoConsulta = ordermServicoByTi.postOrdemServicoConsulta(token, os.getOs());
 
-					if (ordemServicoConsulta != null) {
-						Integer eventos = ordemServicoConsulta.getContent() != null
-								? ordemServicoConsulta.getContent().get(0) != null
-										? ordemServicoConsulta.getContent().get(0).getEvento() != null
-												? ordemServicoConsulta.getContent().get(0).getEvento()
-														.getId() != null
-																? ordemServicoConsulta.getContent().get(0)																			.getEvento().getId()
-																: null: null: null: null;
+				if (ordemServicoConsulta != null) {
+					Integer eventos = ordemServicoConsulta.getContent() != null
+							? ordemServicoConsulta.getContent().get(0) != null
+									? ordemServicoConsulta.getContent().get(0).getEvento() != null
+											? ordemServicoConsulta.getContent().get(0).getEvento()
+													.getId() != null
+															? ordemServicoConsulta.getContent().get(0).getEvento().getId()
+															: null: null: null: null;
 
-						if (eventos != null && (eventos.equals(1700) || eventos.equals(1300) )) {
-							
-							os.setStatus(statusRepository.getOne(1300));
-							this.ordemServicoRepository.saveAndFlush(os);
+					if (eventos != null && (eventos.equals(1700) || eventos.equals(1300) )) {
+						
+						os.setStatus(statusRepository.getOne(1300));
+						this.ordemServicoRepository.saveAndFlush(os);
 
-							// "id": 1800,1900,2000,2100,2300,2400,2500,2600 , "nome": "* - Liberado
-							// Homolog",
-							
-						} else if (eventos != null && (eventos.equals(1800) || eventos.equals(1900)
-								|| eventos.equals(2000) || eventos.equals(2100) || eventos.equals(2300)
-								|| eventos.equals(2400) || eventos.equals(2500) || eventos.equals(2600))) {
+						// "id": 1800,1900,2000,2100,2300,2400,2500,2600 , "nome": "* - Liberado
+						// Homolog",
+						
+					} else if (eventos != null && (eventos.equals(1800) || eventos.equals(1900)
+							|| eventos.equals(2000) || eventos.equals(2100) || eventos.equals(2300)
+							|| eventos.equals(2400) || eventos.equals(2500) || eventos.equals(2600))) {
 
-							os.setStatus(statusRepository.getOne(1200));
-							os.setDt_homologacao(localDate);
-							this.ordemServicoRepository.saveAndFlush(os);
+						os.setStatus(statusRepository.getOne(1200));
+						os.setDt_homologacao(localDate);
+						this.ordemServicoRepository.saveAndFlush(os);
 
-						}
 					}
 				}
 			}
-		}
+		}		
 	}
 }
