@@ -160,3 +160,13 @@ FROM TB_SERVICO
 where evento_id = 9999
 and EXTRACT(MONTH FROM dt_commit) = EXTRACT(MONTH FROM now()) 
 and DT_VENC > dt_commit
+
+
+
+
+///GERAR VERSAO :
+
+Acessar diretorio : C:\App\workspace_marteSystem\marteSystem
+Comodando : mvn clean package
+
+Site reference : https://www.youtube.com/watch?v=TFvVRGxiCjk&t=103s

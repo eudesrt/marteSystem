@@ -70,8 +70,6 @@ public class RecebeOrdemServico implements RecebeOrdemServicoImp {
 
 		}
 		
-		token = tokenFeedbackCache.getToken();
-
 		
 		jsonOrdemServicoRecebida = ordermServicoByTi.postOrdemServico(token);
 		
