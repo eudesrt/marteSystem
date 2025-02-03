@@ -14,7 +14,9 @@
                     <div class="tables">
                         <div class="panel-body widget-shadow">
                             <h4><strong>Ordem de Serviço - </strong></strong><strong th:text="${status}"></strong></h4> 
-                            <table class="table table-striped" id="tabelaos">
+                            <button id="copiarDados" class = "mdl-button mdl-js-button mdl-button--raised mdl-button--colored">Copiar</button>
+                            	<br/>
+								<table class="table table-striped" id="tabelaos">
                                 <thead>
                                     <tr>
                                         <th>OS</th>
@@ -43,7 +45,7 @@
                                             	<a th:href="@{'../ordemServico/editarOrdemServico?' + codigo+'=' + ${ordemServicoModel.codigo}}" th:text="${ordemServicoModel.titulo}" class="mdl-data-table__cell--non-numeric"></a>
                                             </td>
                                             <div th:if="${ordemServicoModel.status} == '1000' ">
-                                                <td><span class="label label-default">os aberta&nbsp;&nbsp;&nbsp;</span></td>
+                                                <td><span class="label label-default">os aberta   </span></td>
                                             </div>
                                             <div th:if="${ordemServicoModel.status} == '1100' ">
                                                 <td><span class="label label-primary">em desenve</span></td>
@@ -58,13 +60,21 @@
                                                 <td><span class="label label-danger">na gerencia</span></td>
                                             </div>
                                             <div th:if="${ordemServicoModel.status} == '9998' ">
-                                                <td><span class="label label-success">Cancelada&nbsp;</span></td>
+                                                <td><span class="label label-success">Cancelada </span></td>
                                             </div>
                                             <div th:if="${ordemServicoModel.status} == '9999' ">
-                                                <td><span class="label label-success">commitada&nbsp;</span></td>
+                                                <td><span class="label label-success">commitada </span></td>
                                             </div>
                                             <td th:text="${#temporals.format(ordemServicoModel.dtEntrada, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
-                                            <td style="color: red" th:text="${#temporals.format(ordemServicoModel.dtVencimento, 'dd/MM/yyyy')}" class="mdl-data-table__cell--non-numeric"></td>
+                                            
+											<td th:classappend="${ordemServicoModel.dtVencimento != null} ?
+											(${ordemServicoModel.dtCommit != null} ?
+											(${ordemServicoModel.dtCommit.isBefore(ordemServicoModel.dtVencimento)} ? 'text-primary' : 
+											(${ordemServicoModel.dtCommit.isEqual(ordemServicoModel.dtVencimento)} ? 'text-warning font-weight-bold' : 'text-danger')) : 
+											(${ordemServicoModel.dtVencimento.isBefore(#temporals.createNow().toLocalDate())} ? 'text-danger' : 
+											(${ordemServicoModel.dtVencimento.isEqual(#temporals.createNow().toLocalDate())} ? 'text-warning font-weight-bold' : 'text-primary'))) : ''" 
+											th:text="${#temporals.format(ordemServicoModel.dtVencimento, 'dd/MM/yyyy')}" 
+											class="mdl-data-table__cell--non-numeric"></td>
                                             
                                         	<div th:if="${status} == 'Finalizadas' OR  ${status} == 'Finalizadas no Mês Vigente' OR  ${status} == 'Fora do Prazo Todas' OR  ${status} == 'Fora do Prazo Mês Vigente' 
                                         	OR  ${status} == 'Todas' OR  ${status} == 'Diario'">
@@ -95,6 +105,29 @@
                             "infoEmpty": "Nenhum registro disponível",
                             "infoFiltered": "(filtrado de _MAX_ registros no total)"
                         }
+                    });
+
+
+                    $('#copiarDados').click(function() {
+                        let dadosParaCopiar = "";
+
+                        // Itera sobre cada linha da tabela (cada ordemServicoModel)
+                        $('#tabelaos tbody tr').each(function() { 
+                            let os = $(this).find('td:eq(0) a').text(); // Pega o texto do link da OS
+                            let descricao = $(this).find('td:eq(1) a').text(); // Pega o texto do link da Descrição
+
+                            dadosParaCopiar += "OS: " + os + "\nDescrição: " + descricao + "\n\n";
+                        });
+
+                        // Copia os dados para a área de transferência
+                        navigator.clipboard.writeText(dadosParaCopiar)
+                            .then(() => {
+//                                 alert("Dados copiados para a área de transferência!");
+                            })
+                            .catch(err => {
+                                console.error("Erro ao copiar dados: ", err);
+                                alert("Erro ao copiar dados. Verifique o console para mais detalhes.");
+                            });
                     });
                 });
             </script>
